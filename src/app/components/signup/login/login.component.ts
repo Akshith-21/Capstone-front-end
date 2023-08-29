@@ -13,10 +13,12 @@ export class LoginComponent {
   constructor(private clientServices:ClientService ){}
 
   login(inputEmail:string){
-    const matchedEmail =this.clientServices.client.find(emailObj =>emailObj.email===inputEmail)
-    if(!matchedEmail ){
-      this.errorMessage =" Invalid email, Sign Up first";
-      alert(this.errorMessage)
+    // const matchedEmail =this.clientServices.client.find(emailObj =>emailObj.email===inputEmail)
+    // if(!matchedEmail ){
+    //   this.errorMessage =" Invalid email, Sign Up first";
+    //   alert(this.errorMessage)
+    console.log("hjhk");
+    
     }
-  }
+  
 }
