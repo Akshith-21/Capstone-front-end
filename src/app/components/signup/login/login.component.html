@@ -1,15 +1,19 @@
-<div>
-    <h2>Login</h2>
+<div class="main_form">
+    <h1>FidElite</h1>
     <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
     <form>
         <div class="form_container">
-            <label for="email">Email:</label>
-            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter the Email">
+            <!-- <label for="email">Email:</label><br> -->
+            <input type="email" id="email" placeholder="Enter Email" [(ngModel)]="email" name="email">
         </div>
         <div class="form_container">
-            <label for="password">Password:</label>
-            <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter the password">
+            <!-- <label for="password">Password:</label><br> -->
+            <input type="password" id="password" placeholder="Enter Password" [(ngModel)]="password" name="password" >
         </div>
-        <button type="button" (click)="login()">Login</button>
+        <button type="button" (click)="login(email,password)">Login</button>
+
     </form>
+    <p class="create-account">
+        Don't have an account ? <a routerLink ="/signin">Sign Up Now</a>
+    </p>
 </div>

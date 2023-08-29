@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/signup/login/login.component';
 import { SigninComponent } from './components/signup/signin/signin.component';
+import { FormsModule } from '@angular/forms';
+import { NavComponent } from './components/nav/nav.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -12,7 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     LoginComponent,
-    SigninComponent
+    SigninComponent,
+    NavComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
