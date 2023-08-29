@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ClientService } from 'src/app/services/client.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,13 @@ export class LoginComponent {
   email:string='';
   password:string='';
   errorMessage:string='';
+  constructor(private clientServices:ClientService ){}
 
-  login(){
-    console.log("Login works")
+  login(inputEmail:string){
+    const matchedEmail =this.clientServices.client.find(emailObj =>emailObj.email===inputEmail)
+    if(!matchedEmail ){
+      this.errorMessage =" Invalid email, Sign Up first";
+      alert(this.errorMessage)
+    }
   }
 }
