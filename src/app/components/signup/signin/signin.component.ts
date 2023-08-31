@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientIdentification } from 'src/app/models/clientIdentification';
 import { Person } from 'src/app/models/person';
-import { SignupService } from 'src/app/services/signup.service';
+import { ClientService } from 'src/app/services/client.service';
 
 
 @Component({
@@ -67,7 +67,7 @@ export class SigninComponent {
 
   verifyEmail() {
     this.emailCheck = false
-     this.emailexist = (this.signupService.verifyEmail(this.person.email));
+     this.emailexist = (this.clientService.verifyEmail(this.person.email));
      if(!this.emailexist){
        this.addClient();
      }
@@ -75,11 +75,11 @@ export class SigninComponent {
   }
 
   addClient(){
-    this.signupService.addClient(this.person,this.clientIdentification);
+    this.clientService.addClient(this.person,this.clientIdentification);
     this.emailCheck = true;
   }
 
-  constructor(private signupService: SignupService) {}
+  constructor(private clientService: ClientService) {}
 
 
 }
