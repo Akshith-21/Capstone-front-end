@@ -5,13 +5,20 @@ import { Person } from 'src/app/models/person';
 import { ClientService } from 'src/app/services/client.service';
 
 
+
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
-
+  
+  public idTypes = new Map([
+    ['', []],
+    ['India', ['Aadhaar No.', 'PAN No.']],
+    ['USA', ['SSN No.', 'Passport No.']],
+    ['Ireland', []]
+  ]);
   // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
   // name = new FormControl('');
