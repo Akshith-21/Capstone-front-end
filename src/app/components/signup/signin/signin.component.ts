@@ -77,6 +77,8 @@ export class SigninComponent {
   addClient(){
     this.clientService.addClient(this.person,this.clientIdentification);
     this.emailCheck = true;
+    this.person.id = this.clientService.generateUniqueId(this.person.email);
+    console.log(this.person.id);
   }
 
   constructor(private clientService: ClientService) {}

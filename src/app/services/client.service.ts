@@ -31,6 +31,17 @@ export class ClientService {
     
   }
 
+  generateUniqueId(userEmail:string):string{
+    {
+      const timestamp = Date.now().toString(36);
+      const randomNum = Math.floor(Math.random()*1000).toString(36);
+      const userPart = userEmail.substring(0,3).toUpperCase();
+      const uniqueId = `${userPart}-${timestamp}-${randomNum}`;
+      return uniqueId;
+    }
+
+  }
+
   constructor() { }
 
   doesEmailExist(email:string)
