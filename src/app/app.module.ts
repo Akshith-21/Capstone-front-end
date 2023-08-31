@@ -8,7 +8,7 @@ import { SigninComponent } from './components/signup/signin/signin.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 

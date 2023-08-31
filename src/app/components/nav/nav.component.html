@@ -3,10 +3,13 @@
 
 <nav class="nav-tabs-container">
     <span class="nav-space">FidElite</span>
+
+    <div class="alt-container" *ngIf="isLandingPageRoute">
+        <a class="nav-tab-alt" routerLink="/login">Log In</a>
+    </div>
+    <div class="alt-container" *ngIf="isPortifolioRoute">
     <a class="nav-tab" routerLink="">Trending Stocks</a>
     <a class="nav-tab" routerLink="">Buy and Sell</a>
     <a class="nav-tab" routerLink="">Portfolio Management</a>
-    <div class="alt-container">
-    <a class="nav-tab-alt" routerLink="/signin">Sign In</a>
-    <a class="nav-tab-alt" routerLink="/login">Log In</a></div>
+</div>
 </nav>

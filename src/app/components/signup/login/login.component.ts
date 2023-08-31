@@ -21,17 +21,19 @@ export class LoginComponent {
       identificationSet?.forEach((identification) =>{
        const value = identification.value
        if(value===inputId)
-         console.log("Login succesfully");
+         console.log("Login successfully");
        else{
-        alert("Client Identifiaction is Invalid")
+        alert("Client Identification is Invalid")
        }
-    })}
+    })
+    this.router.navigate(['portfolio', inputEmail])
+  }
     else{
       this.errorMessage ="Invalid email, Sign Up first";
       alert(this.errorMessage)
 
     }
-      this.router.navigate(['preference-page', inputEmail])
+      
   
 }
 }

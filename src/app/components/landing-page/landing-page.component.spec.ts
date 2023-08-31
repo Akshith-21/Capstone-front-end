@@ -1,6 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LandingPageComponent } from './landing-page.component';
+import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-nav',
+  template: 'mock nav'
+  })
+  class MockNavComponent {
+ 
+  }
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
@@ -8,7 +18,9 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LandingPageComponent ]
+      declarations: [ LandingPageComponent,MockNavComponent ],
+      imports:[FormsModule]
+
     })
     .compileComponents();
 
