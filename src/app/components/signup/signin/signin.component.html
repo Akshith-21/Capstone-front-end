@@ -1,5 +1,6 @@
 <div class="main_form">
-    <h1>Sign Up to <i>FidElite</i></h1><span>Already a User? <a>Login Here</a></span>
+    <h2>Get started with <i>FidElite</i></h2>
+    
     <form #userDetail="ngForm">
         <div class="form-col">
             <label class="full-width" for="Email">Email Address: </label>
@@ -34,6 +35,8 @@
             <option value="Ireland"> Ireland</option>
         </select>
         <div class="danger full-width"></div>
+        <p>Already a User? <a href="/login">Login Here</a></p>
+
     </div>
     <div class="form-col">
         <label class="full-width" for="uin">Identification Type:</label>
@@ -50,11 +53,11 @@
         <label class="full-width" for="postalCode">Postal Code:</label>
         <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode">
         <div class="danger"></div>    
+        <button (click)="verifyEmail()">Register</button>
     </div>
 </form>
-<button (click)="verifyEmail()">Register</button>
 
-    <div style="height: 10px;">
+    <div style="height: 20px;">
         <p *ngIf="emailexist">Hey You are already an existing member, Please <a href="/signup">Sign In here</a></p>
         <p *ngIf="emailCheck">Successfully Registered.</p>
     </div>
