@@ -7,7 +7,7 @@ import { PreferencePageComponent } from './components/preference-page/preference
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 
 const routes: Routes = [
-  {path:'' , component: LandingPageComponent},
+  {path:'' , redirectTo:'landing-page', pathMatch: 'full'},
   {path:'login' , component:LoginComponent},
   {path:'signin' , component:SigninComponent},
   {path:'preference-page/:type' , component:PreferencePageComponent},
