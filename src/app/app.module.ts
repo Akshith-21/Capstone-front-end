@@ -8,6 +8,8 @@ import { SigninComponent } from './components/signup/signin/signin.component';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { PreferencePageComponent } from './components/preference-page/preference-page.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     LoginComponent,
     SigninComponent,
     NavComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    PreferencePageComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class LoginComponent {
   email:string='';
   password:string='';
   errorMessage:string='';
-  constructor(private clientServices:ClientService ){}
+  constructor(private clientServices:ClientService,private router:Router ){}
   
   login(inputEmail:string, inputId:string){
     const matchedEmail =this.clientServices.doesEmailExist(inputEmail)
@@ -30,6 +31,7 @@ export class LoginComponent {
       alert(this.errorMessage)
 
     }
+      this.router.navigate(['preference-page', inputEmail])
   
 }
 }
