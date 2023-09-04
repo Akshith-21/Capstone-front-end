@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Portfolio } from 'src/app/models/portfolio.model';
+import { ClientService } from 'src/app/services/client.service';
 import { FmtsService } from 'src/app/services/fmts.service';
 
 @Component({
@@ -9,10 +10,16 @@ import { FmtsService } from 'src/app/services/fmts.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
-  email: any;
+
+  @Input() email: any;
+  constructor(private clientService:ClientService,private  route:ActivatedRoute,private fmts:FmtsService){
+    this.route.params.subscribe(params => {
+      const email = params['email'];
+    })
+  }
+
   demo:Portfolio[]=[];
 
-  constructor(private route: ActivatedRoute, private fmts:FmtsService) {}
 
   ngOnInit() {
     this.email = this.route.snapshot.paramMap.get('email');

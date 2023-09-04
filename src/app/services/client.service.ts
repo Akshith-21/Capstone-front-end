@@ -42,15 +42,20 @@ getEmail()
 
 }
 
-  verifyEmail(email:string):boolean {
+  verifyEmail(email:string, ):boolean {
     for(let personEmail of this.mockClientData.entries()) {
       if (email === personEmail[0]){
         return true;
         break;
       }
     }
+
+    // for(let personIdentification of this.mockClientData.entries()){
+    //   if (identification === pers)
+    // }
     return false;
   }
+
 
   addClient(person: Person,clientIdentification: ClientIdentification){
     this.mockClientData.set(person.email, new Client(person,new Set<ClientIdentification>([clientIdentification])));

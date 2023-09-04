@@ -7,12 +7,13 @@ import { PreferencePageComponent } from './components/preference-page/preference
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
+import { ClientPreferencesComponent } from './components/client-preference/client-preference.component';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
   {path:'login' , component:LoginComponent},
   {path:'register' , component:RegisterComponent},
-  {path:'preference-page/:type' , component:PreferencePageComponent},
+  {path:'preference/:email' , component:ClientPreferencesComponent},
   {path:'portfolio/:email' , component:PortfolioComponent},
   {path: 'trades/:email', component:TradeHistoryComponent},
   {path:'landing-page' , component:LandingPageComponent},
