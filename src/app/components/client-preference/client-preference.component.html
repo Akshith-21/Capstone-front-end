@@ -1,5 +1,5 @@
-<p-card header="Investment Preferences" style = "text-align: center;">
-    <div style="margin-left: 10px; margin-top:20px; vertical-align:middle">
+<p-card header="Investment Preferences">
+    <div style="margin-left: 10px; margin-top:20px; vertical-align:middle; text-align: center;">
         
             <div>
                 <label for="seat" style="text-align: right; font-weight: 600;">Investment purpose</label>
@@ -21,13 +21,13 @@
             <div>
                 <label for="seat" style="text-align: right; font-weight: 600;">Length of Investment </label>
                 <p-dropdown name="lengthOfInvestment" [options]="lengthOfInvestmentOptions"
-                    [(ngModel)]="selectedLengthOfInvestment" optionLabel="name"></p-dropdown>
+                    [(ngModel)]="selectedLengthOfInvestment" optionLabel="name" (onChange)="setLengthOfInvestment($event)"></p-dropdown>
                 <!-- <input type="text" placeholder="Length of Investment" [(ngModel)]="lengthOfInvestment" pInputText> -->
             </div>
         </div>
     
     <div class="grid grid-nogutter justify-content-end">
-        <p-button label="Save" icon="pi pi-check" [style] = "{'color': 'blue'}"></p-button>
+        <p-button label="Save" icon="pi pi-check" [style] = "{'color': 'white'}" (onClick)="onSave()"></p-button>
         <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
             [style]="{'margin-left': '.5em'}"></p-button>
     </div>

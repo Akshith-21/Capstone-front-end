@@ -56,8 +56,13 @@ getEmail()
         break;
       }
     }
+
+    // for(let personIdentification of this.mockClientData.entries()){
+    //   if (identification === pers)
+    // }
     return false;
   }
+
 
   addClient(person: Person,clientIdentification: ClientIdentification){
     this.mockClientData.set(person.email, new Client(person,new Set<ClientIdentification>([clientIdentification])));
@@ -85,7 +90,7 @@ getEmail()
      return this.mockClientData.has(email);
   }
   getId(email:string):Set<ClientIdentification>| undefined{
-    const temp = this.mockClientData.get(email)
+    const temp = this.mockClientData.get(email);
     return temp?.clientIdentificationSet
   }
 
