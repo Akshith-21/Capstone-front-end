@@ -16,6 +16,31 @@ export class ClientService {
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
     ["mehulrana@gmail.com", new Client(new Person('mehulrana@gmail.com', "2", String(new Date("2001-04-05")), 'India', '411006'), new Set<ClientIdentification>([new ClientIdentification('PAN', '12345')]))],
   ]);
+  portfolioData =[{
+    externalType: "Bond",
+    externalId: "GOOG",
+    categoryId: "Technology",
+    priceTimestamp: new Date(),
+    instrumentDescription: "Google Inc. bond"
+  },
+ { 
+  externalType: "Bond",
+  externalId: "GOOG",
+  categoryId: "Technology",
+  priceTimestamp: new Date(),
+  instrumentDescription: "Google Inc. bond"
+},{
+  externalType: "Cryptocurrency",
+  externalId: "BTC",
+  categoryId: "Currency",
+  priceTimestamp: new Date(),
+  instrumentDescription: "Bitcoin"
+}]
+
+getEmail()
+{
+
+}
 
   verifyEmail(email:string):boolean {
     for(let personEmail of this.mockClientData.entries()) {
@@ -44,7 +69,9 @@ export class ClientService {
 
   }
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   doesEmailExist(email:string)
   {

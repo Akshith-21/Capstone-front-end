@@ -7,11 +7,11 @@ import { ClientService } from 'src/app/services/client.service';
 
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class SigninComponent {
+export class RegisterComponent {
   
   public idTypes = new Map([
     ['', []],
@@ -47,7 +47,6 @@ export class SigninComponent {
   country?:string;
   clientIdentification = new ClientIdentification("","");
   onCountryChange(){
-    console.log("HRHK")
     console.log(this.person.email)
     console.log(this.person.dateOfBirth)
    // this.showAdditionalField = true;

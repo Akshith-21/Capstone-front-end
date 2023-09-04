@@ -11,6 +11,7 @@ export class LoginComponent {
   email:string='';
   password:string='';
   errorMessage:string='';
+  emailForm: any;
   constructor(private clientServices:ClientService,private router:Router ){}
   
   login(inputEmail:string, inputId:string){
@@ -26,7 +27,7 @@ export class LoginComponent {
         alert("Client Identification is Invalid")
        }
     })
-    this.router.navigate(['portfolio', inputEmail])
+    this.router.navigate(['home-page', inputEmail])
   }
     else{
       this.errorMessage ="Invalid email, Sign Up first";
