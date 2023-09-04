@@ -78,7 +78,7 @@ getEmail()
      return this.mockClientData.has(email);
   }
   getId(email:string):Set<ClientIdentification>| undefined{
-    const temp = this.mockClientData.get(email)
+    const temp = this.mockClientData.get(email);
     return temp?.clientIdentificationSet
   }
 

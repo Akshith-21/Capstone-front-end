@@ -15,9 +15,9 @@ export class RegisterComponent {
   
   public idTypes = new Map([
     ['', []],
-    ['India', ['Aadhaar No.', 'PAN No.']],
+    ['India', ['Aadhaar No.', 'PAN No.', 'Passport No.']],
     ['USA', ['SSN No.', 'Passport No.']],
-    ['Ireland', []]
+    ['Ireland', ['PPS No.', 'Passport No.']]
   ]);
   // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 

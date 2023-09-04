@@ -6,6 +6,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'register' , component:RegisterComponent},
   {path:'preference-page/:type' , component:PreferencePageComponent},
   {path:'portfolio/:email' , component:PortfolioComponent},
+  {path: 'trades/:email', component:TradeHistoryComponent},
   {path:'landing-page' , component:LandingPageComponent},
   {path:'home-page/:email', component:HomePageComponent}
 

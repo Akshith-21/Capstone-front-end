@@ -1,8 +1,10 @@
-export interface Instrument {
-    instrumentId:string
-    externalType:string
-    externalId:string
-    categoryId:string
-    maxQuantity:number
-    minQuantity:number
+export class Instrument {
+    constructor(
+        public instrumentId:string,
+        public externalType:string,
+        public externalId:string,
+        public categoryId:string,
+        public maxQuantity:number,
+        public minQuantity:number
+    ){}
 }
