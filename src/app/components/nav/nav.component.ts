@@ -18,15 +18,13 @@ export class NavComponent {
   isTradingRoute:Boolean | undefined;
 
   onPreference(){
-    console.log("clicked preference")
-    console.log(this.email)
     this.router.navigate(['/preference',this.email])
   }
 
   
   currentUrl: any;
   ngOnInit(){
-    console.log("Nav" , this.email)
+
     
     this.route.url.subscribe((url)=>{
       this.isHomeRoute=url[0].path==='home-page';

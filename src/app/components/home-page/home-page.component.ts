@@ -23,7 +23,6 @@ export class HomePageComponent {
 
   ngOnInit() {
     this.email = this.route.snapshot.paramMap.get('email');
-    console.log("home", this.email)
     this.getPriceData();
     this.getAllInstruments();
     this.getGovtPrice();

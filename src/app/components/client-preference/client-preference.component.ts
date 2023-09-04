@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {SelectItem } from 'primeng/api';
+import { Preferences } from 'src/app/models/preferences';
 import { ClientService } from 'src/app/services/client.service';
-
+import { Location } from '@angular/common';
  
 
  
@@ -20,12 +21,15 @@ interface InvestmentInterface {
  
 
  export class ClientPreferencesComponent implements OnInit{
+  dialogBoxDisplay = false;
+  roboAdvisorCheckBox:any;
 
-  @Input() email: any;
-  constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){
+   currentPreferences = new Preferences("","","","");
+
+  @Input() email!: any;
+  constructor(private clientService:ClientService,private  route:ActivatedRoute, private location: Location, private router:Router){
     this.route.params.subscribe(params => {
     this.email = params['email'];
-      console.log("const", this.email)
     })
   }
 
@@ -55,12 +59,30 @@ interface InvestmentInterface {
   }
   
   onSave(){
-    console.log(this.email)
-    console.log(this.investmentPurpose)
-    console.log(this.selectedRiskTolerance)
-    console.log(this.selectedLengthOfInvestment)
-    console.log(this.selectedIncomeCategory)
-    this.router.navigate(['/home-page',this.email])
+    this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    console.log("current client preferences", this.clientService.clientPreferences)
+    this.getRiskTolerance();
+    this.dialogBoxDisplay = true;
+    this.router.navigate(['/home-page',this.email]);
+    
+  }
+
+  onCancel(){
+    this.location.back();
+  }
+
+  getRiskTolerance():string{
+    return this.selectedRiskTolerance.code;
+ 
+  }
+  setExistingOptions() {
+    
+    if (this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].incomeCategory != '' && this.clientService.clientPreferences[this.email].lengthOfInvestment != '') {
+      this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].riskTolerance)!
+      this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code ===this.clientService.clientPreferences[this.email].incomeCategory)!
+      this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].lengthOfInvestment)!;
+      this.investmentPurpose = this.clientService.clientPreferences[this.email].investmentPurpose;
+    }
   }
 
   ngOnInit() {
@@ -81,6 +103,7 @@ interface InvestmentInterface {
       {name:'100000-200000', code:'100000-200000'},
       {name:'more than 20000', code:'more than 20000'},
     ]
+    this.setExistingOptions();
 
   }
 }
