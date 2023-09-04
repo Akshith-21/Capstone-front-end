@@ -13,6 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ClientPreferencesComponent } from './components/client-preference/client-preference.component';
+import {CardModule} from 'primeng/card';
+import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     NavComponent,
     LandingPageComponent,
-    PreferencePageComponent,
+    ClientPreferencesComponent,
     PortfolioComponent,
     HomePageComponent,
     UserProfileComponent
@@ -31,7 +37,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    CardModule,
+    DropdownModule,
+    ButtonModule,
+    InputTextModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

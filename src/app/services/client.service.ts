@@ -69,7 +69,9 @@ getEmail()
 
   }
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   doesEmailExist(email:string)
   {
