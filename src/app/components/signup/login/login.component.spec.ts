@@ -28,13 +28,4 @@ describe('LoginComponent', () => {
     expect(inputElements.type).toBe('email')
     expect(inputElements).toBeTruthy();
   });
-
- 
-  
-
-
-
-
-
-
 });
