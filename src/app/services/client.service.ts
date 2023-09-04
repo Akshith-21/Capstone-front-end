@@ -42,7 +42,9 @@ export class ClientService {
 
   }
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   doesEmailExist(email:string)
   {
