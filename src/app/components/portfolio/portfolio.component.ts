@@ -7,11 +7,13 @@ import { NavComponent } from '../nav/nav.component';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
-  constructor(private clientService:ClientService){}
-
-  ngOnInit(){
+  constructor(private clientService: ClientService) { }
   
+
+  ngOnInit() {
+
   }
 
+  portfolios = this.clientService.portfolioData;
 
 }

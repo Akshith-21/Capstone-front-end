@@ -1,6 +1,6 @@
 import { Instrument } from "./instrument.model";
 
-export interface Price{
+export interface StockInstrument{
     instrumentDescription:string
     instrument:Instrument
 }
