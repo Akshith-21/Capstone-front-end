@@ -41,10 +41,17 @@ getEmail()
 {
 
 }
-
-  verifyEmail(email:string):boolean {
+   checkUniqueIdentification(idn:string,idnset:Set<ClientIdentification>):boolean{
+      for(let clientIdentification of idnset){
+        if(idn === clientIdentification.value){
+          return true;
+        }
+      }
+      return false;
+   }
+  verifyEmailAndIdentification(email:string,idn:string):boolean {
     for(let personEmail of this.mockClientData.entries()) {
-      if (email === personEmail[0]){
+      if (email === personEmail[0] || this.checkUniqueIdentification(idn,personEmail[1].clientIdentificationSet)){
         return true;
         break;
       }

@@ -19,25 +19,6 @@ export class RegisterComponent {
     ['USA', ['SSN No.', 'Passport No.']],
     ['Ireland', []]
   ]);
-  // emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
-
-  // name = new FormControl('');
-  // DOB= new FormControl('');
-  // postalCode = new FormControl('');
-
-  // userDetails = new FormGroup({
-  //   email: new FormControl('',[
-  //     Validators.required,
-  //     Validators.pattern(this.emailPattern)
-  //   ]),
-    
-  // })
-
-  // get getEmail(){
-  //   return this.userDetails.get('email');
-
-  // }
-  
   
   person = new Person("","","","","");
   
@@ -46,34 +27,11 @@ export class RegisterComponent {
   emailCheck?:boolean = false;
   country?:string;
   clientIdentification = new ClientIdentification("","");
-  onCountryChange(){
-    console.log(this.person.email)
-    console.log(this.person.dateOfBirth)
-   // this.showAdditionalField = true;
-    console.log(this.person.country);
-    if(this.person.country === 'India')
-      {
-        this.showAdditionalField = true;
-        this.clientIdentification.type = "Indian-Identification-Number";
-      }
-      else if(this.person.country === 'USA')
-      {
-        this.showAdditionalField = true;
-        this.clientIdentification.type = "USA-Identification-Number";
-      }
-      else if(this.person.country === 'Ireland')
-      {
-        this.showAdditionalField = true;
-        this.clientIdentification.type = "Ireland-Identification-Number";
-      }
-    else {
-      this.showAdditionalField = false;
-    }
-  }
 
-  verifyEmail() {
+
+  verifyEmailAndIdentification() {
     this.emailCheck = false
-     this.emailexist = (this.clientService.verifyEmail(this.person.email));
+     this.emailexist = (this.clientService.verifyEmailAndIdentification(this.person.email,this.clientIdentification.value));
      if(!this.emailexist){
        this.addClient();
      }

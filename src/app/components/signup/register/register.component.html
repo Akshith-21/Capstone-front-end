@@ -24,18 +24,19 @@
             -->
             
             <label class="full-width" for="dateOfBirth"> Date Of Birth: </label>
-            <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth">
+            <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth" required>
             <div class="danger full-width"></div>
             <label class="full-width" for="country"> Country: </label>
-            <select id="country" placeholder="" name="country" [(ngModel)]="this.person.country" (ngModelChange)="onCountryChange()"
+            <select id="country" placeholder="" name="country" [(ngModel)]="this.person.country" 
             name="country">
+           
             <option value="" selected>Select your Country</option>
             <option value="India"> India</option>
             <option value="USA"> USA</option>
             <option value="Ireland"> Ireland</option>
         </select>
         <div class="danger full-width"></div>
-        <p>Already a User? <a href="/login">Login Here</a></p>
+        <p>Already a User? <a routerLink="/login">Login Here</a></p>
 
     </div>
     <div class="form-col">
@@ -47,18 +48,20 @@
         <div class="danger"></div>
 
         <label class="full-width" for="idNo">Identification Number:</label>
-        <input type="text" name="idNo"  placeholder="ID No." [(ngModel)]="clientIdentification.value"/>
+        <input type="text" name="idNo"  placeholder="ID No." [(ngModel)]="clientIdentification.value" required/>
         <div class="danger"></div>
         
         <label class="full-width" for="postalCode">Postal Code:</label>
-        <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode">
-        <div class="danger"></div>    
-        <button (click)="verifyEmail()">Register</button>
+        <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode" required>
+        <div class="danger"></div> 
+        
+        
+        <button [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "verifyEmailAndIdentification()">Register</button>
     </div>
 </form>
 
     <div style="height: 20px;">
-        <p *ngIf="emailexist">Hey You are already an existing member, Please <a href="/register">Sign In here</a></p>
+        <p *ngIf="emailexist">Your E-mail id or identification number already exists Please <a routerLink="/register">Sign In here</a></p>
         <p *ngIf="emailCheck">Successfully Registered.</p>
     </div>
 </div>
