@@ -15,6 +15,7 @@ export class NavComponent {
   isHomeRoute:Boolean | undefined;
   isLandingPageRoute:Boolean | undefined;
   isPortfolioRoute: Boolean |undefined;
+  isTradingRoute:Boolean | undefined;
 
   onPreference(){
     console.log("clicked preference")
@@ -22,6 +23,7 @@ export class NavComponent {
     this.router.navigate(['/preference',this.email])
   }
 
+  
   currentUrl: any;
   ngOnInit(){
     console.log("Nav" , this.email)
@@ -30,8 +32,9 @@ export class NavComponent {
       this.isHomeRoute=url[0].path==='home-page';
       this.isLandingPageRoute=url[0].path==='landing-page';
       this.isPortfolioRoute =url[0].path==='portfolio'
+      this.isTradingRoute=url[0].path==='trades'
     })
-    console.log("RR" , this.isLandingPageRoute )
+    // console.log("RR" , this.isLandingPageRoute )
 
   }
 

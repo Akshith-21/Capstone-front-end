@@ -13,22 +13,14 @@
                 <small class="text-danger" *ngIf="Email?.errors?.['pattern']">Please provide a valid email address</small>
             </div>
             </div>
-            <!-- <label for = "email"> Email Address: </label>
-                <input [class.is-invalid]="userDetails.get('email')?.invalid && userDetails.get('email')?.touched"
-                type="email" class="form-control" formControlName="email" id="email">
-                
-                <div *ngIf="(getEmail?.invalid && getEmail?.touched) || getEmail?.dirty">
-                    <small *ngIf="getEmail?.errors?.['required']" class="text-danger"> email is required</small>
-                    <small *ngIf="getEmail?.errors?.['pattern']" class="text-danger">Please provide a valid email address</small>
-                </div>
-            -->
             
             <label class="full-width" for="dateOfBirth"> Date Of Birth: </label>
-            <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth">
+            <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth" required>
             <div class="danger full-width"></div>
             <label class="full-width" for="country"> Country: </label>
-            <select id="country" placeholder="" name="country" [(ngModel)]="this.person.country" (ngModelChange)="onCountryChange()"
+            <select id="country" placeholder="" name="country" [(ngModel)]="this.person.country" 
             name="country">
+           
             <option value="" selected>Select your Country</option>
             <option value="India"> India</option>
             <option value="USA"> USA</option>
@@ -47,18 +39,20 @@
         <div class="danger"></div>
 
         <label class="full-width" for="idNo">Identification Number:</label>
-        <input type="text" name="idNo"  placeholder="ID No." [(ngModel)]="clientIdentification.value"/>
+        <input type="text" name="idNo"  placeholder="ID No." [(ngModel)]="clientIdentification.value" required/>
         <div class="danger"></div>
         
         <label class="full-width" for="postalCode">Postal Code:</label>
-        <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode">
-        <div class="danger"></div>    
-        <button (click)="verifyEmail()">Register</button>
+        <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode" required>
+        <div class="danger"></div> 
+        
+        
+        <button [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "verifyEmailAndIdentification()">Register</button>
     </div>
 </form>
 
     <div style="height: 20px;">
-        <p *ngIf="emailexist">Hey You are already an existing member, Please <a href="/register">Sign In here</a></p>
+        <p *ngIf="emailexist">Your E-mail id or identification number already exists Please <a routerLink="/login">Sign In here</a></p>
         <p *ngIf="emailCheck">Successfully Registered.</p>
     </div>
 </div>
