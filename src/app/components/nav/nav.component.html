@@ -11,7 +11,7 @@
     <a class="nav-tab" routerLink="">Trade History</a>
     <a class="nav-tab" routerLink="">Buy and Sell</a>
     <a class="nav-tab" routerLink="/portfolio">Portfolio</a>
-    <a class="nav-tab" routerLink="preference/${email}">Preferences</a>
+    <a class="nav-tab" (click)="onPreference()">Preferences</a>
     <a class="nav-tab" routerLink=""> <app-user-profile [email] ="email"></app-user-profile></a>
    
 

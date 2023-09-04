@@ -38,6 +38,10 @@ interface InvestmentInterface {
   riskToleranceOptions:InvestmentInterface[] =[];
   incomeCategoryOptions:InvestmentInterface[] =[];
 
+  setInvestmentPurpose(event:any){
+    console.log(this.investmentPurpose)
+  }
+
   setRiskTolerance(event:any){
     console.log(this.selectedRiskTolerance);  
   }
@@ -47,11 +51,15 @@ interface InvestmentInterface {
   }
 
   setLengthOfInvestment(event:any){
-    console.log(this.lengthOfInvestmentOptions);
+    console.log(this.selectedLengthOfInvestment);
   }
   
   onSave(){
     console.log(this.email)
+    console.log(this.investmentPurpose)
+    console.log(this.selectedRiskTolerance)
+    console.log(this.selectedLengthOfInvestment)
+    console.log(this.selectedIncomeCategory)
     this.router.navigate(['/home-page',this.email])
   }
 

@@ -49,10 +49,6 @@ getEmail()
         break;
       }
     }
-
-    // for(let personIdentification of this.mockClientData.entries()){
-    //   if (identification === pers)
-    // }
     return false;
   }
 
