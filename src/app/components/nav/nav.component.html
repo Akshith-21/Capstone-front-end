@@ -1,19 +1,13 @@
-
 <!-- <router-outlet></router-outlet> -->
-
 <nav class="nav-tabs-container">
     <span class="nav-space">FidElite</span>
-
-    <div class="alt-container" *ngIf="isLandingPageRoute">
-        <a class="nav-tab-alt" routerLink="/login">Log In</a>
-    </div>
-    <div class="alt-container" *ngIf="isHomeRoute || isPortfolioRoute || isTradingRoute">
-        <a class="nav-tab" routerLink="/trades/test@test.com">Trade History</a>
-    <a class="nav-tab" routerLink="">Buy and Sell</a>
-    <a class="nav-tab" routerLink="/portfolio">Portfolio</a>
-    <a class="nav-tab" routerLink="preference/${email}">Preferences</a>
+    <div class="alt-container" >
+    <a class="nav-tab" routerLink="/trades/{{email}}">Trade History</a>
+    <a class="nav-tab" routerLink="/">Buy and Sell</a>
+    <a class="nav-tab" routerLink="/portfolio/{{email}}">Portfolio</a>
+    <a class="nav-tab" routerLink="">Preferences</a>
+    <a class="nav-tab" routerLink="/robo-advisor/{{email}}">Robo Advisors</a>    
     <a class="nav-tab" routerLink=""> <app-user-profile [email] ="email"></app-user-profile></a>
-   
-
-</div>
-</nav>
+    
+    </div>
+    </nav>
