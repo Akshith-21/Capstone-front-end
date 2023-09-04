@@ -1,0 +1,30 @@
+<app-nav></app-nav>
+
+<div class="portfolio-container" >
+    <div class="header">
+        <div class="slide-from-left">
+          <h1>My Portfolio</h1>
+        </div>
+      </div>
+    <table>
+        <thead>
+          <tr>
+            <th>External Type</th>
+            <th>External ID</th>
+            <th>Category</th>
+            <th>Price Timestamp</th>
+            <th>Instrument Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let portfolio of portfolios">
+            <td>{{ portfolio.externalType }}</td>
+            <td>{{ portfolio.externalId }}</td>
+            <td>{{ portfolio.categoryId }}</td>
+            <td>{{ portfolio.priceTimestamp | date }}</td>
+            <td>{{ portfolio.instrumentDescription }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+</div>

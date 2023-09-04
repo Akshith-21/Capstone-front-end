@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -10,7 +11,8 @@ export class LoginComponent {
   email:string='';
   password:string='';
   errorMessage:string='';
-  constructor(private clientServices:ClientService ){}
+  emailForm: any;
+  constructor(private clientServices:ClientService,private router:Router ){}
   
   login(inputEmail:string, inputId:string){
     const matchedEmail =this.clientServices.doesEmailExist(inputEmail)
@@ -20,16 +22,19 @@ export class LoginComponent {
       identificationSet?.forEach((identification) =>{
        const value = identification.value
        if(value===inputId)
-         console.log("Login succesfully");
+         console.log("Login successfully");
        else{
-        alert("Client Identifiaction is Invalid")
+        alert("Client Identification is Invalid")
        }
-    })}
+    })
+    this.router.navigate(['home-page', inputEmail])
+  }
     else{
       this.errorMessage ="Invalid email, Sign Up first";
       alert(this.errorMessage)
 
     }
+      
   
 }
 }

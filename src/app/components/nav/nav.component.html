@@ -3,11 +3,17 @@
 
 <nav class="nav-tabs-container">
     <span class="nav-space">FidElite</span>
-    <a class="nav-tab" routerLink="">Trending Stocks</a>
+
+    <div class="alt-container" *ngIf="isLandingPageRoute">
+        <a class="nav-tab-alt" routerLink="/login">Log In</a>
+    </div>
+    <div class="alt-container" *ngIf="isHomeRoute || isPortfolioRoute">
+    <a class="nav-tab" routerLink="">Trade History</a>
     <a class="nav-tab" routerLink="">Buy and Sell</a>
-    <a class="nav-tab" routerLink="">Portfolio Management</a>
-    <div class="alt-container">
-    <a class="nav-tab-alt" routerLink="/signin">Sign In</a>
-    <a class="nav-tab-alt" routerLink="/login">Log In</a></div>
-    
+    <a class="nav-tab" routerLink="/portfolio">Portfolio</a>
+    <a class="nav-tab" routerLink="">Preferences</a>
+    <a class="nav-tab" routerLink=""> <app-user-profile [email] ="email"></app-user-profile></a>
+   
+
+</div>
 </nav>

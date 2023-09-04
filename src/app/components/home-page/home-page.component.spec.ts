@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LandingPageComponent } from './landing-page.component';
-import { FormsModule } from '@angular/forms';
+import { HomePageComponent } from './home-page.component';
 import { Component } from '@angular/core';
 
 @Component({
@@ -12,19 +11,19 @@ import { Component } from '@angular/core';
  
   }
 
-describe('LandingPageComponent', () => {
-  let component: LandingPageComponent;
-  let fixture: ComponentFixture<LandingPageComponent>;
+
+
+describe('HomePageComponent', () => {
+  let component: HomePageComponent;
+  let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LandingPageComponent,MockNavComponent ],
-      imports:[FormsModule]
-
+      declarations: [ HomePageComponent,MockNavComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LandingPageComponent);
+    fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

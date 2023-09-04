@@ -1,0 +1,64 @@
+<div class="main_form">
+    <h2>Get started with <i>FidElite</i></h2>
+    
+    <form #userDetail="ngForm">
+        <div class="form-col">
+            <label class="full-width" for="Email">Email Address: </label>
+            <input type="email" #Email="ngModel" [class.is-invalid]="Email.invalid && Email.touched" required
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="Email"
+            [(ngModel)]="this.person.email" id="Email" placeholder="Enter your Email Address"/>
+            <div class="danger full-width">
+            <div *ngIf="(Email?.invalid && Email?.touched) || Email?.dirty">
+                <small class="text-danger" *ngIf="Email?.errors?.['required']">Email is required</small>
+                <small class="text-danger" *ngIf="Email?.errors?.['pattern']">Please provide a valid email address</small>
+            </div>
+            </div>
+            <!-- <label for = "email"> Email Address: </label>
+                <input [class.is-invalid]="userDetails.get('email')?.invalid && userDetails.get('email')?.touched"
+                type="email" class="form-control" formControlName="email" id="email">
+                
+                <div *ngIf="(getEmail?.invalid && getEmail?.touched) || getEmail?.dirty">
+                    <small *ngIf="getEmail?.errors?.['required']" class="text-danger"> email is required</small>
+                    <small *ngIf="getEmail?.errors?.['pattern']" class="text-danger">Please provide a valid email address</small>
+                </div>
+            -->
+            
+            <label class="full-width" for="dateOfBirth"> Date Of Birth: </label>
+            <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth">
+            <div class="danger full-width"></div>
+            <label class="full-width" for="country"> Country: </label>
+            <select id="country" placeholder="" name="country" [(ngModel)]="this.person.country" (ngModelChange)="onCountryChange()"
+            name="country">
+            <option value="" selected>Select your Country</option>
+            <option value="India"> India</option>
+            <option value="USA"> USA</option>
+            <option value="Ireland"> Ireland</option>
+        </select>
+        <div class="danger full-width"></div>
+        <p>Already a User? <a href="/login">Login Here</a></p>
+
+    </div>
+    <div class="form-col">
+        <label class="full-width" for="uin">Identification Type:</label>
+        <select id="uin" name="uin" [(ngModel)]="clientIdentification.type" [disabled]="person.country == ''">
+            <option value="" selected>Select Country First</option>
+            <option *ngFor="let id of idTypes.get(this.person.country)" value="{{id}}">{{id}}</option>
+        </select>
+        <div class="danger"></div>
+
+        <label class="full-width" for="idNo">Identification Number:</label>
+        <input type="text" name="idNo"  placeholder="ID No." [(ngModel)]="clientIdentification.value"/>
+        <div class="danger"></div>
+        
+        <label class="full-width" for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" placeholder="Enter your Postal Code" [disabled]="person.country == ''" [(ngModel)]="person.postalCode" name="postalCode">
+        <div class="danger"></div>    
+        <button (click)="verifyEmail()">Register</button>
+    </div>
+</form>
+
+    <div style="height: 20px;">
+        <p *ngIf="emailexist">Hey You are already an existing member, Please <a href="/register">Sign In here</a></p>
+        <p *ngIf="emailCheck">Successfully Registered.</p>
+    </div>
+</div>

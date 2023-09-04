@@ -1,24 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavComponent } from './nav.component';
+import { PreferencePageComponent } from './preference-page.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('NavComponent', () => {
-  let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
+describe('PreferencePageComponent', () => {
+  let component: PreferencePageComponent;
+  let fixture: ComponentFixture<PreferencePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavComponent ],
-      imports:[FormsModule, RouterTestingModule],
-      providers:[]
+      declarations: [ PreferencePageComponent ],
+      imports:[FormsModule, RouterTestingModule]
 
-      
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NavComponent);
+    fixture = TestBed.createComponent(PreferencePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

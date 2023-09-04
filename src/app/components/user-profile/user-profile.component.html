@@ -1,0 +1,9 @@
+<div class="user-container">
+    <button (click)="toggleUserInfo()">
+      <mat-icon class="large-icon">account_circle</mat-icon>
+    </button>
+    <div class="user-info-box" *ngIf="showUserInfo">
+        <p>Email: {{ email }}</p>
+      </div>
+  </div>
+  

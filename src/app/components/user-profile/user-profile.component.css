@@ -1,0 +1,27 @@
+/* Styles for the user container */
+.user-container {
+   
+    padding: 60px;
+    size: 100px; /* Add padding for spacing */
+    
+  }
+  
+  /* Styles for the button (optional) */
+  .user-container button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #000;
+    transition: all 0.5s ease;
+  }
+  .large-icon{
+    font-size: 25px;
+  }
+  
+  /* Styles for the button on hover (optional) */
+  .user-container button:hover {
+    color: white;
+    background-color: rgba(0, 156, 0, 0.8);
+  }
+  
