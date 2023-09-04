@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ClientIdentification } from 'src/app/models/clientIdentification';
 import { Person } from 'src/app/models/person';
 import { ClientService } from 'src/app/services/client.service';
@@ -76,7 +77,9 @@ export class RegisterComponent {
      this.emailexist = (this.clientService.verifyEmail(this.person.email));
      if(!this.emailexist){
        this.addClient();
+       this.router.navigate(['/preference',this.person.email])
      }
+    
 
   }
 
@@ -84,10 +87,10 @@ export class RegisterComponent {
     this.clientService.addClient(this.person,this.clientIdentification);
     this.emailCheck = true;
     this.person.id = this.clientService.generateUniqueId(this.person.email);
-    console.log(this.person.id);
+    console.log(this.person);
   }
 
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientService, private router:Router) {}
 
 
 }

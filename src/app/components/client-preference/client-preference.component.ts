@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {SelectItem } from 'primeng/api';
+import { ClientService } from 'src/app/services/client.service';
 
  
 
@@ -17,28 +19,40 @@ interface InvestmentInterface {
 
  
 
- 
+ export class ClientPreferencesComponent implements OnInit{
 
-export class ClientPreferencesComponent implements OnInit{
+  @Input() email: any;
+  constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){
+    this.route.params.subscribe(params => {
+    this.email = params['email'];
+      console.log("const", this.email)
+    })
+  }
 
   investmentPurpose:string = "";
-  selectedLengthOfInvestment!:InvestmentInterface;
   selectedRiskTolerance!:InvestmentInterface;
   selectedIncomeCategory!:InvestmentInterface;
+  selectedLengthOfInvestment!:InvestmentInterface;
+  
   lengthOfInvestmentOptions:InvestmentInterface[] = [];
   riskToleranceOptions:InvestmentInterface[] =[];
   incomeCategoryOptions:InvestmentInterface[] =[];
 
   setRiskTolerance(event:any){
-    console.log(event);  
+    console.log(this.selectedRiskTolerance);  
   }
   
   setIncomeCategory(event:any){
-    console.log(event);
+    console.log(this.selectedIncomeCategory);
   }
 
   setLengthOfInvestment(event:any){
-    console.log(event);
+    console.log(this.lengthOfInvestmentOptions);
+  }
+  
+  onSave(){
+    console.log(this.email)
+    this.router.navigate(['/home-page',this.email])
   }
 
   ngOnInit() {
