@@ -10,6 +10,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +30,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     ClientPreferencesComponent,
     PortfolioComponent,
     HomePageComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    TradeHistoryComponent
   ],
   imports: [
     BrowserModule,
