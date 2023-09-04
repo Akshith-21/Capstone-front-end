@@ -5,6 +5,7 @@ import { SigninComponent } from './components/signup/signin/signin.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'signin' , component:SigninComponent},
   {path:'preference-page/:type' , component:PreferencePageComponent},
   {path:'portfolio/:email' , component:PortfolioComponent},
+  {path: 'trades/:email', component:TradeHistoryComponent},
   {path:'landing-page' , component:LandingPageComponent},
 
 

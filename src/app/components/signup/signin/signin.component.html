@@ -13,15 +13,6 @@
                 <small class="text-danger" *ngIf="Email?.errors?.['pattern']">Please provide a valid email address</small>
             </div>
             </div>
-            <!-- <label for = "email"> Email Address: </label>
-                <input [class.is-invalid]="userDetails.get('email')?.invalid && userDetails.get('email')?.touched"
-                type="email" class="form-control" formControlName="email" id="email">
-                
-                <div *ngIf="(getEmail?.invalid && getEmail?.touched) || getEmail?.dirty">
-                    <small *ngIf="getEmail?.errors?.['required']" class="text-danger"> email is required</small>
-                    <small *ngIf="getEmail?.errors?.['pattern']" class="text-danger">Please provide a valid email address</small>
-                </div>
-            -->
             
             <label class="full-width" for="dateOfBirth"> Date Of Birth: </label>
             <input type="date" id="dateOfBirth" placeholder="DOB" name="DOB" [(ngModel)]="this.person.dateOfBirth">

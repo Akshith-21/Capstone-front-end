@@ -7,8 +7,8 @@
     <div class="alt-container" *ngIf="isLandingPageRoute">
         <a class="nav-tab-alt" routerLink="/login">Log In</a>
     </div>
-    <div class="alt-container" *ngIf="isPortifolioRoute">
-    <a class="nav-tab" routerLink="">Trending Stocks</a>
+    <div class="alt-container" *ngIf="isPortifolioRoute||isTradingRoute">
+    <a class="nav-tab" routerLink="/trades/test@test.com">Trade History</a>
     <a class="nav-tab" routerLink="">Buy and Sell</a>
     <a class="nav-tab" routerLink="">Portfolio Management</a>
 </div>

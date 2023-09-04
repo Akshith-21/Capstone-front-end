@@ -11,15 +11,17 @@ export class NavComponent {
   constructor(private clientService:ClientService,private  route:ActivatedRoute){}
 
   isPortifolioRoute:Boolean | undefined;
-  isLandingPageRoute:Boolean | undefined
+  isLandingPageRoute:Boolean | undefined;
+  isTradingRoute:Boolean | undefined;
   currentUrl: any;
   ngOnInit(){
     
     this.route.url.subscribe((url)=>{
       this.isPortifolioRoute=url[0].path==='portfolio';
       this.isLandingPageRoute=url[0].path==='landing-page';
+      this.isTradingRoute=url[0].path==='trades'
     })
-    console.log("RR" , this.isLandingPageRoute )
+    // console.log("RR" , this.isLandingPageRoute )
 
   }
 

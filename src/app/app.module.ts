@@ -10,6 +10,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { PreferencePageComponent } from './components/preference-page/preference-page.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavComponent,
     LandingPageComponent,
     PreferencePageComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    TradeHistoryComponent
   ],
   imports: [
     BrowserModule,
