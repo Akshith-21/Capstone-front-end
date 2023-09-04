@@ -4,14 +4,19 @@
 <table>
     <thead>
         <tr>
-            <th>Direction</th>
             <th>Instrument ID</th>
+            <th>Direction</th>
             <th>Quantity</th>
-            <th>Price</th>
+            <th>Price/Share</th>
+            <th>Cash Value</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let trade of trades">
-
+            <td>{{trade.instrumentId}}</td>
+            <td>{{trade.direction | uppercase}}</td>
+            <td>{{trade.quantity}}</td>
+            <td>{{trade.executionPrice}}</td>
+            <td>{{trade.cashValue}}</td>
         </tr>
 </table>
