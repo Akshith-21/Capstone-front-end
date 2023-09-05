@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PopupComponent implements OnInit{
   @Input() email?:string;
   acceptTerms:boolean = false;
+  continue:boolean = false;
 
 
   constructor(private  route:ActivatedRoute, private router:Router){}
@@ -25,6 +26,8 @@ export class PopupComponent implements OnInit{
     else{
       // show a message saying it is mandatory to click
     }
+    this.continue =true
+
   }
 
 }

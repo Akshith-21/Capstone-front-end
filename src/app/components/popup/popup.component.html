@@ -1,3 +1,4 @@
+<ng-container *ngIf = "!continue">
 <div class = "popup">
     <label>
         <input type = "checkbox" [(ngModel)] = "acceptTerms">
@@ -5,3 +6,4 @@
     </label>
     <button (click) = "onContinueClick()">Continue</button>
 </div>
+</ng-container>
