@@ -78,10 +78,6 @@ interface InvestmentInterface {
     this.location.back();
   }
 
-  getRiskTolerance():string{
-    return this.selectedRiskTolerance.code;
- 
-  }
   setExistingOptions() {
     
     if (this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].incomeCategory != '' && this.clientService.clientPreferences[this.email].lengthOfInvestment != '') {
