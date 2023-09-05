@@ -1,4 +1,4 @@
-<app-nav></app-nav>
+<app-nav [email]='email'></app-nav>
 
 <div class="portfolio-container" >
     <div class="header">
@@ -14,6 +14,9 @@
             <th>Category</th>
             <th>Price Timestamp</th>
             <th>Instrument Description</th>
+            <th>Ask Price $</th>
+            <th>Bid Price $</th>
+            <th>Profit / Loss %</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +26,11 @@
             <td>{{ portfolio.categoryId }}</td>
             <td>{{ portfolio.priceTimestamp | date }}</td>
             <td>{{ portfolio.instrumentDescription }}</td>
+            <td>{{ portfolio.askPrice }}</td>
+            <td>{{ portfolio.bidPrice }}</td>
+            <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
+              {{ calculateProfitLossPercentage(portfolio) }}%
+            </td>
           </tr>
         </tbody>
       </table>

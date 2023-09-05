@@ -20,6 +20,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     PortfolioComponent,
     HomePageComponent,
     UserProfileComponent,
-    TradeHistoryComponent
+    TradeHistoryComponent,
+    RoboAdvisorComponent
   ],
   imports: [
     BrowserModule,
