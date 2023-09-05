@@ -7,6 +7,7 @@
     <a [ngClass]="{'selected' : page == 'portfolio'}" class="nav-tab" routerLink="/portfolio/{{email}}">Portfolio</a>
     <a [ngClass]="{'selected' : page == 'preferences'}" class="nav-tab" (click)="onPreference()">Preferences</a>
     <a [ngClass]="{'selected' : page == 'robo-advisor'}" class="nav-tab" routerLink="/robo-advisor/{{email}}">Robo Advisor</a>
+    <a [ngClass]="{'selected' : page == 'report'}" class="nav-tab" routerLink="/report/{{email}}">Reports</a>
     <a class="nav-tab-alt" routerLink="">Logout</a>
     <!-- <a class="nav-tab-alt" routerLink=""> <app-user-profile [email] ="email"></app-user-profile></a> -->
 </nav>
