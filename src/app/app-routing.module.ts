@@ -8,6 +8,8 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { TradeHistoryComponent } from './components/trade-history/trade-history.component';
 import { ClientPreferencesComponent } from './components/client-preference/client-preference.component';
+import { TradeComponent } from './components/trade/trade.component';
+import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
@@ -15,9 +17,11 @@ const routes: Routes = [
   {path:'register' , component:RegisterComponent},
   {path:'preference/:email' , component:ClientPreferencesComponent},
   {path:'portfolio/:email' , component:PortfolioComponent},
-  {path: 'trades/:email', component:TradeHistoryComponent},
+  {path: 'trade-history/:email', component:TradeHistoryComponent},
+  {path: 'trade/:email', component:TradeComponent},
   {path:'landing-page' , component:LandingPageComponent},
-  {path:'home-page/:email', component:HomePageComponent}
+  {path:'home-page/:email', component:HomePageComponent},
+  {path:'robo-advisor/:email',component:RoboAdvisorComponent}
 
 
 

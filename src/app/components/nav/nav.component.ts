@@ -31,6 +31,7 @@ export class NavComponent {
       this.isLandingPageRoute=url[0].path==='landing-page';
       this.isPortfolioRoute =url[0].path==='portfolio'
       this.isTradingRoute=url[0].path==='trades'
+      
     })
     // console.log("RR" , this.isLandingPageRoute )
 

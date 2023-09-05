@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/signup/login/login.component';
@@ -20,6 +21,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TradeComponent } from './components/trade/trade.component';
+import { BuyComponent } from './components/buy/buy.component'
+import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';;
 import { DialogModule } from 'primeng/dialog';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 @NgModule({
@@ -34,6 +38,9 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     HomePageComponent,
     UserProfileComponent,
     TradeHistoryComponent,
+    TradeComponent,
+    BuyComponent,
+    RoboAdvisorComponent,
     PopupComponent
   ],
   imports: [
@@ -48,6 +55,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     ButtonModule,
     InputTextModule,
     BrowserAnimationsModule,
+    MatDialogModule,
     DialogModule
   ],
   providers: [],

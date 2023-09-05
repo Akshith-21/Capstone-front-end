@@ -23,44 +23,45 @@ export class HomePageComponent {
 
   ngOnInit() {
     this.email = this.route.snapshot.paramMap.get('email');
-    this.getPriceData();
-    this.getAllInstruments();
-    this.getGovtPrice();
-    this.getStockInstrument();
+    console.log("home", this.email)
+    // this.getPriceData();
+    // this.getAllInstruments();
+    // this.getGovtPrice();
+    // this.getStockInstrument();
   }
 
-  getPriceData(){
-    this.fmts.getPriceData().subscribe({next: (val:any) => {
-      console.log(val)
-      this.demo = val;
-      console.log("fmts Price Data", this.demo)
-    },}); 
+  // getPriceData(){
+  //   this.fmts.getPriceData().subscribe({next: (val:any) => {
+  //     console.log(val)
+  //     this.demo = val;
+  //     console.log("fmts Price Data", this.demo)
+  //   },}); 
    
-  }
-  getGovtPrice(){
-    this.fmts.getGovtPrice().subscribe({next: (val:any) => {
-      console.log(val)
-      this.demo = val;
-      console.log("fmts Govt Price Data", this.demo)
-    },}); 
+  // }
+  // getGovtPrice(){
+  //   this.fmts.getGovtPrice().subscribe({next: (val:any) => {
+  //     console.log(val)
+  //     this.demo = val;
+  //     console.log("fmts Govt Price Data", this.demo)
+  //   },}); 
    
-  }
-  getAllInstruments(){
-    this.fmts.getAllInstruments().subscribe({next: (val:any) => {
-      console.log(val)
-      this.demo = val;
-      console.log("fmts Instrument Data", this.demo)
-    },}); 
+  // }
+  // getAllInstruments(){
+  //   this.fmts.getAllInstruments().subscribe({next: (val:any) => {
+  //     console.log(val)
+  //     this.demo = val;
+  //     console.log("fmts Instrument Data", this.demo)
+  //   },}); 
    
-  }
-  getStockInstrument(){
-    this.fmts.getStockInstrument().subscribe({next: (val:any) => {
-      console.log(val)
-      this.demo = val;
-      console.log("fmts Stock Instrument Data", this.demo)
-    },}); 
-   
-  }
+  // }
+  // getStockInstrument(){
+  //   this.fmts.getStockInstrument().subscribe({next: (val:any) => {
+  //     console.log(val)
+  //     this.demo = val;
+  //     console.log("fmts Stock Instrument Data", this.demo)
+  //   },}); 
+  //  
+  // }
 
 
 

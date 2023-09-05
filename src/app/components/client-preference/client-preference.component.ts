@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {SelectItem } from 'primeng/api';
 import { Preferences } from 'src/app/models/preferences';
@@ -33,6 +33,7 @@ interface InvestmentInterface {
    currentPreferences = new Preferences("","","","");
 
   @Input() email!: any;
+  riskValue: string='';
   constructor(private clientService:ClientService,private  route:ActivatedRoute, private location: Location, private router:Router){
     this.route.params.subscribe(params => {
     this.email = params['email'];
@@ -70,6 +71,7 @@ interface InvestmentInterface {
     // this.getRiskTolerance();
     // this.router.navigate(['/home-page',this.email]);
     
+    
   }
 
   onCancel(){
@@ -88,6 +90,13 @@ interface InvestmentInterface {
       this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].lengthOfInvestment)!;
       this.investmentPurpose = this.clientService.clientPreferences[this.email].investmentPurpose;
     }
+  }
+
+  getRiskTolerance():string{
+    console.log("get risk tolerance");
+    console.log(this.selectedRiskTolerance.code)
+    return this.selectedRiskTolerance.code;
+
   }
 
   ngOnInit() {
@@ -111,4 +120,5 @@ interface InvestmentInterface {
     this.setExistingOptions();
 
   }
+ 
 }

@@ -1,0 +1,36 @@
+<app-nav [email]="email"></app-nav>
+<br><br><br><br>
+<div>
+    <label>Category</label>
+    <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
+        <option value="ALL">ALL</option>
+        <option value="CD">CD</option>
+        <option value="GOVT">GOV</option>
+        <option value="STOCK">STOCK</option>
+    </select>
+
+    <span>Your Balance: {{balance}}</span>
+    
+</div>
+
+<table>
+    <tr>
+        <th>External ID</th>
+        <th>Instrument Description</th>
+        <th>Min Qty.</th>
+        <th>Max Qty.</th>
+        <th>Bid Price</th>
+        <th>Control</th>
+    </tr>
+    <tr *ngFor="let price of prices">
+        <td>{{price.instrument.externalId}}</td>
+        <td>{{price.instrument.instrumentDescription}}</td>
+        <td>{{price.instrument.minQuantity}}</td>
+        <td>{{price.instrument.maxQuantity}}</td>
+        <td>{{price.bidPrice}}</td>
+        <td><button (click)="buy(price)">Buy</button></td>
+    </tr>
+</table>
+
+
+<!-- <div *ngIf="toBuy != undefined">Buy Form</div> -->

@@ -85,6 +85,34 @@ input{
 }
 
 .centered-text {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid rgb(68, 68, 68); /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 300px auto 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    /* font-weight: bold; */
+    height: 22px;
+    width: 410px;
+    font-size: x-large;
+    font-family: "Century Gothic", 'Lato', sans-serif;
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+}
+  
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 410 }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: rgb(68, 68, 68);}
+}
+
+/* .centered-text {
     text-align: center;
     font-size: 65px;
     color: black;
@@ -92,13 +120,13 @@ input{
     width: fit-content;
     padding-top: 20px;
     margin-top: 200px;
-    white-space: nowrap; /* Prevent line break */
-    border-right: 1px solid green; /* Create a typing cursor */
+    white-space: nowrap; 
+    /* border-right: 1px solid green;
     animation: typing 2s steps(30, end),blink-caret 0.5s step-end infinite;
 
-}
+} */
 
-.bold-text {
+/* .bold-text {
     font-weight: bold;
 }
 
@@ -119,7 +147,7 @@ input{
     50% {
         border-color: green;
     }
-}
+}  */
 
 .btn{
     background-color: green;
