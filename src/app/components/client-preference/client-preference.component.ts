@@ -21,9 +21,15 @@ interface InvestmentInterface {
  
 
  export class ClientPreferencesComponent implements OnInit{
-  dialogBoxDisplay = false;
+  showPopup = false;
   roboAdvisorCheckBox:any;
 
+  togglePopup(){
+    this.showPopup = !this.showPopup;
+    this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    console.log("current client preferences", this.clientService.clientPreferences)
+    this.getRiskTolerance();
+  }
    currentPreferences = new Preferences("","","","");
 
   @Input() email!: any;
@@ -59,11 +65,10 @@ interface InvestmentInterface {
   }
   
   onSave(){
-    this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
-    console.log("current client preferences", this.clientService.clientPreferences)
-    this.getRiskTolerance();
-    this.dialogBoxDisplay = true;
-    this.router.navigate(['/home-page',this.email]);
+    // this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    // console.log("current client preferences", this.clientService.clientPreferences)
+    // this.getRiskTolerance();
+    // this.router.navigate(['/home-page',this.email]);
     
   }
 

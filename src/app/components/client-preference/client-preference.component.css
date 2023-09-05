@@ -1,0 +1,7 @@
+.content-container{
+    transition: filter 0.3s;
+}
+
+.blur-background{
+    filter:blur(4px)
+}

@@ -21,6 +21,7 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DialogModule } from 'primeng/dialog';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,8 @@ import { DialogModule } from 'primeng/dialog';
     PortfolioComponent,
     HomePageComponent,
     UserProfileComponent,
-    TradeHistoryComponent
+    TradeHistoryComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
