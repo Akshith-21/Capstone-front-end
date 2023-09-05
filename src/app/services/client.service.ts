@@ -6,6 +6,7 @@ import { ClientTradesService } from './client-trades.service';
 import { Portfolio } from '../models/portfolio.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Instrument } from '../models/instrument.model';
+import { Preferences } from '../models/preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,9 @@ export class ClientService {
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
     ["mehulrana@gmail.com", new Client(new Person('mehulrana@gmail.com', "2", String(new Date("2001-04-05")), 'India', '411006'), new Set<ClientIdentification>([new ClientIdentification('PAN', '12345')]))],
   ]);
+  public clientPreferences: Record<string,Preferences> = {
+    "testp@testp.com": new Preferences("","","",""),
+  }
   mockPortfolioData: Map<string, Portfolio[]> = new Map([
     ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200)]],
     ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23)]],
@@ -132,7 +136,6 @@ export class ClientService {
 
 
 
-
   getPortfolioData(email: string): Observable<Portfolio[] | undefined> {
     return of(this.mockPortfolioData.get(email))
   }
@@ -152,12 +155,9 @@ export class ClientService {
         break;
       }
     }
-
-    // for(let personIdentification of this.mockClientData.entries()){
-    //   if (identification === pers)
-    // }
     return false;
   }
+
 
 
 

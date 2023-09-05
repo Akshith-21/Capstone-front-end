@@ -35,6 +35,7 @@ export class RegisterComponent {
      this.emailexist = (this.clientService.verifyEmailAndIdentification(this.person.email,this.clientIdentification.value));
      if(!this.emailexist){
        this.addClient();
+       console.log("console log", this.person.email)
        this.router.navigate(['/preference',this.person.email])
      }
     

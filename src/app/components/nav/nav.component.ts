@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -9,15 +9,22 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class NavComponent {
   @Input() email: any;
-  constructor(private clientService:ClientService,private  route:ActivatedRoute){}
+  constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){;
+  }
 
   isHomeRoute:Boolean | undefined;
   isLandingPageRoute:Boolean | undefined;
   isPortfolioRoute: Boolean |undefined;
   isTradingRoute:Boolean | undefined;
+
+  onPreference(){
+    this.router.navigate(['/preference',this.email])
+  }
+
+  
   currentUrl: any;
   ngOnInit(){
-    console.log("Nav" , this.email)
+
     
     this.route.url.subscribe((url)=>{
       this.isHomeRoute=url[0].path==='home-page';

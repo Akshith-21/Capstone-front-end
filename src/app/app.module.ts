@@ -23,7 +23,9 @@ import {InputTextModule} from 'primeng/inputtext';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TradeComponent } from './components/trade/trade.component';
 import { BuyComponent } from './components/buy/buy.component'
-import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
+import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';;
+import { DialogModule } from 'primeng/dialog';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.com
     TradeHistoryComponent,
     TradeComponent,
     BuyComponent,
-    RoboAdvisorComponent
+    RoboAdvisorComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.com
     ButtonModule,
     InputTextModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

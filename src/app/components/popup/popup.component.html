@@ -1,0 +1,9 @@
+<ng-container *ngIf = "!continue">
+<div class = "popup">
+    <label>
+        <input type = "checkbox" [(ngModel)] = "acceptTerms">
+        I accept the terms and conditions of Robo-Advisor
+    </label>
+    <button (click) = "onContinueClick()">Continue</button>
+</div>
+</ng-container>

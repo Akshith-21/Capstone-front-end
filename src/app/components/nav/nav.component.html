@@ -5,7 +5,7 @@
         <a class="nav-tab" routerLink="/trade-history/{{email}}">Trade History</a>
         <a class="nav-tab" routerLink="/trade/{{email}}">Buy and Sell</a>
         <a class="nav-tab" routerLink="/portfolio/{{email}}">Portfolio</a>
-        <a class="nav-tab" routerLink="/preference/{{email}}">Preferences</a>
+        <a class="nav-tab" (click)="onPreference()">Preferences</a>
         <a class="nav-tab" routerLink="/robo-advisor/{{email}}">Robo Advisor</a>
     <a class="nav-tab" routerLink=""> <app-user-profile [email] ="email"></app-user-profile></a>
     

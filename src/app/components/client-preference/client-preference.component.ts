@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {SelectItem } from 'primeng/api';
+import { Preferences } from 'src/app/models/preferences';
 import { ClientService } from 'src/app/services/client.service';
-
+import { Location } from '@angular/common';
  
 
  
@@ -20,13 +21,22 @@ interface InvestmentInterface {
  
 
  export class ClientPreferencesComponent implements OnInit{
+  showPopup = false;
+  roboAdvisorCheckBox:any;
 
-  @Input() email: any;
+  togglePopup(){
+    this.showPopup = !this.showPopup;
+    this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    console.log("current client preferences", this.clientService.clientPreferences)
+    this.getRiskTolerance();
+  }
+   currentPreferences = new Preferences("","","","");
+
+  @Input() email!: any;
   riskValue: string='';
-  constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){
+  constructor(private clientService:ClientService,private  route:ActivatedRoute, private location: Location, private router:Router){
     this.route.params.subscribe(params => {
     this.email = params['email'];
-      console.log("const", this.email)
     })
   }
 
@@ -39,9 +49,8 @@ interface InvestmentInterface {
   riskToleranceOptions:InvestmentInterface[] =[];
   incomeCategoryOptions:InvestmentInterface[] =[];
 
-  updateRiskValue() {
-    // Update the riskValue in the service
-    this.clientService.setRiskValue(this.riskValue);
+  setInvestmentPurpose(event:any){
+    console.log(this.investmentPurpose)
   }
 
   setRiskTolerance(event:any){
@@ -53,12 +62,30 @@ interface InvestmentInterface {
   }
 
   setLengthOfInvestment(event:any){
-    console.log(this.lengthOfInvestmentOptions);
+    console.log(this.selectedLengthOfInvestment);
   }
   
   onSave(){
-    console.log(this.email)
-    this.router.navigate(['/home-page',this.email])
+    // this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    // console.log("current client preferences", this.clientService.clientPreferences)
+    // this.getRiskTolerance();
+    // this.router.navigate(['/home-page',this.email]);
+    
+    
+  }
+
+  onCancel(){
+    this.location.back();
+  }
+
+  setExistingOptions() {
+    
+    if (this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].incomeCategory != '' && this.clientService.clientPreferences[this.email].lengthOfInvestment != '') {
+      this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].riskTolerance)!
+      this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code ===this.clientService.clientPreferences[this.email].incomeCategory)!
+      this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].lengthOfInvestment)!;
+      this.investmentPurpose = this.clientService.clientPreferences[this.email].investmentPurpose;
+    }
   }
 
   getRiskTolerance():string{
@@ -86,6 +113,7 @@ interface InvestmentInterface {
       {name:'100000-200000', code:'100000-200000'},
       {name:'more than 20000', code:'more than 20000'},
     ]
+    this.setExistingOptions();
 
   }
  
