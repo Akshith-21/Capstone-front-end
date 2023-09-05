@@ -11,13 +11,15 @@ import { ClientTradesService } from 'src/app/services/client-trades.service';
 export class TradeHistoryComponent {
   constructor(private clientTradesService: ClientTradesService, private route: ActivatedRoute) {}
   public trades: Trade[] | undefined = [];
+  public email: string | undefined = '';
   fetchAllTrades(email: string) {
     this.clientTradesService.geTradeHistoryData(email).subscribe(data => this.trades = data);
     console.log(this.trades);
   }
 
   ngOnInit() {
-    let email = this.route.snapshot.paramMap.get('email');
-    this.fetchAllTrades(email?email:'');
+    let e = this.route.snapshot.paramMap.get('email');
+    this.email = e?e:'test@test.com';
+    this.fetchAllTrades(this.email);
   }
 }

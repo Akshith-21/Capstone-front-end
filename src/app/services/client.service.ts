@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '../models/client';
 import { Person } from '../models/person';
 import { ClientIdentification } from '../models/clientIdentification';
+import { ClientTradesService } from './client-trades.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { ClientIdentification } from '../models/clientIdentification';
 
 
 export class ClientService {
+  constructor(private clientTradesService: ClientTradesService) {}
 
   isPortFolio :boolean =false
   isLanding:boolean =false
@@ -67,6 +69,7 @@ getEmail()
   addClient(person: Person,clientIdentification: ClientIdentification){
     this.mockClientData.set(person.email, new Client(person,new Set<ClientIdentification>([clientIdentification])));
     console.log(this.mockClientData);
+    this.clientTradesService.mockBalanceData.set(person.email, 1000000)
     
   }
 
@@ -81,9 +84,6 @@ getEmail()
 
   }
 
-  constructor() {
-    
-  }
 
   doesEmailExist(email:string)
   {
