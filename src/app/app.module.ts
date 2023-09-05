@@ -23,6 +23,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TradeComponent } from './components/trade/trade.component';
 import { BuyComponent } from './components/buy/buy.component'
+import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { BuyComponent } from './components/buy/buy.component'
     UserProfileComponent,
     TradeHistoryComponent,
     TradeComponent,
-    BuyComponent
+    BuyComponent,
+    RoboAdvisorComponent
   ],
   imports: [
     BrowserModule,

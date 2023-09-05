@@ -2,10 +2,17 @@ import { Instrument } from "./instrument.model";
 import { GovtBond } from "./govt-bond.model"; 
 import { StockInstrument } from "./stock-instrument.model";
 
-export interface Portfolio{
-    externalType:string
-    externalId:string
-    categoryId:string
-    priceTimestamp:Date;
-    instrumentDescription:string
+ 
+
+export class Portfolio{
+    constructor( public externalType:string,
+        public externalId:string,
+        public categoryId:string,
+        public priceTimestamp:Date,
+        public instrumentDescription:string,
+        public bidPrice:number,
+        public askPrice:number){
+
+    }
+
 }
