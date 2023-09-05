@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Trade } from 'src/app/models/trade';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 
 @Component({
@@ -9,14 +10,16 @@ import { ClientTradesService } from 'src/app/services/client-trades.service';
 })
 export class TradeHistoryComponent {
   constructor(private clientTradesService: ClientTradesService, private route: ActivatedRoute) {}
-  public trades: any;
+  public trades: Trade[] | undefined = [];
+  public email: string | undefined = '';
   fetchAllTrades(email: string) {
-    this.trades = this.clientTradesService.geTradeHistoryData(email);
+    this.clientTradesService.geTradeHistoryData(email).subscribe(data => this.trades = data);
     console.log(this.trades);
   }
 
   ngOnInit() {
-    let email = this.route.snapshot.paramMap.get('email');
-    this.fetchAllTrades(email?email:'test@test.com');
+    let e = this.route.snapshot.paramMap.get('email');
+    this.email = e?e:'test@test.com';
+    this.fetchAllTrades(this.email);
   }
 }

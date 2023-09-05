@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { Client } from '../models/client';
 import { Person } from '../models/person';
 import { ClientIdentification } from '../models/clientIdentification';
+import { ClientTradesService } from './client-trades.service';
 import { Portfolio } from '../models/portfolio.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Instrument } from '../models/instrument.model';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +16,12 @@ import { Instrument } from '../models/instrument.model';
 
 
 export class ClientService {
-
+  constructor(private clientTradesService: ClientTradesService) {}
   private riskValueSubject = 'test'; // Initial value
 
   isPortFolio: boolean = false
   isLanding: boolean = false
+
   public mockClientData = new Map([
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
     ["mehulrana@gmail.com", new Client(new Person('mehulrana@gmail.com', "2", String(new Date("2001-04-05")), 'India', '411006'), new Set<ClientIdentification>([new ClientIdentification('PAN', '12345')]))],
@@ -177,7 +177,8 @@ export class ClientService {
   addClient(person: Person, clientIdentification: ClientIdentification) {
     this.mockClientData.set(person.email, new Client(person, new Set<ClientIdentification>([clientIdentification])));
     console.log(this.mockClientData);
-
+    this.clientTradesService.mockBalanceData.set(person.email, 1000000)
+    
   }
   generateUniqueId(userEmail: string): string {
     {
@@ -189,11 +190,6 @@ export class ClientService {
     }
 
   }
-
-  constructor() {
-
-  }
-
 
 
   doesEmailExist(email: string) {

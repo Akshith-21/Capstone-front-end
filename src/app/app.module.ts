@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/signup/login/login.component';
@@ -19,7 +20,9 @@ import {CardModule} from 'primeng/card';
 import {DropdownModule} from 'primeng/dropdown';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TradeComponent } from './components/trade/trade.component';
+import { BuyComponent } from './components/buy/buy.component'
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.com
     HomePageComponent,
     UserProfileComponent,
     TradeHistoryComponent,
+    TradeComponent,
+    BuyComponent,
     RoboAdvisorComponent
   ],
   imports: [
@@ -46,7 +51,8 @@ import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.com
     DropdownModule,
     ButtonModule,
     InputTextModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
