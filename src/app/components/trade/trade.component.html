@@ -5,15 +5,15 @@
     <option value = "SELL">SELL</option>
 </select>
 <div *ngIf="direction == 'BUY'">
-    <label>Category</label>
+    <label>Category
     <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
-        <option value="ALL">ALL</option>
+        <option value="ALL" selected>ALL</option>
         <option value="CD">CD</option>
         <option value="GOVT">GOV</option>
         <option value="STOCK">STOCK</option>
-    </select>
+    </select></label>
 
-    <span>Your Balance: {{balance}}</span>
+    <span> Your Balance: {{balance|currency}}</span>
     
 
 

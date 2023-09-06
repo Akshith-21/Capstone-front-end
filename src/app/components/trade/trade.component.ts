@@ -8,7 +8,6 @@ import { BuyComponent } from '../buy/buy.component';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { ClientService } from 'src/app/services/client.service';
 import { SellComponent } from '../sell/sell.component';
-// import { SellComponent } from '../sell/sell.component';
 
 @Component({
   selector: 'app-trade',
@@ -35,6 +34,7 @@ export class TradeComponent implements OnInit {
     this.email = this.email?this.email:'';
     let b = this.clientTradeService.mockBalanceData.get(this.email);
     this.balance= b?b:0;
+    console.log('Prices: ', this.prices);
   }
 
   filterPrices(){
@@ -51,17 +51,21 @@ export class TradeComponent implements OnInit {
   buy(price: Price){
     
     this.dialog.open(BuyComponent,{
-      data: price,
+      
+      data: {
+        price: price,
+        email: this.email
+      },
       width: '500px',
       height: '500px'
     });
     this.dialog.afterAllClosed.subscribe((res) => {
       // received data from dialog-component
-      console.log(res);
+      // console.log(res);
       this.ngOnInit();
     })
     this.email = this.email?this.email:'test@test.com';
-    console.log(this.clientTradeService.mockBalanceData.get(this.email));
+    console.log('Balance', this.clientTradeService.mockBalanceData.get(this.email));
     // this.toBuy = price;
   }
   sell(portfolio: Portfolio){
@@ -73,13 +77,14 @@ export class TradeComponent implements OnInit {
     });
     this.dialog.afterAllClosed.subscribe((res) => {
       // received data from dialog-component
-      console.log(res);
+      // console.log(res);
       this.ngOnInit();
     })
     this.email = this.email?this.email:'test@test.com';
-    console.log(this.clientTradeService.mockBalanceData.get(this.email));
+    console.log('Balance', this.clientTradeService.mockBalanceData.get(this.email));
     // this.toBuy = price;
   }
+  
   getBuyOrSellTrade(){
     if(this.direction =='BUY'){
       let e = this.route.snapshot.paramMap.get('email');
