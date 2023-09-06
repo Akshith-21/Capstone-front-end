@@ -3,14 +3,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavComponent } from './nav.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: "app-user-profile",
   template: "mock user profile",
 })
 class MockUSerProfieComponent {
-
+@Input()
+email:string=''
 }
 describe('NavComponent', () => {
   let component: NavComponent;

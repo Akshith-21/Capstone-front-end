@@ -10,6 +10,7 @@ import { TradeHistoryComponent } from './components/trade-history/trade-history.
 import { ClientPreferencesComponent } from './components/client-preference/client-preference.component';
 import { TradeComponent } from './components/trade/trade.component';
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
@@ -23,13 +24,10 @@ const routes: Routes = [
   {path:'home-page/:email', component:HomePageComponent},
   {path:'robo-advisor/:email',component:RoboAdvisorComponent}
 
-
-
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), RouterTestingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

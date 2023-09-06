@@ -5,11 +5,24 @@ import { Price } from 'src/app/models/price.model';
 import { of } from 'rxjs';
 import { FmtsService } from 'src/app/services/fmts.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-nav',
+  template: 'mock nav'
+  })
+  class MockNavComponent {
+   @Input()
+   email:string =''
+  }
 
 describe('TradeComponent', () => {
   let component: TradeComponent;
   let fixture: ComponentFixture<TradeComponent>;
-  
+  let price:Price[]
 
   beforeEach(async () => {
     const fmtsMockData: Price[] =[
@@ -52,9 +65,9 @@ describe('TradeComponent', () => {
       
     
     await TestBed.configureTestingModule({
-      declarations: [ TradeComponent ],
-      imports:[RouterTestingModule],
-      providers:[{ provide:FmtsService , useValue:mockfmtsService}]
+      declarations: [ TradeComponent,MockNavComponent ],
+      imports:[RouterTestingModule, MatDialogModule, FormsModule],
+      providers:[{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: price },{ provide:FmtsService , useValue:mockfmtsService}]
     })
     .compileComponents();
 

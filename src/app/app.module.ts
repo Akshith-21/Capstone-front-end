@@ -26,6 +26,8 @@ import { BuyComponent } from './components/buy/buy.component'
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';;
 import { DialogModule } from 'primeng/dialog';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     PopupComponent
   ],
   imports: [
+    RouterModule.forRoot([]),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -56,7 +59,8 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     InputTextModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    DialogModule
+    DialogModule,
+    RouterTestingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

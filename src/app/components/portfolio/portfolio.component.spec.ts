@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PortfolioComponent } from './portfolio.component';
 import { FormsModule } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
@@ -10,7 +10,8 @@ import { RouterTestingModule } from '@angular/router/testing';
   template: 'mock nav'
   })
   class MockNavComponent {
- 
+    @Input()
+    email:string=''
   }
 describe('PortfolioComponent', () => {
   let component: PortfolioComponent;
