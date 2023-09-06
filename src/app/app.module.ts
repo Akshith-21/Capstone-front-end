@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from "@angular/material/dialog";
+import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/signup/login/login.component';
@@ -28,6 +28,8 @@ import { DialogModule } from 'primeng/dialog';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { ReportComponent } from './components/report/report.component';
 import { SellComponent } from './components/sell/sell.component';
+import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +50,7 @@ import { SellComponent } from './components/sell/sell.component';
     SellComponent
   ],
   imports: [
+    RouterModule.forRoot([]),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -60,7 +63,8 @@ import { SellComponent } from './components/sell/sell.component';
     InputTextModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    DialogModule
+    DialogModule,
+    RouterTestingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

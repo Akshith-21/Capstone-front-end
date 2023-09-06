@@ -1,8 +1,26 @@
 <app-nav [email]='email'></app-nav>
 
 <div class="box-container">
+    <div class="box" id="buy" *ngFor="let price of roboAdvisorData">
+        <div class="field-title">{{ price.instrument.instrumentDescription }}</div>
+        <div class="field">Instrument ID : {{ price.instrument.instrumentId }}</div>
+        <div class="field">External ID Type : {{ price.instrument.externalId }}</div>
+        <div class="field">External ID : {{ price.instrument.externalId }}</div>
+        <div class="field">Category ID : {{ price.instrument.categoryId }}</div>
+        <div class="field">Max Quantity : {{ price.instrument.maxQuantity }}</div>
+        <div class="field">Min Quantity : {{ price.instrument.minQuantity }}</div>
+        <div class="buyBtn" (click)="ifBuy()">
+            <button (click)="buy(price)">
+                Buy
+            </button>
+        </div>
+    </div>
+    <div *ngIf="openBuy">
+        <app-buy></app-buy>
+    </div>
+    <!-- <br style="padding-right: 200px;"> -->
+    
     <div class="box" *ngFor="let item of roboAdvisorData">
-      <div class="box-content">
         <div class="field-title">{{ item.instrumentDescription }}</div>
         <div class="field">Instrument ID : {{ item.instrumentId }}</div>
         <div class="field">External ID Type : {{ item.externalIdType }}</div>
@@ -10,29 +28,13 @@
         <div class="field">Category ID : {{ item.categoryId }}</div>
         <div class="field">Max Quantity : {{ item.maxQuantity }}</div>
         <div class="field">Min Quantity : {{ item.minQuantity }}</div>
-        <div class="buyBtn">
+        <div class="sellBtn"  (click)="ifBuy()">
             <button>
-                Buy            
-        </button>
+                Sell
+            </button>
         </div>
-      </div>
+        <div *ngIf="openSell">
+            <app-buy></app-buy>
+        </div>
     </div>
-    <div class="box" *ngFor="let item of roboAdvisorData">
-        <div class="sell-box-content">
-          <div class="field-title">{{ item.instrumentDescription }}</div>
-          <div class="field">Instrument ID : {{ item.instrumentId }}</div>
-          <div class="field">External ID Type : {{ item.externalIdType }}</div>
-          <div class="field">External ID : {{ item.externalId }}</div>
-          <div class="field">Category ID : {{ item.categoryId }}</div>
-          <div class="field">Max Quantity : {{ item.maxQuantity }}</div>
-          <div class="field">Min Quantity : {{ item.minQuantity }}</div>
-          <div class="sellBtn">
-              <button>
-                  Sell            
-          </button>
-          </div>
-        </div>
-      </div>
-  </div>
-  
-
+</div>

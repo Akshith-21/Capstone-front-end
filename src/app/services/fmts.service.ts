@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Portfolio } from '../models/portfolio.model';
 import { Instrument } from '../models/instrument.model';
 import { Price } from '../models/price.model';
@@ -35,6 +35,23 @@ export class FmtsService {
   // getStockInstrument():Observable<Portfolio[]>{
   //   return this.http.get<Portfolio[]>(this.fmtsUrl+'/instruments/STOCK')
   // }
+
+  handleError(response: HttpErrorResponse) {
+    if (response.error instanceof ProgressEvent) {
+      console.error(
+        "A client-side or network error occurred; " +
+          `${response.message}, ${response.status}, ${response.statusText}`
+      );
+    } else {
+      console.error(
+        `Backend returned code ${response.status}, ` +
+          `body was: ${JSON.stringify(response.error)}`
+      );
+    }
+    return throwError(
+      () => "Unable to contact service; please try again later."
+    );
+  }
   
 
 }

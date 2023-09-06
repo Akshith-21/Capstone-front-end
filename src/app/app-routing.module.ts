@@ -11,6 +11,7 @@ import { ClientPreferencesComponent } from './components/client-preference/clien
 import { TradeComponent } from './components/trade/trade.component';
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 import { ReportComponent } from './components/report/report.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
@@ -25,13 +26,10 @@ const routes: Routes = [
   {path:'robo-advisor/:email',component:RoboAdvisorComponent},
   {path:'report/:email', component:ReportComponent}
 
-
-
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), RouterTestingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

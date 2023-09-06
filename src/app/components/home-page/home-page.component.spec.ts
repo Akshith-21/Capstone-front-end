@@ -1,16 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomePageComponent } from './home-page.component';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 @Component({
   selector: 'app-nav',
   template: 'mock nav'
   })
   class MockNavComponent {
- 
+   @Input()
+   email:string=''
   }
-
 
 
 describe('HomePageComponent', () => {
@@ -19,7 +22,8 @@ describe('HomePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomePageComponent,MockNavComponent ]
+      declarations: [ HomePageComponent,MockNavComponent ],
+      imports:[RouterTestingModule, HttpClientTestingModule]
     })
     .compileComponents();
 

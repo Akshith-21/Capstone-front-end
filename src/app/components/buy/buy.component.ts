@@ -27,6 +27,7 @@ export class BuyComponent {
   ) { }
   trade: Trade = new Trade(0, 0, 'BUY', '', '', '', 0);
   portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
+  price:Price | undefined
   buy() {
     // let email = this.route.snapshot.paramMap.get('email');
     // email = email?email:"Null";

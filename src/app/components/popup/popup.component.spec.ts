@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PopupComponent } from './popup.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('PopupComponent', () => {
   let component: PopupComponent;
@@ -8,7 +10,9 @@ describe('PopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PopupComponent ]
+      declarations: [ PopupComponent ],
+      imports:[RouterTestingModule, FormsModule]
+
     })
     .compileComponents();
 

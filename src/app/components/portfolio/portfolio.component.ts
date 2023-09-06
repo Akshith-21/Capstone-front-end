@@ -12,9 +12,9 @@ export class PortfolioComponent implements OnInit {
 
  
 
-  email:any;
+  email:any = '';
   portfolios:Portfolio[] | undefined =[]
-  constructor(private route:ActivatedRoute, private clientService: ClientService) { }
+  constructor(private route:ActivatedRoute, public clientService: ClientService) { }
   ngOnInit() {
     this.email = this.route.snapshot.paramMap.get('email');
     this.getPortfolioData(this.email)
