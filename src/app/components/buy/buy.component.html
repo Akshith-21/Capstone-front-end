@@ -4,7 +4,7 @@
     <h2>Price:<span id="price"> {{data.price?.bidPrice | currency}}</span></h2>
     <form>
         <label for="quantity">Quantity
-            <input type="number" name="quantity" #input1 [(ngModel)]="trade.quantity" (change) = "trade.cashValue = trade.quantity*(data.price?data.price.bidPrice:0)"/>
+            <input type="number" name="quantity" #input1 [(ngModel)]="trade.quantity" [(ngModel)]="portFolio.currentHoldings" (change) = "trade.cashValue = trade.quantity*(data.price?data.price.bidPrice:0)"/>
         </label>
         <label for="total">Total Trade Value
             <input type="number" name="total" #input2 [(ngModel)]="trade.cashValue" (change) = "trade.quantity  = trade.cashValue/(data.price?data.price.bidPrice:0)"/>
