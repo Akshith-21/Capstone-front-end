@@ -26,6 +26,7 @@ import { BuyComponent } from './components/buy/buy.component'
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';;
 import { DialogModule } from 'primeng/dialog';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { ReportComponent } from './components/report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     TradeComponent,
     BuyComponent,
     RoboAdvisorComponent,
-    PopupComponent
+    PopupComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

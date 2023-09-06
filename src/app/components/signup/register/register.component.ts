@@ -46,7 +46,7 @@ export class RegisterComponent {
     this.clientService.addClient(this.person,this.clientIdentification);
     this.emailCheck = true;
     this.person.id = this.clientService.generateUniqueId(this.person.email);
-    console.log(this.person);
+    console.log('inside register' + this.person);
   }
 
   constructor(private clientService: ClientService, private router:Router) {}

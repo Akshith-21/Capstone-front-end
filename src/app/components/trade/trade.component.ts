@@ -29,7 +29,7 @@ export class TradeComponent implements OnInit {
     this.fmtsService.getAllPrices().subscribe(data => this.allPrices = this.prices = data);
     let b = this.clientTradeService.mockBalanceData.get(this.email);
     this.balance= b?b:0;
-    console.log(this.prices);
+    console.log('Prices: ', this.prices);
   }
 
   filterPrices(){
@@ -46,17 +46,20 @@ export class TradeComponent implements OnInit {
   buy(price: Price){
     
     this.dialog.open(BuyComponent,{
-      data: price,
+      data: {
+        price: price,
+        email: this.email
+      },
       width: '500px',
       height: '500px'
     });
     this.dialog.afterAllClosed.subscribe((res) => {
       // received data from dialog-component
-      console.log(res);
+      // console.log(res);
       this.ngOnInit();
     })
     this.email = this.email?this.email:'test@test.com';
-    console.log(this.clientTradeService.mockBalanceData.get(this.email));
+    console.log('Balance', this.clientTradeService.mockBalanceData.get(this.email));
     // this.toBuy = price;
   }
 }

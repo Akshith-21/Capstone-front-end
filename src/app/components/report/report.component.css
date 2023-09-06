@@ -13,7 +13,7 @@ table {
     width: 60%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
-    margin: 20px auto;
+    margin: 50px auto;
 }
 th, td {
     padding: 10px;
@@ -39,17 +39,16 @@ tr:hover {
 .loss {
     color: red; /* Red color for loss */
 }
-
 button {
-    margin: 20px;
-    width: 70px;
-    height: 40px;
+    margin: 50px 20px;
+    width: 120px;
+    height: 50px;
     border-radius: 5px;
     border: 0px;
     background-color: rgb(0, 163, 0);
     color: white;
     transition: all 0.1s;
-    /* font-size: large; */
+    font-size: large;
 }
 
 button:hover {

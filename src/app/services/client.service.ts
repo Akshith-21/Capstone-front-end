@@ -176,9 +176,11 @@ export class ClientService {
 
   addClient(person: Person, clientIdentification: ClientIdentification) {
     this.mockClientData.set(person.email, new Client(person, new Set<ClientIdentification>([clientIdentification])));
-    console.log(this.mockClientData);
+    console.log('Inside Service add client'+this.mockClientData);
     this.clientTradesService.mockBalanceData.set(person.email, 1000000)
-    
+    this.clientTradesService.mockTradeHistoryData.set(person.email, []);
+    this.mockPortfolioData.set(person.email, []);
+    this.clientPreferences[person.email] = new Preferences('','','','');
   }
   generateUniqueId(userEmail: string): string {
     {

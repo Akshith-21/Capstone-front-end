@@ -1,0 +1,31 @@
+<app-nav [email] = "email"></app-nav>
+<br><br><br><br>
+<div style="text-align: center;">
+    <!-- <button>Portfolio Report</button> -->
+    <button>Portfolio</button>
+    <button (click)="display = true">P&L Report</button>
+    <button>Tradebook</button>
+    <button>Tax Report</button>
+
+    <div *ngIf="display">
+        <table style="margin: auto;">
+            <tr>
+                <th>Name</th>
+                <th>Direction</th>
+                <th>Quantity</th>
+                <th>Bid Price</th>
+                <th>Ask Price</th>
+                <th>Net Profit / Loss</th>
+            </tr>
+            <tr *ngFor="let entry of mockReportDataPL">
+                <td>{{entry.instrumentName}}</td>
+                <td>{{entry.direction}}</td>
+                <td>{{entry.quantity}}</td>
+                <td>{{entry.bidPrice}}</td>
+                <td>{{entry.askPrice}}</td>
+                <td>{{entry.profitLoss}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
