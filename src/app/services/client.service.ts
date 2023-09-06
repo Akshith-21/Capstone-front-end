@@ -7,14 +7,11 @@ import { Portfolio } from '../models/portfolio.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Instrument } from '../models/instrument.model';
 import { Preferences } from '../models/preferences';
+import { Trade } from '../models/trade';
 
 @Injectable({
   providedIn: 'root'
 })
-
-
-
-
 
 export class ClientService {
   constructor(private clientTradesService: ClientTradesService) {}
@@ -23,6 +20,7 @@ export class ClientService {
   isPortFolio: boolean = false
   isLanding: boolean = false
 
+
   public mockClientData = new Map([
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
     ["mehulrana@gmail.com", new Client(new Person('mehulrana@gmail.com', "2", String(new Date("2001-04-05")), 'India', '411006'), new Set<ClientIdentification>([new ClientIdentification('PAN', '12345')]))],
@@ -30,10 +28,10 @@ export class ClientService {
   public clientPreferences: Record<string,Preferences> = {
     "testp@testp.com": new Preferences("","","",""),
   }
-  mockPortfolioData: Map<string, Portfolio[]> = new Map([
-    ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200)]],
-    ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23)]],
-    ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233)]],
+  mockPortfolioData: Map<string, Portfolio[] | undefined> = new Map([
+    ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,1),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,1)]],
+    ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23,1)]],
+    ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,1)]],
   ]);
 
   mockRoboAdvisorDataH: Instrument[] = [{
@@ -127,6 +125,7 @@ export class ClientService {
     "maxQuantity": 10,
     "minQuantity": 1
   }]
+  portfolios?:Portfolio[] = [];
 
 
 
@@ -218,6 +217,38 @@ export class ClientService {
     return of(this.riskValueSubject);
   }
 
+  recordPortFolioData(email:string,portfolio:Portfolio){
+    this.mockPortfolioData.get(email)?.push(portfolio);
+  }
+  recordSellTradePortfolio(email:string,portfolio:Portfolio,trade:Trade){
+    if(portfolio.currentHoldings < trade.quantity){
+      throw(new Error("Quantity provided is greater than the current holding"))
+    }
+    else if(portfolio.currentHoldings - trade.quantity > 0){
+      let mockportfolio = this.mockPortfolioData.get(email);
+      mockportfolio = mockportfolio?mockportfolio:[];
+      for(let portfolio1 of mockportfolio){
+        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){
+          portfolio1.currentHoldings = portfolio.currentHoldings - trade.quantity;
+          
+          break;
+        }
+      }
+    }
+    else if(portfolio.currentHoldings - trade.quantity == 0){
+     
+      let mockportfolio = this.mockPortfolioData.get(email);
+      console.log("before" + mockportfolio)
+      mockportfolio = mockportfolio?mockportfolio:[];
+      mockportfolio.splice(mockportfolio.indexOf(portfolio))
+      console.log(mockportfolio);
+      this.mockPortfolioData.set(email,mockportfolio);
+ 
+    }
+  }
+
+}
+
   // getTempObject() :{[email:string]: Client}{
   // const temp :{[email :string] : Client} ={};
   // this.mockClientData.forEach((email,client)=>{
@@ -228,16 +259,4 @@ export class ClientService {
   // })
   // return temp;
   // }
-  // uniqueStruct = new Map<string , Client>(); //Unique structure which is combination of email id and identification value
-
-
-
-
-
-
-
-
-
-
-
-}
+  // uniqueStruct = new Map<string , Client>(); //Unique structure w}

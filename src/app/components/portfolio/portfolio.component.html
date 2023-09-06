@@ -12,10 +12,10 @@
             <th>External Type</th>
             <th>External ID</th>
             <th>Category</th>
-            <th>Price Timestamp</th>
             <th>Instrument Description</th>
             <th>Ask Price $</th>
             <th>Bid Price $</th>
+            <th>Current Holdings</th>
             <th>Profit / Loss %</th>
           </tr>
         </thead>
@@ -24,10 +24,10 @@
             <td>{{ portfolio.externalType }}</td>
             <td>{{ portfolio.externalId }}</td>
             <td>{{ portfolio.categoryId }}</td>
-            <td>{{ portfolio.priceTimestamp | date }}</td>
-            <td>{{ portfolio.instrumentDescription }}</td>
+            <td>{{ portfolio.instrumentDescription}}</td>
             <td>{{ portfolio.askPrice }}</td>
             <td>{{ portfolio.bidPrice }}</td>
+            <td>{{ portfolio.currentHoldings }}</td>
             <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
               {{ calculateProfitLossPercentage(portfolio) }}%
             </td>
