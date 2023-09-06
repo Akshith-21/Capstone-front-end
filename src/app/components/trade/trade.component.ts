@@ -24,12 +24,13 @@ export class TradeComponent implements OnInit {
   email: string | null = '';
   allPrices: Price[] = [];
   prices: Price[] = [];
-  instrumentType: string = '';
+  instrumentType: string = 'ALL';
   balance: number = 0;
-  direction = '';
+  direction = 'BUY';
   public portfolio:Portfolio[] = [];
   
   ngOnInit() {
+    this.fetchAllTrades();
     this.email = this.route.snapshot.paramMap.get('email');
     this.email = this.email?this.email:'';
     let b = this.clientTradeService.mockBalanceData.get(this.email);
@@ -90,9 +91,7 @@ export class TradeComponent implements OnInit {
   
   getBuyOrSellTrade(){
     if(this.direction =='BUY'){
-      let e = this.route.snapshot.paramMap.get('email');
-      this.email = e?e:'test@test.com';
-      this.fetchAllTrades(this.email);
+      this.fetchAllTrades();
     }
      else if(this.direction == 'SELL'){
       let e = this.route.snapshot.paramMap.get('email');
@@ -100,9 +99,7 @@ export class TradeComponent implements OnInit {
       this.fetchPortFolio(this.email);
     }
   }
-  fetchAllTrades(email:string){
-    this.email = this.route.snapshot.paramMap.get('email');
-    this.email = this.email?this.email:'test@test.com';
+  fetchAllTrades(){
     this.fmtsService.getAllPrices().subscribe(data => this.allPrices = this.prices = data);
   
     console.log(this.prices);
