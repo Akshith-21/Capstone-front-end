@@ -220,6 +220,15 @@ export class ClientService {
   }
 
   recordPortFolioData(email:string,portfolio:Portfolio){
+    let mockportfolio = this.mockPortfolioData.get(email);
+      mockportfolio = mockportfolio?mockportfolio:[];
+      let index = 0;
+      for(let portfolio1 of mockportfolio){
+        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){ 
+          portfolio1.currentHoldings = portfolio1.currentHoldings + portfolio.currentHoldings;
+          return;
+        }
+      }
     this.mockPortfolioData.get(email)?.push(portfolio);
   }
   recordSellTradePortfolio(email:string,portfolio:Portfolio,trade:Trade){
@@ -242,7 +251,7 @@ export class ClientService {
       let mockportfolio = this.mockPortfolioData.get(email);
       console.log("before" + mockportfolio)
       mockportfolio = mockportfolio?mockportfolio:[];
-      mockportfolio.splice(mockportfolio.indexOf(portfolio))
+      mockportfolio.splice(mockportfolio.indexOf(portfolio), 1)
       console.log(mockportfolio);
       this.mockPortfolioData.set(email,mockportfolio);
  
