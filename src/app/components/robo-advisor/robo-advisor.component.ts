@@ -56,7 +56,10 @@ export class RoboAdvisorComponent {
   buy(price: Price){
     
     this.dialog.open(BuyComponent,{
-      data: price,
+      data: {
+        price: price,
+        email:this.email
+      },
       width: '500px',
       height: '500px'
     });

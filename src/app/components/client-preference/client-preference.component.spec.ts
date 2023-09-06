@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 describe('ClientPreferenceComponent', () => {
   let component: ClientPreferencesComponent;
   let fixture: ComponentFixture<ClientPreferencesComponent>;
+  let riskTolerance:string =''
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

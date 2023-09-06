@@ -7,6 +7,8 @@ import { Portfolio } from '../models/portfolio.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Instrument } from '../models/instrument.model';
 import { Preferences } from '../models/preferences';
+import { Price } from '../models/price.model';
+import { Trade } from '../models/trade';
 
 @Injectable({
   providedIn: 'root'
@@ -205,15 +207,8 @@ export class ClientService {
     "instrumentDescription": "Berkshire Hathaway Inc. Class A",
     "maxQuantity": 10,
     "minQuantity": 1
-  }, {
-    "instrumentId": "N123789",
-    "externalIdType": "ISIN",
-    "externalId": "US0846707026",
-    "categoryId": "STOCK",
-    "instrumentDescription": "Berkshire Hathaway Inc. Class A",
-    "maxQuantity": 10,
-    "minQuantity": 1
-  }]
+  }}, 
+]
 
 
 

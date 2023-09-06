@@ -3,7 +3,7 @@
     
     <form #userDetail="ngForm">
         <div class="form-col">
-            <label class="full-width" for="Email">Email Address: </label>
+            <label id="#email" class="full-width" for="Email">Email Address: </label>
             <input type="email" #Email="ngModel" [class.is-invalid]="Email.invalid && Email.touched" required
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="Email"
             [(ngModel)]="this.person.email" id="Email" placeholder="Enter your Email Address"/>
