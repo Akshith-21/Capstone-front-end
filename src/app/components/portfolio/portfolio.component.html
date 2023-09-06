@@ -1,22 +1,21 @@
 <app-nav [email]='email'></app-nav>
 
 <div class="portfolio-container" >
-    <div class="header">
+    <header>
         <div class="slide-from-left">
           <h1>My Portfolio</h1>
         </div>
-      </div>
+      </header>
     <table>
         <thead>
           <tr>
             <th>External Type</th>
             <th>External ID</th>
             <th>Category</th>
-            <th>Price Timestamp</th>
             <th>Instrument Description</th>
             <th>Ask Price $</th>
             <th>Bid Price $</th>
-            <th> Quantity</th>
+            <th>Current Holdings</th>
             <th>Profit / Loss %</th>
           </tr>
         </thead>
@@ -25,11 +24,10 @@
             <td>{{ portfolio.externalType }}</td>
             <td>{{ portfolio.externalId }}</td>
             <td>{{ portfolio.categoryId }}</td>
-            <td>{{ portfolio.priceTimestamp | date }}</td>
-            <td>{{ portfolio.instrumentDescription }}</td>
+            <td>{{ portfolio.instrumentDescription}}</td>
             <td>{{ portfolio.askPrice }}</td>
             <td>{{ portfolio.bidPrice }}</td>
-            <td>{{ portfolio.quantity }}</td>
+            <td>{{ portfolio.currentHoldings }}</td>
             <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
               {{ calculateProfitLossPercentage(portfolio) }}%
             </td>

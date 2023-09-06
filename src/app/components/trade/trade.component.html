@@ -1,17 +1,21 @@
 <app-nav [email]="email"></app-nav>
 <br><br><br><br>
-<div>
-    <label>Category</label>
+<select [(ngModel)]="direction" (change)="getBuyOrSellTrade()">
+    <option value = "BUY">BUY</option>
+    <option value = "SELL">SELL</option>
+</select>
+<div *ngIf="direction == 'BUY'">
+    <label>Category
     <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
-        <option value="ALL">ALL</option>
+        <option value="ALL" selected>ALL</option>
         <option value="CD">CD</option>
         <option value="GOVT">GOV</option>
         <option value="STOCK">STOCK</option>
-    </select>
+    </select></label>
 
-    <span>Your Balance: {{balance}}</span>
+    <span> Your Balance: {{balance|currency}}</span>
     
-</div>
+
 
 <table>
     <tr>
@@ -28,9 +32,35 @@
         <td>{{price.instrument.minQuantity}}</td>
         <td>{{price.instrument.maxQuantity}}</td>
         <td>{{price.bidPrice}}</td>
-        <td><button (click)="buy(price)">Buy</button></td>
+        <td><button class="buy-btn" (click)="buy(price)">Buy</button></td>
     </tr>
 </table>
+</div>
+<div *ngIf="direction == 'SELL'">
+
+
+    <span>Your Balance: {{balance}}</span>
+    
+
+
+<table>
+    <tr>
+        <th>External ID</th>
+        <th>Instrument Description</th>
+        <th>Ask Price</th>
+        <th>currentHoldings</th>
+        <th>Control</th>
+    </tr>
+    <tr *ngFor="let portfolioMem of portfolio">
+        <td>{{portfolioMem.externalId}}</td>
+        <td>{{portfolioMem.instrumentDescription}}</td>
+        <td>{{portfolioMem.askPrice}}</td>
+        <td>{{portfolioMem.currentHoldings}}</td>
+        
+        <td><button class="sell-btn" (click) = "sell(portfolioMem)">SELL</button></td>
+    </tr>
+</table>
+</div>
 
 
 <!-- <div *ngIf="toBuy != undefined">Buy Form</div> -->

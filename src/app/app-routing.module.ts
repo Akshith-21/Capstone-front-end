@@ -10,6 +10,7 @@ import { TradeHistoryComponent } from './components/trade-history/trade-history.
 import { ClientPreferencesComponent } from './components/client-preference/client-preference.component';
 import { TradeComponent } from './components/trade/trade.component';
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
+import { ReportComponent } from './components/report/report.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'trade/:email', component:TradeComponent},
   {path:'landing-page' , component:LandingPageComponent},
   {path:'home-page/:email', component:HomePageComponent},
-  {path:'robo-advisor/:email',component:RoboAdvisorComponent}
+  {path:'robo-advisor/:email',component:RoboAdvisorComponent},
+  {path:'report/:email', component:ReportComponent}
 
 ];
 

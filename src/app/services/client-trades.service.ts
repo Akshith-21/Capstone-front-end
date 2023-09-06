@@ -42,12 +42,27 @@ export class ClientTradesService {
   recordTrade(email:string, trade: Trade) {
     let balance = this.mockBalanceData.get(email);
     balance = balance ? balance : 0;
+    if(trade.direction == 'BUY'){
     if(trade.cashValue <= balance) {
       this.mockBalanceData.set(email, balance-trade.cashValue);
       this.mockTradeHistoryData.get(email)?.push(trade);
     }
-    else
+    else {
       throw(new Error('Insufficient balance'));
   }
-
 }
+
+else{
+ 
+    this.mockBalanceData.set(email, balance+trade.cashValue);
+    this.mockTradeHistoryData.get(email)?.push(trade);
+}
+}
+
+
+  }
+
+  
+
+
+

@@ -26,6 +26,8 @@ import { BuyComponent } from './components/buy/buy.component'
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';;
 import { DialogModule } from 'primeng/dialog';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { ReportComponent } from './components/report/report.component';
+import { SellComponent } from './components/sell/sell.component';
 import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
 @NgModule({
@@ -43,7 +45,9 @@ import { RouterModule } from '@angular/router';
     TradeComponent,
     BuyComponent,
     RoboAdvisorComponent,
-    PopupComponent
+    PopupComponent,
+    ReportComponent,
+    SellComponent
   ],
   imports: [
     RouterModule.forRoot([]),

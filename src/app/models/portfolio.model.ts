@@ -12,8 +12,6 @@ export class Portfolio{
         public instrumentDescription:string,
         public bidPrice:number,
         public askPrice:number,
-        public quantity:number){
-
-    }
+        public currentHoldings:number){}
 
 }

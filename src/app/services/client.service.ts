@@ -7,7 +7,6 @@ import { Portfolio } from '../models/portfolio.model';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Instrument } from '../models/instrument.model';
 import { Preferences } from '../models/preferences';
-import { Price } from '../models/price.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,7 @@ export class ClientService {
   private riskValueSubject = ''; // Initial value
 
   isPortFolio: boolean = false
-  isLanding: boolean = false 
-
+  isLanding: boolean = false
 
 
   public mockClientData = new Map([
@@ -29,10 +27,10 @@ export class ClientService {
   public clientPreferences: Record<string,Preferences> = {
     "testp@testp.com": new Preferences("","","",""),
   }
-  mockPortfolioData: Map<string, Portfolio[]> = new Map([
-    ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,4),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,6)]],
-    ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23,2)]],
-    ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,3)]],
+  mockPortfolioData: Map<string, Portfolio[] | undefined> = new Map([
+    ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,1),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,1)]],
+    ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23,1)]],
+    ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,1)]],
   ]);
 
   mockRoboAdvisorDataH:Price[] = [
@@ -207,50 +205,23 @@ export class ClientService {
     "instrumentDescription": "Berkshire Hathaway Inc. Class A",
     "maxQuantity": 10,
     "minQuantity": 1
-    }
-    },
-    {
-    "askPrice": 95.92,
-    "bidPrice": 95.42,
-    "priceTimestamp": "21-AUG-19 10.00.02.042000000 AM GMT",
-    "instrument": {
-    "instrumentId": "C100",
-    "externalIdType": "CUSIP",
-    "externalId": "48123Y5A0",
-    "categoryId": "CD",
-    "instrumentDescription": "JPMorgan Chase Bank, National Association 01/19",
-    "maxQuantity": 1000,
-    "minQuantity": 100
-    }
-    },
-    {
-    "askPrice": 1.03375,
-    "bidPrice": 1.03390625,
-    "priceTimestamp": "21-AUG-19 10.00.02.000000000 AM GMT",
-    "instrument": {
-    "instrumentId": "T67890",
-    "externalIdType": "CUSIP",
-    "externalId": "9128285M8",
-    "categoryId": "GOVT",
-    "instrumentDescription": "USA, Note 3.125 15nov2028 10Y",
-    "maxQuantity": 10000,
-    "minQuantity": 100
-    }
-    },
-    {
-    "askPrice": 0.998125,
-    "bidPrice": 0.99828125,
-    "priceTimestamp": "21-AUG-19 10.00.02.002000000 AM GMT",
-    "instrument": {
-    "instrumentId": "T67894",
-    "externalIdType": "CUSIP",
-    "externalId": "9128285Z9",
-    "categoryId": "GOVT",
-    "instrumentDescription": "USA, Note 2.5 31jan2024 5Y",
-    "maxQuantity": 10000,
-    "minQuantity": 100
-    }
-    }]
+  }, {
+    "instrumentId": "N123789",
+    "externalIdType": "ISIN",
+    "externalId": "US0846707026",
+    "categoryId": "STOCK",
+    "instrumentDescription": "Berkshire Hathaway Inc. Class A",
+    "maxQuantity": 10,
+    "minQuantity": 1
+  }]
+
+
+
+
+
+
+
+
 
   getPortfolioData(email: string): Observable<Portfolio[] | undefined> {
     return of(this.mockPortfolioData.get(email))
@@ -292,9 +263,11 @@ export class ClientService {
 
   addClient(person: Person, clientIdentification: ClientIdentification) {
     this.mockClientData.set(person.email, new Client(person, new Set<ClientIdentification>([clientIdentification])));
-    console.log(this.mockClientData);
+    console.log('Inside Service add client'+this.mockClientData);
     this.clientTradesService.mockBalanceData.set(person.email, 1000000)
-    
+    this.clientTradesService.mockTradeHistoryData.set(person.email, []);
+    this.mockPortfolioData.set(person.email, []);
+    this.clientPreferences[person.email] = new Preferences('','','','');
   }
   generateUniqueId(userEmail: string): string {
     {
@@ -344,6 +317,47 @@ export class ClientService {
     return of(this.riskValueSubject);
   }
 
+  recordPortFolioData(email:string,portfolio:Portfolio){
+    let mockportfolio = this.mockPortfolioData.get(email);
+      mockportfolio = mockportfolio?mockportfolio:[];
+      let index = 0;
+      for(let portfolio1 of mockportfolio){
+        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){ 
+          portfolio1.currentHoldings = portfolio1.currentHoldings + portfolio.currentHoldings;
+          return;
+        }
+      }
+    this.mockPortfolioData.get(email)?.push(portfolio);
+  }
+  recordSellTradePortfolio(email:string,portfolio:Portfolio,trade:Trade){
+    if(portfolio.currentHoldings < trade.quantity){
+      throw(new Error("Quantity provided is greater than the current holding"))
+    }
+    else if(portfolio.currentHoldings - trade.quantity > 0){
+      let mockportfolio = this.mockPortfolioData.get(email);
+      mockportfolio = mockportfolio?mockportfolio:[];
+      for(let portfolio1 of mockportfolio){
+        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){
+          portfolio1.currentHoldings = portfolio.currentHoldings - trade.quantity;
+          
+          break;
+        }
+      }
+    }
+    else if(portfolio.currentHoldings - trade.quantity == 0){
+     
+      let mockportfolio = this.mockPortfolioData.get(email);
+      console.log("before" + mockportfolio)
+      mockportfolio = mockportfolio?mockportfolio:[];
+      mockportfolio.splice(mockportfolio.indexOf(portfolio), 1)
+      console.log(mockportfolio);
+      this.mockPortfolioData.set(email,mockportfolio);
+ 
+    }
+  }
+
+}
+
   // getTempObject() :{[email:string]: Client}{
   // const temp :{[email :string] : Client} ={};
   // this.mockClientData.forEach((email,client)=>{
@@ -354,16 +368,4 @@ export class ClientService {
   // })
   // return temp;
   // }
-  // uniqueStruct = new Map<string , Client>(); //Unique structure which is combination of email id and identification value
-
-
-
-
-
-
-
-
-
-
-
-}
+  // uniqueStruct = new Map<string , Client>(); //Unique structure w}

@@ -9,13 +9,10 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class NavComponent {
   @Input() email: any;
+  @Input() page: string = '';
   constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){;
   }
 
-  isHomeRoute:Boolean | undefined;
-  isLandingPageRoute:Boolean | undefined;
-  isPortfolioRoute: Boolean |undefined;
-  isTradingRoute:Boolean | undefined;
 
   onPreference(){
     this.router.navigate(['/preference',this.email])
@@ -27,10 +24,7 @@ export class NavComponent {
 
     
     this.route.url.subscribe((url)=>{
-      this.isHomeRoute=url[0].path==='home-page';
-      this.isLandingPageRoute=url[0].path==='landing-page';
-      this.isPortfolioRoute =url[0].path==='portfolio'
-      this.isTradingRoute=url[0].path==='trades'
+      this.page = url[0].path;
       
     })
     // console.log("RR" , this.isLandingPageRoute )
