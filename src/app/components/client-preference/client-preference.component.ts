@@ -54,7 +54,7 @@ interface InvestmentInterface {
   }
 
   setRiskTolerance(event:any){
-    console.log(this.selectedRiskTolerance);  
+    console.log("In pref ", this.selectedRiskTolerance);  
   }
   
   setIncomeCategory(event:any){
@@ -89,9 +89,11 @@ interface InvestmentInterface {
   }
 
   getRiskTolerance():string{
-    console.log("get risk tolerance");
-    console.log(this.selectedRiskTolerance.code)
+    // console.log("get risk tolerance");
+    // console.log(this.selectedRiskTolerance.code)
+    this.clientService.setRiskValue(this.selectedRiskTolerance.code)
     return this.selectedRiskTolerance.code;
+
 
   }
 
@@ -100,7 +102,7 @@ interface InvestmentInterface {
       {name:'0-1 years', code:'0-1 years'},
       {name:'1 years- 5 years', code:'1 years- 5 years'},
       {name:'more than 5 years', code:'more than 5 years'},
-    ];
+    ]
 
     this.riskToleranceOptions=[
       {name:'Low', code:'Low'},

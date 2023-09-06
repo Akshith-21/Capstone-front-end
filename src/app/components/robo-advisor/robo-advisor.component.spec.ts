@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RoboAdvisorComponent } from './robo-advisor.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RoboAdvisorComponent', () => {
   let component: RoboAdvisorComponent;
@@ -8,7 +9,9 @@ describe('RoboAdvisorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RoboAdvisorComponent ]
+      declarations: [ RoboAdvisorComponent ],
+      imports:[RouterTestingModule]
+
     })
     .compileComponents();
 

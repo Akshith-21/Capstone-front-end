@@ -11,7 +11,8 @@ export class Portfolio{
         public priceTimestamp:Date,
         public instrumentDescription:string,
         public bidPrice:number,
-        public askPrice:number){
+        public askPrice:number,
+        public quantity:number){
 
     }
 

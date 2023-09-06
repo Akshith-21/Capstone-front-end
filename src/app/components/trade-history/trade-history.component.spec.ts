@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TradeHistoryComponent } from './trade-history.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('TradeHistoryComponent', () => {
   let component: TradeHistoryComponent;
@@ -8,7 +9,7 @@ describe('TradeHistoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TradeHistoryComponent ]
+      declarations: [ TradeHistoryComponent ],
     })
     .compileComponents();
 

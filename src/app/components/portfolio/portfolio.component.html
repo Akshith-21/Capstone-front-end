@@ -16,6 +16,7 @@
             <th>Instrument Description</th>
             <th>Ask Price $</th>
             <th>Bid Price $</th>
+            <th> Quantity</th>
             <th>Profit / Loss %</th>
           </tr>
         </thead>
@@ -28,6 +29,7 @@
             <td>{{ portfolio.instrumentDescription }}</td>
             <td>{{ portfolio.askPrice }}</td>
             <td>{{ portfolio.bidPrice }}</td>
+            <td>{{ portfolio.quantity }}</td>
             <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
               {{ calculateProfitLossPercentage(portfolio) }}%
             </td>
