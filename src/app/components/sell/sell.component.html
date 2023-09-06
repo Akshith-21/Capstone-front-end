@@ -2,13 +2,25 @@
 <div class="main_form">
     <h4>ID: {{data.portfolio.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.portfolio.categoryId}}</h4>
     <h1>{{data.portfolio.instrumentDescription}}</h1>
-    <h2>Price:<span id="price"> {{data.portfolio.askPrice}} </span></h2>
+    <h2>Price:<span id="price"> {{data.portfolio.askPrice | currency}} </span></h2>
+    <h3 [ngClass]="{'profit': isProfit(data.portfolio), 'loss': !isProfit(data.portfolio)}">
+        Profit/Loss: {{calculateProfitLossPercentage(data.portfolio)}}% &nbsp;&nbsp; 
+        <span *ngIf="trade.quantity>0">Amount Gain or Loss: {{profitamt | currency}}</span>
+    </h3>
+    <!-- <div> -->
+        <!-- <h3 *ngIf="trade.quantity>0"> 
+    </div> -->
+
     <form>
-        <label for="quantity">Quantity
-            <input type="number" name="quantity" #input1  [(ngModel)]="trade.quantity" (change) = "trade.cashValue = trade.quantity*(data.portfolio.askPrice)"/>
+        <label for="quantity">Quantity (Your Holdings: {{data.portfolio.currentHoldings}})
+            <input type="number" name="quantity" class = "form-control" #quantity = "ngModel"  [(ngModel)]="trade.quantity" (ngModelChange) = "trade.cashValue = trade.quantity*(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
+            <!-- <div *ngIf="quantity.dirty">
+                "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"
+            </div> -->
+            <!-- <span id="price"> {{data.portfolio.currentHoldings}}</span> -->
         </label>
         <label for="total">Total Trade Value
-            <input type="number" name="total" #input2 [(ngModel)]="trade.cashValue" (change) = "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"/>
+            <input type="number" name="total"  #input2 [(ngModel)]="trade.cashValue" (ngModelChange) = "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
         </label>
         <button (click)="sell()">SELL</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
