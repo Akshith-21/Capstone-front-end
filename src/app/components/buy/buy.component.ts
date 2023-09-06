@@ -20,20 +20,22 @@ export class BuyComponent {
     private route: ActivatedRoute,
     private dialogRef: MatDialogRef<BuyComponent>, 
     // private router: Router,
-    @Inject(MAT_DIALOG_DATA) public price?: Price
+    @Inject(MAT_DIALOG_DATA) public data?: any
   ) { }
   trade: Trade = new Trade(0, 0, 'BUY', '', '', '', 0);
   buy() {
-    let email = this.route.snapshot.paramMap.get('email') || 'test@test.com';
-    console.log(this.price);
+    // let email = this.route.snapshot.paramMap.get('email');
+    // email = email?email:"Null";
+    console.log('Price inside buy', this.data.price);
+    console.log('Email inside buy', this.data.email)
     try{
-      let id = this.price?.instrument.externalId;
+      let id = this.data.price.instrument.externalId;
       this.trade.instrumentId = id?id:'';
-      let p = this.price?.bidPrice;
+      let p = this.data.price.bidPrice;
       this.trade.executionPrice = p?p:0;
-      this.clientTradesService.recordTrade(email, this.trade);
+      this.clientTradesService.recordTrade(this.data.email, this.trade);
       this.errorMessage = '';
-      console.log(this.clientTradesService.mockBalanceData.get(email));
+      console.log('Balance inside buy', this.clientTradesService.mockBalanceData.get(this.data.email));
       // this.router.navigateByUrl('/trade/'+email)
       this.dialogRef.close({data: 'Refresh'});
       

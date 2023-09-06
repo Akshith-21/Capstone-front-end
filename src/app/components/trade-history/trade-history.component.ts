@@ -19,6 +19,7 @@ export class TradeHistoryComponent {
 
   ngOnInit() {
     let e = this.route.snapshot.paramMap.get('email');
+    console.log('inside trade history ' + e);
     this.email = e?e:'test@test.com';
     this.fetchAllTrades(this.email);
   }
