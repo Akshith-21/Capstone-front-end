@@ -258,6 +258,15 @@ export class ClientService {
     }
   }
 
+  isProfit(portfolios:Portfolio): boolean {
+    return portfolios.askPrice >= portfolios.bidPrice;
+  }
+  
+  calculateProfitLossPercentage(portfolios:Portfolio): string {
+    return ((portfolios.askPrice - portfolios.bidPrice) / portfolios.bidPrice * 100).toFixed(2);
+  }
+ 
+
 }
 
   // getTempObject() :{[email:string]: Client}{

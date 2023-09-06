@@ -26,6 +26,8 @@ export class SellComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ){ }
   trade: Trade = new Trade(0, 0, 'SELL', '', '', '', 0);
+  isprofit: boolean = false;
+  profitamt = 0;
   // portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
   sell() {
     try{
@@ -45,4 +47,14 @@ export class SellComponent {
       
     }
   }
+  isProfit(portfolio:Portfolio):boolean{
+  return this.clientService.isProfit(portfolio)
+  }
+  calculateProfitLossPercentage(portfolio:Portfolio):string {
+    return this.clientService.calculateProfitLossPercentage(portfolio);
+  }
+  calculateAmount(){
+    this.profitamt = this.trade.quantity*(this.data.portfolio.askPrice - this.data.portfolio.bidPrice);
+  }
+
 }
