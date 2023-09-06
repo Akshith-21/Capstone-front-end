@@ -23,34 +23,20 @@ export class SellComponent {
     private dialogRef: MatDialogRef<SellComponent>,
     private clientService: ClientService, 
     // private router: Router,
-    @Inject(MAT_DIALOG_DATA) public portfolio: Portfolio
+    @Inject(MAT_DIALOG_DATA) public data: any
   ){ }
   trade: Trade = new Trade(0, 0, 'SELL', '', '', '', 0);
   // portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
   sell() {
-    let email = this.route.snapshot.paramMap.get('email') || 'test@test.com';
-    console.log(this.portfolio);
     try{
-      console.log(this.portfolio);
-      let id = this.portfolio.externalId;
+      console.log(this.data.portfolio);
+      let id = this.data.portfolio.externalId;
       this.trade.instrumentId = id;
-      let p = this.portfolio.askPrice;
+      let p = this.data.portfolio.askPrice;
       this.trade.executionPrice = p;
-      this.clientTradesService.recordTrade(email,this.trade);
-      this.clientService.recordSellTradePortfolio(email,this.portfolio,this.trade);
+      this.clientTradesService.recordTrade(this.data.email,this.trade);
+      this.clientService.recordSellTradePortfolio(this.data.email,this.data.portfolio,this.trade);
       console.log(this.trade);
-      // this.portFolio.externalId = id;
-      // this.portFolio.externalType = this.price.instrument.externalIdType;
-      // this.portFolio.categoryId = this.price.instrument.categoryId;
-      // this.portFolio.priceTimestamp = this.price.priceTimestamp;
-      // this.portFolio.instrumentDescription = this.price.instrument.instrumentDescription;
-      // this.portFolio.askPrice = this.price.askPrice;
-      // this.portFolio.bidPrice = this.price.bidPrice;
-      // this.clientService.recordPortFolioData(email,this.portFolio);
-      // this.clientTradesService.recordTrade(email, this.trade);
-      // this.errorMessage = '';
-      // console.log(this.clientTradesService.mockBalanceData.get(email) + "*********************");
-      // // this.router.navigateByUrl('/trade/'+email)
       this.dialogRef.close({data: 'Refresh'});
       
     }

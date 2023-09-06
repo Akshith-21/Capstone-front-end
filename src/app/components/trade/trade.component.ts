@@ -71,7 +71,10 @@ export class TradeComponent implements OnInit {
   sell(portfolio: Portfolio){
     
     this.dialog.open(SellComponent,{
-      data: portfolio,
+      data: {
+        portfolio: portfolio,
+        email: this.email
+      },
       width: '500px',
       height: '500px'
     });

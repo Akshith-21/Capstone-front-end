@@ -1,14 +1,14 @@
 
 <div class="main_form">
-    <h4>ID: {{portfolio.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{portfolio.categoryId}}</h4>
-    <h1>{{portfolio.instrumentDescription}}</h1>
-    <h2>Price:<span id="price"> {{portfolio.askPrice}} </span></h2>
+    <h4>ID: {{data.portfolio.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.portfolio.categoryId}}</h4>
+    <h1>{{data.portfolio.instrumentDescription}}</h1>
+    <h2>Price:<span id="price"> {{data.portfolio.askPrice}} </span></h2>
     <form>
         <label for="quantity">Quantity
-            <input type="number" name="quantity" #input1  [(ngModel)]="trade.quantity" (change) = "trade.cashValue = trade.quantity*(portfolio.askPrice)"/>
+            <input type="number" name="quantity" #input1  [(ngModel)]="trade.quantity" (change) = "trade.cashValue = trade.quantity*(data.portfolio.askPrice)"/>
         </label>
         <label for="total">Total Trade Value
-            <input type="number" name="total" #input2 [(ngModel)]="trade.cashValue" (change) = "trade.quantity  = trade.cashValue/(portfolio.askPrice)"/>
+            <input type="number" name="total" #input2 [(ngModel)]="trade.cashValue" (change) = "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"/>
         </label>
         <button (click)="sell()">SELL</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
