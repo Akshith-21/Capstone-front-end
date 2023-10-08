@@ -30,6 +30,7 @@ import { ReportComponent } from './components/report/report.component';
 import { SellComponent } from './components/sell/sell.component';
 import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     RouterModule.forRoot([]),
+    MatSnackBarModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

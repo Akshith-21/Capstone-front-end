@@ -7,6 +7,7 @@ import { Trade } from 'src/app/models/trade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
 import { Portfolio } from 'src/app/models/portfolio.model';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-buy',
@@ -18,6 +19,7 @@ export class BuyComponent {
   errorMessage: string = '';
 
   constructor(
+    private snackBar: MatSnackBar,
     private clientTradesService: ClientTradesService, 
     private route: ActivatedRoute,
     private dialogRef: MatDialogRef<BuyComponent>,
@@ -51,6 +53,15 @@ export class BuyComponent {
       console.log('Balance inside buy', this.clientTradesService.mockBalanceData.get(this.data.email));
       // this.router.navigateByUrl('/trade/'+email)
       this.dialogRef.close({data: 'Refresh'});
+      const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+      const verticalPosition:MatSnackBarVerticalPosition ='top';
+      this.snackBar.open('Buy was successful!', 'Close', {
+        duration: 5000,
+        horizontalPosition,
+        verticalPosition,
+        panelClass: ['custom-snackbar'], // Apply custom style
+      });
+  
       
     }
     catch(e) {

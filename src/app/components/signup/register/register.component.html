@@ -27,7 +27,7 @@
             <option value="Ireland"> Ireland</option>
         </select>
         <div class="danger full-width"></div>
-        <p>Already a User? <a routerLink="/login">Login Here</a></p>
+        <p *ngIf="!emailExist">Already a User? <a routerLink="/login">Login Here</a></p>
 
     </div>
     <div class="form-col">
@@ -47,12 +47,13 @@
         <div class="danger"></div> 
         
         
-        <button [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "verifyEmailAndIdentification()">Register</button>
+        <button [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "addClient()">Register</button>
     </div>
 </form>
 
     <div style="height: 20px;">
-        <p *ngIf="emailexist">Your E-mail id or identification number already exists Please <a routerLink="/login">Sign In here</a></p>
+        <p *ngIf="emailExist">Your E-mail id or identification number already exists Please <a routerLink="/login">Login here</a></p>
         <p *ngIf="emailCheck">Successfully Registered.</p>
     </div>
+    
 </div>

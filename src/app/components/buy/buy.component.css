@@ -91,3 +91,9 @@ button:hover {
 a {
     text-decoration: none;
 }
+
+.custom-snackbar {
+    background-color: green; /* Change to your desired background color */
+    color: white; /* Change to your desired text color */
+    text-align: center;
+  }
