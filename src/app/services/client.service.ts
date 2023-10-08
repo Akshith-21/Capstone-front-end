@@ -9,13 +9,17 @@ import { Instrument } from '../models/instrument.model';
 import { Preferences } from '../models/preferences';
 import { Price } from '../models/price.model';
 import { Trade } from '../models/trade';
+import { HttpClient } from '@angular/common/http';
+import { LoginRequest } from '../models/loginRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ClientService {
-  constructor(private clientTradesService: ClientTradesService) {}
+  private baseUrl ='http://localhost:8080/client';
+
+  constructor(private clientTradesService: ClientTradesService, private http:HttpClient) {}
   private riskValueSubject = ''; // Initial value
 
   isPortFolio: boolean = false
@@ -254,16 +258,25 @@ export class ClientService {
     return false;
   }
 
+   addClient(clientData:any){
+    console.log("In serv", clientData);
+      return this.http.post(`${this.baseUrl}/register`, clientData)
+   }
 
+   loginClient( loginRequest:LoginRequest){
+   
+      console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
+      return this.http.post(`${this.baseUrl}/login`, loginRequest)
+   }
 
-  addClient(person: Person, clientIdentification: ClientIdentification) {
-    this.mockClientData.set(person.email, new Client(person, new Set<ClientIdentification>([clientIdentification])));
-    console.log('Inside Service add client'+this.mockClientData);
-    this.clientTradesService.mockBalanceData.set(person.email, 1000000)
-    this.clientTradesService.mockTradeHistoryData.set(person.email, []);
-    this.mockPortfolioData.set(person.email, []);
-    this.clientPreferences[person.email] = new Preferences('','','','');
-  }
+  // addClient(person: Person, clientIdentification: ClientIdentification) {
+  //   this.mockClientData.set(person.email, new Client(person, new Set<ClientIdentification>([clientIdentification])));
+  //   console.log('Inside Service add client'+this.mockClientData);
+  //   this.clientTradesService.mockBalanceData.set(person.email, 1000000)
+  //   this.clientTradesService.mockTradeHistoryData.set(person.email, []);
+  //   this.mockPortfolioData.set(person.email, []);
+  //   this.clientPreferences[person.email] = new Preferences('','','','');
+  // }
   generateUniqueId(userEmail: string): string {
     {
       const timestamp = Date.now().toString(36);
