@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { LoginRequest } from 'src/app/models/loginRequest';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -21,14 +22,16 @@ export class LoginComponent {
       pswd: inputPswd,
     };
     this.clientServices.loginClient(loginRequest).subscribe({
-      next: (response) => {
-        console.log(response,"Response of login:");
+      next: (response:ClientCredentials) => {
+        console.log(response.clientId,"Response CLIENT ID of login:");
         this.router.navigate(['home-page', inputEmail])
+        this.clientServices.setCreds(response);
        
       },
-      error:(error) =>{
-          if(error.status===400){
-            alert('Invalid Credentials')
+      error:(error:any) =>{
+          if(error.status===400)
+          {
+            alert("Invalid credentials");
           }
       }
     });
