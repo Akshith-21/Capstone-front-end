@@ -34,11 +34,11 @@ export class ClientService {
   public clientPreferences: Record<string,Preferences> = {
     "testp@testp.com": new Preferences("","","",""),
   }
-  mockPortfolioData: Map<string, Portfolio[] | undefined> = new Map([
-    ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,1),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,1)]],
-    ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23,1)]],
-    ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,1)]],
-  ]);
+  // mockPortfolioData: Map<string, Portfolio[] | undefined> = new Map([
+  //   ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,1),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,1)]],
+  //   ["riti@gmail.com", [new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin',800,23,1)]],
+  //   ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,1)]],
+  // ]);
 
   mockRoboAdvisorDataH:Price[] = [
     {
@@ -223,9 +223,6 @@ export class ClientService {
 
 
 
-  getPortfolioData(email: string): Observable<Portfolio[] | undefined> {
-    return of(this.mockPortfolioData.get(email))
-  }
 
   checkUniqueIdentification(idn: string, idnset: Set<ClientIdentification>): boolean {
     for (let clientIdentification of idnset) {
@@ -274,6 +271,10 @@ export class ClientService {
          this.authCreds = response;
    }
 
+   getCreds() {
+    return this.authCreds;
+   }
+
    
 
 
@@ -306,44 +307,44 @@ export class ClientService {
     return of(this.riskValueSubject);
   }
 
-  recordPortFolioData(email:string,portfolio:Portfolio){
-    let mockportfolio = this.mockPortfolioData.get(email);
-      mockportfolio = mockportfolio?mockportfolio:[];
-      let index = 0;
-      for(let portfolio1 of mockportfolio){
-        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){ 
-          portfolio1.currentHoldings = portfolio1.currentHoldings + portfolio.currentHoldings;
-          return;
-        }
-      }
-    this.mockPortfolioData.get(email)?.push(portfolio);
-  }
-  recordSellTradePortfolio(email:string,portfolio:Portfolio,trade:Trade){
-    if(portfolio.currentHoldings < trade.quantity){
-      throw(new Error("Quantity provided is greater than the current holding"))
-    }
-    else if(portfolio.currentHoldings - trade.quantity > 0){
-      let mockportfolio = this.mockPortfolioData.get(email);
-      mockportfolio = mockportfolio?mockportfolio:[];
-      for(let portfolio1 of mockportfolio){
-        if(portfolio1.instrumentDescription === portfolio.instrumentDescription){
-          portfolio1.currentHoldings = portfolio.currentHoldings - trade.quantity;
+  // recordPortFolioData(email:string,portfolio:Portfolio){
+  //   let mockportfolio = this.mockPortfolioData.get(email);
+  //     mockportfolio = mockportfolio?mockportfolio:[];
+  //     let index = 0;
+  //     for(let portfolio1 of mockportfolio){
+  //       if(portfolio1.instrumentDescription === portfolio.instrumentDescription){ 
+  //         portfolio1.currentHoldings = portfolio1.currentHoldings + portfolio.currentHoldings;
+  //         return;
+  //       }
+  //     }
+  //   this.mockPortfolioData.get(email)?.push(portfolio);
+  // }
+  // recordSellTradePortfolio(email:string,portfolio:Portfolio,trade:Trade){
+  //   if(portfolio.currentHoldings < trade.quantity){
+  //     throw(new Error("Quantity provided is greater than the current holding"))
+  //   }
+  //   else if(portfolio.currentHoldings - trade.quantity > 0){
+  //     let mockportfolio = this.mockPortfolioData.get(email);
+  //     mockportfolio = mockportfolio?mockportfolio:[];
+  //     for(let portfolio1 of mockportfolio){
+  //       if(portfolio1.instrumentDescription === portfolio.instrumentDescription){
+  //         portfolio1.currentHoldings = portfolio.currentHoldings - trade.quantity;
           
-          break;
-        }
-      }
-    }
-    else if(portfolio.currentHoldings - trade.quantity == 0){
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   else if(portfolio.currentHoldings - trade.quantity == 0){
      
-      let mockportfolio = this.mockPortfolioData.get(email);
-      console.log("before" + mockportfolio)
-      mockportfolio = mockportfolio?mockportfolio:[];
-      mockportfolio.splice(mockportfolio.indexOf(portfolio), 1)
-      console.log(mockportfolio);
-      this.mockPortfolioData.set(email,mockportfolio);
+  //     let mockportfolio = this.mockPortfolioData.get(email);
+  //     console.log("before" + mockportfolio)
+  //     mockportfolio = mockportfolio?mockportfolio:[];
+  //     mockportfolio.splice(mockportfolio.indexOf(portfolio), 1)
+  //     console.log(mockportfolio);
+  //     this.mockPortfolioData.set(email,mockportfolio);
  
-    }
-  }
+  //   }
+  // }
 
   isProfit(portfolios:Portfolio): boolean {
     return portfolios.askPrice >= portfolios.bidPrice;

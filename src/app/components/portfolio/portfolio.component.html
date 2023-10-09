@@ -1,4 +1,4 @@
-<app-nav [email]='email'></app-nav>
+<app-nav></app-nav>
 
 <div class="portfolio-container" >
     <header>
@@ -11,7 +11,7 @@
           <tr>
             <th>External Type</th>
             <th>External ID</th>
-            <th>Category</th>
+            <!-- <th>Category</th> -->
             <th>Instrument Description</th>
             <th>Ask Price $</th>
             <th>Bid Price $</th>
@@ -23,7 +23,7 @@
           <tr *ngFor="let portfolio of portfolios">
             <td>{{ portfolio.externalType }}</td>
             <td>{{ portfolio.externalId }}</td>
-            <td>{{ portfolio.categoryId }}</td>
+            <!-- <td>{{ portfolio.categoryId }}</td> -->
             <td>{{ portfolio.instrumentDescription}}</td>
             <td>{{ portfolio.askPrice }}</td>
             <td>{{ portfolio.bidPrice }}</td>

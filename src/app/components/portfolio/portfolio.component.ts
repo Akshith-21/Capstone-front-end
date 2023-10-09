@@ -3,6 +3,8 @@ import { ClientService } from 'src/app/services/client.service';
 import { NavComponent } from '../nav/nav.component';
 import { ActivatedRoute } from '@angular/router';
 import { Portfolio } from 'src/app/models/portfolio.model';
+import { ClientCredentials } from 'src/app/models/ClientCredentials';
+import { ClientTradesService } from 'src/app/services/client-trades.service';
 @Component({
   selector: 'app-portfolio',
   templateUrl: 'portfolio.component.html',
@@ -12,19 +14,19 @@ export class PortfolioComponent implements OnInit {
 
  
 
-  email:any = '';
+  // authCreds: ClientCredentials | undefined;
   portfolios:Portfolio[] | undefined =[]
-  constructor(private route:ActivatedRoute, public clientService: ClientService) { }
+  constructor(public clientTradeService: ClientTradesService) { }
   ngOnInit() {
-    this.email = this.route.snapshot.paramMap.get('email');
-    this.getPortfolioData(this.email)
+    // this.authCreds = this.clientService.getCreds();
+    this.getPortfolioData();
   }
 
  
 
-  getPortfolioData(email:string){
-    this.clientService.getPortfolioData(email).subscribe((data) =>{
-      this.portfolios =data;
+  getPortfolioData(){
+    this.clientTradeService.getPortfolioData().subscribe((data) =>{
+      this.portfolios = data;
       console.log("Portfolio", this.portfolios)
     })
 

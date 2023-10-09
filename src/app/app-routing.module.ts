@@ -17,14 +17,14 @@ const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
   {path:'login' , component:LoginComponent},
   {path:'register' , component:RegisterComponent},
-  {path:'preference/:email' , component:ClientPreferencesComponent},
-  {path:'portfolio/:email' , component:PortfolioComponent},
-  {path: 'trade-history/:email', component:TradeHistoryComponent},
-  {path: 'trade/:email', component:TradeComponent},
+  {path:'preference' , component:ClientPreferencesComponent},
+  {path:'portfolio' , component:PortfolioComponent},
+  {path: 'trade-history', component:TradeHistoryComponent},
+  {path: 'trade', component:TradeComponent},
   {path:'landing-page' , component:LandingPageComponent},
-  {path:'home-page/:email', component:HomePageComponent},
-  {path:'robo-advisor/:email',component:RoboAdvisorComponent},
-  {path:'report/:email', component:ReportComponent}
+  {path:'home-page', component:HomePageComponent},
+  {path:'robo-advisor',component:RoboAdvisorComponent},
+  {path:'report', component:ReportComponent}
 
 ];
 

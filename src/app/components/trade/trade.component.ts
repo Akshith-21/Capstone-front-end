@@ -8,6 +8,7 @@ import { BuyComponent } from '../buy/buy.component';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { ClientService } from 'src/app/services/client.service';
 import { SellComponent } from '../sell/sell.component';
+import { Balance } from 'src/app/models/balance';
 
 @Component({
   selector: 'app-trade',
@@ -21,7 +22,6 @@ export class TradeComponent implements OnInit {
     private dialog: MatDialog,
     private clientService:ClientService
   ){}
-  email: string | null = '';
   allPrices: Price[] = [];
   prices: Price[] = [];
   instrumentType: string = 'ALL';
@@ -30,12 +30,26 @@ export class TradeComponent implements OnInit {
   public portfolio:Portfolio[] = [];
   
   ngOnInit() {
+    this.fetchPortFolio();
     this.fetchAllTrades();
-    this.email = this.route.snapshot.paramMap.get('email');
-    this.email = this.email?this.email:'';
-    let b = this.clientTradeService.mockBalanceData.get(this.email);
-    this.balance= b?b:0;
+    // let b = this.clientTradeService.getBalance();
+    // this.balance= b?b:0;
     console.log('Prices: ', this.prices);
+  }
+
+  fetchBalance() {
+    this.clientTradeService.getBalance().subscribe({
+      next: (response:Balance) => {
+        console.log(response.balance,"Response balance:");
+        this.balance = response.balance;
+      },
+      error:(error:any) =>{
+          if(error.status===400)
+          {
+            alert("Invalid credentials");
+          }
+      }
+    });
   }
 
   filterPrices(){
@@ -54,8 +68,7 @@ export class TradeComponent implements OnInit {
     this.dialog.open(BuyComponent,{
       
       data: {
-        price: price,
-        email: this.email
+        price: price
       },
       width: '500px',
       height: '500px'
@@ -65,16 +78,15 @@ export class TradeComponent implements OnInit {
       // console.log(res);
       this.ngOnInit();
     })
-    this.email = this.email?this.email:'test@test.com';
-    console.log('Balance', this.clientTradeService.mockBalanceData.get(this.email));
+    // this.email = this.email?this.email:'test@test.com';
+    console.log('Balance', this.clientTradeService.getBalance());
     // this.toBuy = price;
   }
   sell(portfolio: Portfolio){
     
     this.dialog.open(SellComponent,{
       data: {
-        portfolio: portfolio,
-        email: this.email
+        portfolio: portfolio
       },
       width: '500px',
       height: '500px'
@@ -84,8 +96,8 @@ export class TradeComponent implements OnInit {
       // console.log(res);
       this.ngOnInit();
     })
-    this.email = this.email?this.email:'test@test.com';
-    console.log('Balance', this.clientTradeService.mockBalanceData.get(this.email));
+    // this.email = this.email?this.email:'test@test.com';
+    console.log('Balance', this.clientTradeService.getBalance());
     // this.toBuy = price;
   }
   
@@ -95,8 +107,8 @@ export class TradeComponent implements OnInit {
     }
      else if(this.direction == 'SELL'){
       let e = this.route.snapshot.paramMap.get('email');
-      this.email = e?e:'test@test.com';
-      this.fetchPortFolio(this.email);
+      // this.email = e?e:'test@test.com';
+      this.fetchPortFolio();
     }
   }
   fetchAllTrades(){
@@ -105,7 +117,7 @@ export class TradeComponent implements OnInit {
     console.log(this.prices);
   }
 
-    fetchPortFolio(email:string) {
-      this.clientService.getPortfolioData(email).subscribe((data)=>this.portfolio = data?data:this.portfolio);
+    fetchPortFolio() {
+      this.clientTradeService.getPortfolioData().subscribe((data)=>this.portfolio = data?data:this.portfolio);
     }
 }

@@ -1,26 +1,26 @@
 
 <div class="main_form">
-    <h4>ID: {{data.portfolio.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.portfolio.categoryId}}</h4>
+    <h4>{{data.portfolio.externalType}}: {{data.portfolio.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.portfolio.categoryId}}</h4>
     <h1>{{data.portfolio.instrumentDescription}}</h1>
     <h2>Price:<span id="price"> {{data.portfolio.askPrice | currency}} </span></h2>
     <h3 [ngClass]="{'profit': isProfit(data.portfolio), 'loss': !isProfit(data.portfolio)}">
         Profit/Loss: {{calculateProfitLossPercentage(data.portfolio)}}% &nbsp;&nbsp; 
-        <span *ngIf="trade.quantity>0">Amount Gain or Loss: {{profitamt | currency}}</span>
+        <span *ngIf="order.quantity>0">Amount Gain or Loss: {{profitamt | currency}}</span>
     </h3>
-    <!-- <div> -->
-        <!-- <h3 *ngIf="trade.quantity>0"> 
-    </div> -->
 
     <form>
         <label for="quantity">Quantity (Your Holdings: {{data.portfolio.currentHoldings}})
-            <input type="number" name="quantity" class = "form-control" #quantity = "ngModel"  [(ngModel)]="trade.quantity" (ngModelChange) = "trade.cashValue = trade.quantity*(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
+            <input type="number" name="quantity" class = "form-control" #quantity = "ngModel"  [(ngModel)]="order.quantity" (ngModelChange) = "cashValue = order.quantity*(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
             <!-- <div *ngIf="quantity.dirty">
                 "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"
             </div> -->
             <!-- <span id="price"> {{data.portfolio.currentHoldings}}</span> -->
         </label>
+        <label for="target">Target Price
+            <input type="number" name="target" #input2 [(ngModel)]="order.targetPrice" (change) = "cashValue = order.quantity * order.targetPrice"/>
+        </label>
         <label for="total">Total Trade Value
-            <input type="number" name="total"  #input2 [(ngModel)]="trade.cashValue" (ngModelChange) = "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
+            <input disabled type="number" name="total"  #input3 [(ngModel)]="cashValue"/>
         </label>
         <button (click)="sell()">SELL</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>

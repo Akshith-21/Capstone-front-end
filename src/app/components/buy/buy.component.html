@@ -1,13 +1,16 @@
 <div class="main_form">
-    <h4>ID: {{data.price.instrument?.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.price.instrument?.categoryId}}</h4>
+    <h4>{{data.price.instrument.externalIdType}}: {{data.price.instrument?.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.price.instrument?.categoryId}}</h4>
     <h1>{{data.price?.instrument?.instrumentDescription}}</h1>
     <h2>Price:<span id="price"> {{data.price?.bidPrice | currency}}</span></h2>
     <form>
         <label for="quantity">Quantity
-            <input type="number" name="quantity" #input1 [(ngModel)]="trade.quantity" [(ngModel)]="portFolio.currentHoldings" (change) = "trade.cashValue = trade.quantity*(data.price?data.price.bidPrice:0)"/>
+            <input type="number" name="quantity" min="{{data.price.instrument.minQuantity}}" max="{{data.price.instrument.maxQuantity}}" #input1 [(ngModel)]="order.quantity" (change) = "cashValue = order.quantity*(data.price?data.price.bidPrice:0)"/>
+        </label>
+        <label for="target">Target Price
+            <input type="number" name="target" #input2 [(ngModel)]="order.targetPrice" (change) = "cashValue = order.quantity * order.targetPrice"/>
         </label>
         <label for="total">Total Trade Value
-            <input type="number" name="total" #input2 [(ngModel)]="trade.cashValue" (change) = "trade.quantity  = trade.cashValue/(data.price?data.price.bidPrice:0)"/>
+            <input disabled type="number" name="total" #input3 [(ngModel)]="cashValue"/>
         </label>
         <button (click)="buy()">Buy</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>

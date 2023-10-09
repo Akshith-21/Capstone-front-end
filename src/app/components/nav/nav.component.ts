@@ -8,21 +8,18 @@ import { ClientService } from 'src/app/services/client.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  @Input() email: any;
   @Input() page: string = '';
   constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){;
   }
 
 
   onPreference(){
-    this.router.navigate(['/preference',this.email])
+    this.router.navigate(['/preference'])
   }
 
   
   currentUrl: any;
   ngOnInit(){
-
-    
     this.route.url.subscribe((url)=>{
       this.page = url[0].path;
       

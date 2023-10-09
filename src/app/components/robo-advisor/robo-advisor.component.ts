@@ -101,7 +101,7 @@ export class RoboAdvisorComponent {
   }
 
     fetchPortFolio(email:string) {
-      this.clientService.getPortfolioData(email).subscribe((data)=>{this.portfolio = data?data:this.portfolio;
+      this.clientTradeService.getPortfolioData().subscribe((data)=>{this.portfolio = data?data:this.portfolio;
         console.log(this.portfolio+"******")
       });
     }

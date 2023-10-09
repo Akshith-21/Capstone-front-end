@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { LoginRequest } from 'src/app/models/loginRequest';
+import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent {
   password:string='';
   errorMessage:string='';
   emailForm: any;
-  constructor(private clientServices:ClientService,private router:Router ){}
+  constructor(private clientServices:ClientService,private clientTradesService:ClientTradesService, private router: Router ){}
 
   login(inputEmail:string , inputPswd:string){
     const loginRequest: LoginRequest = {
@@ -24,8 +25,9 @@ export class LoginComponent {
     this.clientServices.loginClient(loginRequest).subscribe({
       next: (response:ClientCredentials) => {
         console.log(response.clientId,"Response CLIENT ID of login:");
-        this.router.navigate(['home-page', inputEmail])
         this.clientServices.setCreds(response);
+        this.clientTradesService.setCreds(response);
+        this.router.navigate(['home-page'])
        
       },
       error:(error:any) =>{

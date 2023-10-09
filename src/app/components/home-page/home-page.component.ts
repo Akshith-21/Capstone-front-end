@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { ClientService } from 'src/app/services/client.service';
 import { FmtsService } from 'src/app/services/fmts.service';
@@ -11,19 +12,15 @@ import { FmtsService } from 'src/app/services/fmts.service';
 })
 export class HomePageComponent {
 
-  @Input() email: any;
-  constructor(private clientService:ClientService,private  route:ActivatedRoute,private fmts:FmtsService){
-    this.route.params.subscribe(params => {
-      const email = params['email'];
-    })
-  }
+  authCreds: ClientCredentials | undefined;
+  constructor(private clientService: ClientService, private fmts: FmtsService) {  }
 
-  demo:Portfolio[]=[];
+  demo: Portfolio[] = [];
 
 
   ngOnInit() {
-    this.email = this.route.snapshot.paramMap.get('email');
-    console.log("home", this.email)
+    this.authCreds = this.clientService.getCreds();
+    console.log("cred", this.authCreds);
     // this.getPriceData();
     // this.getAllInstruments();
     // this.getGovtPrice();
@@ -36,7 +33,7 @@ export class HomePageComponent {
   //     this.demo = val;
   //     console.log("fmts Price Data", this.demo)
   //   },}); 
-   
+
   // }
   // getGovtPrice(){
   //   this.fmts.getGovtPrice().subscribe({next: (val:any) => {
@@ -44,7 +41,7 @@ export class HomePageComponent {
   //     this.demo = val;
   //     console.log("fmts Govt Price Data", this.demo)
   //   },}); 
-   
+
   // }
   // getAllInstruments(){
   //   this.fmts.getAllInstruments().subscribe({next: (val:any) => {
@@ -52,7 +49,7 @@ export class HomePageComponent {
   //     this.demo = val;
   //     console.log("fmts Instrument Data", this.demo)
   //   },}); 
-   
+
   // }
   // getStockInstrument(){
   //   this.fmts.getStockInstrument().subscribe({next: (val:any) => {

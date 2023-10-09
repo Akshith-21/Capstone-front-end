@@ -18,7 +18,7 @@ export class TradeHistoryComponent {
   public email: string | undefined = '';
 
   fetchAllTrades(email: string) {
-    this.clientTradesService.geTradeHistoryData(email).subscribe(data => this.trades = data);
+    this.clientTradesService.geTradeHistoryData().subscribe(data => this.trades = data);
     console.log(this.trades);
   }
 
