@@ -12,6 +12,7 @@ import { Trade } from '../models/trade';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../models/loginRequest';
 import { ClientCredentials } from '../models/ClientCredentials';
+import { PreferencesRequest } from '../models/PreferencesRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -256,15 +257,20 @@ export class ClientService {
     return false;
   }
 
-   addClient(clientData:any){
+   addClient(clientData:any) : Observable<ClientCredentials>{
     console.log("In serv", clientData);
-      return this.http.post(`${this.baseUrl}/register`, clientData)
+      return this.http.post<ClientCredentials>(`${this.baseUrl}/register`, clientData)
    }
 
    loginClient( loginRequest:LoginRequest):Observable<ClientCredentials>{
    
       console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
       return this.http.post<ClientCredentials>(`${this.baseUrl}/login`, loginRequest)
+   }
+
+   setPreferences(preferencesRequest:PreferencesRequest, clientId:string):Observable<String>{
+    console.log("preferences received are: "+ preferencesRequest);
+    return this.http.post<String>(`${this.baseUrl}/preferences/setPreferences?clientId=`+clientId, preferencesRequest);
    }
 
    setCreds(response:ClientCredentials){

@@ -1,11 +1,156 @@
-.home-page {
-    background-image: url('/FidElite/src/assets/bg.jpg'); /* Replace 'path-to-your-image.jpg' with the actual image file path */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    /* Additional background properties and styles as needed */
-  }
- 
+a {
+  text-decoration: none;
+}
+
+input{
+  width: 40%;
+  height: 30%;
+  margin-top: 10px;
+  border-color: rgb(0, 156, 0);
+  border-radius: 5px;
+  padding: 10px;
   
+}
+
+.section-1 {
+  background-color: #00a63a;
+  color: #fff;
+  height: 90vh; /* Full viewport height */
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  /* text-align: center; */
+  transition: transform 0.5s ease; /* Add animation transition */
+  background-image: linear-gradient(to bottom, #00a63a);
+}
+
+.sub-section-1 {
+  width: 65%;
+}
+.sub-section-2 {
+  width: 30%;
+}
+
+.typed-text {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .10em solid rgb(255, 255, 255); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 150px auto 0 65px; /*Gives that scrolling effect as the typing happens */
+  letter-spacing: .10em; /* Adjust as needed */
+  /* font-weight: bold; */
+  /* height: 27px; */
+  width: 760px;
+  height: 45px;
+  font-size: 2.5em;
+  font-family: "Century Gothic", 'Lato', sans-serif;
+  animation: 
+    typing 3s steps(50, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 40 }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(255, 255, 255);}
+}
+
+.section-2 {
+  /* background-color: #00a63a; */
+  background-color: #333;
+  color: #ffffffc2;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transition: transform 0.5s ease; /* Add animation transition */
+  background-image: linear-gradient(to bottom, #00a63a);
+}
+
+.section-2 .header {
+  font-size: 2.7em;
+  letter-spacing: 0.1em;
+  margin: 75px auto 0 auto;
+}
+
+.section-2 .content {
+  font-size: 1.5em;
+  letter-spacing: 0.07em;
+  /* text-align: justify; */
+  width: 80%;
+  margin: auto;
+  /* margin-top: 20px; */
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: row;
+  margin: 75px;
+}
+
+.cards-columns {
+  /* background-color: #ffffffb9; */
+  flex: 1;
+  /* border: 5px solid green; */
   
-  
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  background-color: #ffffff31;
+}
+
+.cards div {
+  flex: 1;
+}
+
+/* Footer styles */
+.footer {
+  /* background-color: #333; */
+  background-color: #00a63a;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+}
+
+/* Add animation class for scrolling */
+.scrolled {
+  transform: translateY(-100%); /* Move the green section above the viewport */
+}
+
+
+.btn {
+  margin-top: 125px;
+  text-align: left;
+  padding-left: 40px;
+  margin-left: 65px;
+  width: 450px;
+  height: 120px;
+  /* border-radius: 20px 0 0 20px; */
+  border: 0px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  background-color: #333;
+  color: #fff;
+  transition: all 0.1s;
+  font-size: 1.2em;
+}
+
+.btn:hover {
+  cursor: pointer;
+  transition: all 0.1s;
+
+  background-color: #242424;
+}
+
+
+

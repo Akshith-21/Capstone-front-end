@@ -32,6 +32,7 @@ export class TradeComponent implements OnInit {
   ngOnInit() {
     this.fetchPortFolio();
     this.fetchAllTrades();
+    this.fetchBalance();
     // let b = this.clientTradeService.getBalance();
     // this.balance= b?b:0;
     console.log('Prices: ', this.prices);
@@ -70,7 +71,7 @@ export class TradeComponent implements OnInit {
       data: {
         price: price
       },
-      width: '500px',
+      width: '600px',
       height: '500px'
     });
     this.dialog.afterAllClosed.subscribe((res) => {
@@ -88,7 +89,7 @@ export class TradeComponent implements OnInit {
       data: {
         portfolio: portfolio
       },
-      width: '500px',
+      width: '600px',
       height: '500px'
     });
     this.dialog.afterAllClosed.subscribe((res) => {

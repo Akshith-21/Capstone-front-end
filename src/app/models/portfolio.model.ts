@@ -8,12 +8,13 @@ export class Portfolio{
     constructor( 
         public externalType:string,
         public externalId:string,
-        // public categoryId:string,
+        public categoryType:string,
         public priceTimestamp:Date,
         public instrumentDescription:string,
         public bidPrice:number,
         public askPrice:number,
         public currentHoldings:number,
-        public instrumentId: string
+        public instrumentId: string,
+        public totalInvestment: number
     ){}
 }

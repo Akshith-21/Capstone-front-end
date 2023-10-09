@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit{
-  @Input() email?:string;
+  // @Input() email?:string;
   acceptTerms:boolean = false;
   continue:boolean = false;
 
@@ -20,7 +20,7 @@ export class PopupComponent implements OnInit{
 
   onContinueClick(){
     if(this.acceptTerms){
-      this.router.navigate(['/home-page',this.email]);
+      this.router.navigate(['/home-page']);
 
     }
     else{

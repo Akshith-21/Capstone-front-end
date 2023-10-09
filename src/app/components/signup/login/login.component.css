@@ -1,11 +1,25 @@
+.main {
+    height: 100vh;
+    border: solid;
+    /* background-color: #00a63a56; */
+    background-image: url("https://pixabay.com/get/g8c767a1d0041d39b33283aa1d57d123da763c09a85b4dc7be58dbb4535bf6598a05a81d8dcdd875fd8e9bc15921a1407c58da77ff9ca7458bf19bd186f47fb42_1280.png"), url("https://pixabay.com/get/g8c767a1d0041d39b33283aa1d57d123da763c09a85b4dc7be58dbb4535bf6598a05a81d8dcdd875fd8e9bc15921a1407c58da77ff9ca7458bf19bd186f47fb42_1280.png");;
+    background-size: 30%;
+    background-repeat: repeat-y;
+    background-position: left, right;
+    /* background-image: linear-gradient(to bottom, #00a63a); */
+}
+
 .main_form {
     margin: 80px auto;
     width: 30%;
     box-shadow: 0 0 40px rgb(190, 190, 190);
+    /* box-shadow: 0 0 40px rgb(44, 44, 44); */
+
     padding: 20px;
     border-radius: 25px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
 }
 
 .error {

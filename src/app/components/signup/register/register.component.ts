@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientIdentification } from 'src/app/models/clientIdentification';
 import { Person } from 'src/app/models/person';
+import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
 
@@ -14,7 +15,7 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class RegisterComponent {
 
-  constructor(private clientService: ClientService, private router:Router) {}
+  constructor(private clientService: ClientService, private clientTradesService: ClientTradesService, private router:Router) {}
   
   public idTypes = new Map([
     ['', []],
@@ -57,8 +58,19 @@ export class RegisterComponent {
         this.emailCheck=true;
         if (this.emailCheck) {
           const email = clientData.person.email; 
-          console.log("in existCheck", email);   
-             this.router.navigate(['/preference', email]); 
+          console.log("in existCheck", email);
+          this.clientService.setCreds(response);
+        this.clientTradesService.setCreds(response);
+
+
+          console.log("Fetching creds after register: "+this.clientService.getCreds());
+          setTimeout(function(){
+            console.log("waited for: " + 1 + " seconds");
+            // repeat();
+            // this.router.navigate(['/preference']); 
+
+          }, 1000);
+          this.router.navigate(['/preference']); 
         }
       },
       error: (error) => {

@@ -33,7 +33,7 @@ export class SellComponent {
   isprofit: boolean = false;
   profitamt = 0;
   cashValue: number = 0;
-  portFolio: Portfolio = new Portfolio("","",new Date(),"",0,0,0,"");
+  portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0,"",0);
   sell() {
     console.log('Portfolio inside sell', this.data.portfolio);
     this.order.instrumentId = this.data.portfolio.instrumentId;

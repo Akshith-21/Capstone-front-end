@@ -4,6 +4,7 @@ import {SelectItem } from 'primeng/api';
 import { Preferences } from 'src/app/models/preferences';
 import { ClientService } from 'src/app/services/client.service';
 import { Location } from '@angular/common';
+import { PreferencesRequest } from 'src/app/models/PreferencesRequest';
  
 
  
@@ -23,22 +24,22 @@ interface InvestmentInterface {
  export class ClientPreferencesComponent implements OnInit{
   showPopup = false;
   roboAdvisorCheckBox:any;
+  clientId: string = "";
 
   togglePopup(){
     this.showPopup = !this.showPopup;
-    this.clientService.clientPreferences[this.email] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+    let id = this.clientService.getCreds()?.clientId;
+    this.clientId = id?id:"0";
+    this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
     console.log("current client preferences", this.clientService.clientPreferences)
     this.getRiskTolerance();
+    this.preferences();
   }
    currentPreferences = new Preferences("","","","");
 
-  @Input() email!: any;
+  // @Input() email!: any;
   riskValue: string='';
-  constructor(private clientService:ClientService,private  route:ActivatedRoute, private location: Location, private router:Router){
-    this.route.params.subscribe(params => {
-    this.email = params['email'];
-    })
-  }
+  constructor(private clientService:ClientService,private  route:ActivatedRoute, private location: Location, private router:Router){  }
 
   investmentPurpose:string = "";
   selectedRiskTolerance!:InvestmentInterface;
@@ -80,13 +81,16 @@ interface InvestmentInterface {
 
   setExistingOptions() {
     
-    if (this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].riskTolerance != '' && this.clientService.clientPreferences[this.email].incomeCategory != '' && this.clientService.clientPreferences[this.email].lengthOfInvestment != '') {
-      this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].riskTolerance)!
-      this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code ===this.clientService.clientPreferences[this.email].incomeCategory)!
-      this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.email].lengthOfInvestment)!;
-      this.investmentPurpose = this.clientService.clientPreferences[this.email].investmentPurpose;
-    }
+    if (this.clientService.clientPreferences[this.clientId].riskTolerance != ''  && this.clientService.clientPreferences[this.clientId].incomeCategory != '' && this.clientService.clientPreferences[this.clientId].lengthOfInvestment != '') {
+      console.log("inside if");
+      console.log(this.clientService.clientPreferences[this.clientId].riskTolerance);
+      this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === this.clientService.clientPreferences[this.clientId].riskTolerance)!
+      this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code ===this.clientService.clientPreferences[this.clientId].incomeCategory)!
+      this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.clientId].lengthOfInvestment)!;
+      this.investmentPurpose = this.clientService.clientPreferences[this.clientId].investmentPurpose;
+    // }
   }
+}
 
   getRiskTolerance():string{
     // console.log("get risk tolerance");
@@ -94,6 +98,30 @@ interface InvestmentInterface {
     this.clientService.setRiskValue(this.selectedRiskTolerance.code)
     return this.selectedRiskTolerance.code;
 
+
+  }
+
+  preferences(){
+    const preferencesRequest: PreferencesRequest = {
+     investmentPurpose : this.investmentPurpose,
+     riskTolerance:this.selectedRiskTolerance.name,
+     lengthOfInvestment: this.selectedLengthOfInvestment.name,
+     incomeCategory: this.selectedIncomeCategory.name,
+     roboAdvisor: this.roboAdvisorCheckBox
+    };
+    this.clientService.setPreferences(preferencesRequest, this.clientId).subscribe({
+      next: (response:String) => {
+        console.log(response+"Response of preferences:");
+       // this.router.navigate(['home-page', inputEmail])
+       // this.clientService.setCreds(response);
+      },
+      error:(error:any) =>{
+          if(error.status===400)
+          {
+            alert("Invalid credentials");
+          }
+      }
+    });
 
   }
 

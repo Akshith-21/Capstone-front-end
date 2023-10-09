@@ -54,11 +54,12 @@ export class ClientTradesService {
 
 
   getPortfolioData(): Observable<Portfolio[]> {
+    console.log("hey, this is inside getportfolio: " + this.authCreds?.clientId);
     return this.http.get<Portfolio[]>(`${this.baseUrl}/portfolio/${this.authCreds?.clientId}`);
   }
 
   geTradeHistoryData(): Observable<Trade[]> {
-    return this.http.get<Trade[]>(`${this.baseUrl}/history/${this.authCreds?.clientId}`);
+    return this.http.get<Trade[]>(`${this.baseUrl}/fetchtrade/${this.authCreds?.clientId}`);
   }
 
   executeTrade(order:Order) {

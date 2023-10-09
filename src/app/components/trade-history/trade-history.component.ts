@@ -17,18 +17,13 @@ export class TradeHistoryComponent {
   public trades: Trade[] | undefined = [];
   public email: string | undefined = '';
 
-  fetchAllTrades(email: string) {
+  fetchAllTrades() {
     this.clientTradesService.geTradeHistoryData().subscribe(data => this.trades = data);
     console.log(this.trades);
   }
 
   ngOnInit() {
-    
-    let e = this.route.snapshot.paramMap.get('email');
-    console.log('inside trade history ' + e);
-    this.email = e?e:'test@test.com';
-    console.log(this.email + "*************");
-    this.fetchAllTrades(this.email);
+    this.fetchAllTrades();
   }
 
 

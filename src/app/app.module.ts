@@ -31,6 +31,9 @@ import { SellComponent } from './components/sell/sell.component';
 import { RouterTestingHarness, RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { NgApexchartsModule } from "ng-apexcharts";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +69,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     MatDialogModule,
     DialogModule,
-    RouterTestingModule
+    RouterTestingModule,
+    CanvasJSAngularChartsModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

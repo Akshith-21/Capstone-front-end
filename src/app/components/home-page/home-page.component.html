@@ -1,1 +1,69 @@
 <app-nav></app-nav>
+  
+  <div class="section-1">
+    <div class="sub-section-1">
+        <div class="typed-text">
+        Welcome back, let's start investing.
+        </div>
+        <div>
+        <button data-aos="fade-up" data-aos-duration="2000" class="btn" routerLink="/portfolio"
+            style="letter-spacing: 0.05em;"><p style="font-size: 1.2em; margin-bottom: 10px;">Account Value: {{investedValue | currency}}</p><p>Invested Amount: {{investedAmt | currency}}</p></button>
+        <button data-aos="fade-up" data-aos-duration="2000" class="btn" routerLink="/trade"
+            style="letter-spacing: 0.05em;"><p style="font-size: 1.2em; margin-bottom: 10px;">Balance: {{balance | currency}}</p><p>(Available to invest)</p></button>
+        </div>
+    </div>
+    <div class="sub-section-2">
+        <!-- <apx-chart
+            [series]="chartOptions.series"
+  ></apx-chart> -->
+        <!-- <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>  -->
+    </div>
+  </div>
+  
+  <div class="section-2">
+    <div data-aos="fade-up" data-aos-duration="1000">
+      <p class="header">Invest with <i>FidElite</i></p>
+      <!-- <p class="content">Online platform to invest in stocks, bonds, and more</p> -->
+    </div>
+    <div class="cards-container">
+      <div class="cards-columns">
+        <div class="cards" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-center"
+          data-aos-offset="-100">
+          <div>
+            <img style="height: 150px; margin: 50px;" src="../../assets/earning.png">
+            <p class="content">Invest in stocks, bonds, and more.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cards-columns">
+        <div class="cards" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-center"
+          data-aos-delay="200" data-aos-offset="-100">
+          <div>
+            <img style="height: 150px; margin: 50px;" src="../../assets/pie-chart.png">
+            <p class="content">Watch your money grow with useful charts and insights.</p>
+          </div>
+          
+        </div>
+  
+      </div>
+      <div class="cards-columns">
+        <div class="cards" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="top-center"
+          data-aos-delay="400" data-aos-offset="-100">
+          <div>
+            <img style="height: 150px; margin: 50px;" src="../../assets/robot.png">
+            <p class="content"><i>RoboAdvisor</i> helps you make better financial decisions.</p>
+          </div>
+        
+        </div>
+  
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <p>&copy; 2023 FidElite. All rights reserved.</p>
+    </div>
+  </footer>

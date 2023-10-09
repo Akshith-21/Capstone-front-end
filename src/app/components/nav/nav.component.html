@@ -1,6 +1,6 @@
 <!-- <router-outlet></router-outlet> -->
 <nav class="nav-tabs-container">
-    <span class="nav-logo">FidElite</span>
+    <a class="nav-logo" routerLink="/home-page">FidElite</a>
     <!-- <span class="nav-space"></span> -->
     <a [ngClass]="{'selected' : page == 'trade-history'}" class="nav-tab" routerLink="/trade-history">Trade History</a>
     <a [ngClass]="{'selected' : page == 'trade'}" class="nav-tab" routerLink="/trade">Buy and Sell</a>
