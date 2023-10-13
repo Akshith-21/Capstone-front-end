@@ -27,24 +27,24 @@
                 <tr>
                     <!-- <th>External ID</th> -->
                     <th>Instrument Description</th>
-                    <th>Min Qty.</th>
-                    <th>Max Qty.</th>
-                    <th>Bid Price</th>
+                    <th style="text-align: center;">Min Qty.</th>
+                    <th style="text-align: center;">Max Qty.</th>
+                    <th style="text-align: right;">Bid Price</th>
                     <!-- <th>Control</th> -->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let price of prices" (click)="buy(price)">
                     <!-- <td>{{price.instrument.externalId}}</td> -->
-                    <td>
+                    <td style="max-width: 50%;">
                         <div class="banner {{price.instrument.categoryId | lowercase}}">
                             {{price.instrument.categoryId}}
                         </div>
                         {{price.instrument.instrumentDescription}}
                     </td>
-                    <td>{{price.instrument.minQuantity}}</td>
-                    <td>{{price.instrument.maxQuantity}}</td>
-                    <td>${{price.bidPrice}}</td>
+                    <td style="text-align: center;">{{price.instrument.minQuantity}}</td>
+                    <td style="text-align: center;">{{price.instrument.maxQuantity}}</td>
+                    <td style="text-align: right;">${{price.bidPrice}}</td>
                     <!-- <td><button class="buy-btn" (click)="buy(price)">Buy</button></td> -->
                 </tr>
             </tbody>
