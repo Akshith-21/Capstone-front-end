@@ -1,36 +1,112 @@
 
+.main {
+    margin: 120px auto;
+    padding: 40px;
+    width: 55%;
+    min-height: 500px;
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 header {
     color: black;
-    margin-top: 100px;
-    padding: 10px;
+    font-size: 1.6em;
+    letter-spacing: 0.2em;
+    /* margin-top: 20px; */
+    /* padding: 40px; */
     text-align: center;
+    display: flex;
+    flex-direction: row;
 }
-div {
-    text-align: center;
+
+.toggle {
+    width: 50%;
+    /* border: 1px solid black; */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+    padding: 20px;
 }
+
+.toggle:hover {
+    cursor: pointer;
+    /* color:white; */
+    background-color: rgba(0, 0, 0, 0.075);
+    transition: all 0.1s ease;
+}
+
+.selected-buy {
+    border-bottom: 5px solid rgb(0, 156, 0);
+}
+
+.selected-sell {
+    border-bottom: 5px solid rgb(156, 0, 0);
+}
+
+.filter {
+    display: flex;
+    flex-direction: row;
+    letter-spacing: 0.075em;
+}
+
+.filter-child {
+    height: 80px;
+    padding: 10px; 
+    width: 50%; 
+    display: flex; 
+    font-size: 1.2em;
+    /* justify-content: left;  */
+    align-items: center;
+}
+
 table {
-    width: 60%;
+    width: 100%;
     border-collapse: collapse;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    letter-spacing: 0.075em;
     margin: 20px auto;
 }
-th, td {
-    padding: 10px;
+td {
+    padding: 20px 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
-thead {
-    background-color: #f2f2f2;
-}
 
 th {
-    background-color: #4CAF50;
-    color: white;
+    padding: 0px 10px 20px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-tr:hover {
+
+
+tbody tr:hover {
     background-color: #f5f5f5;
+    cursor: pointer;
 }
+
+.banner {
+    color: white;
+    width: 60px;
+    padding: 2px;
+    font-size: smaller;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.stock {
+    background-color: rgb(24, 57, 202);
+
+}
+
+.cd {
+    background-color: rgb(101, 24, 202);
+}
+
+.govt {
+    background-color: rgb(24, 160, 202);
+}
+
 .profit {
     color: green; /* Green color for profit */
 }
@@ -79,8 +155,7 @@ input:hover, select:hover {
 
 select {
     padding: 5px 10px;
-    margin-top: 30px;
-    width: 80px;
+    width: 100px;
     border: 1px solid grey;
     border-radius: 5px;
     transition: all 0.1s;

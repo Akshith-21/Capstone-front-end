@@ -60,16 +60,17 @@ export class RegisterComponent {
           const email = clientData.person.email; 
           console.log("in existCheck", email);
           this.clientService.setCreds(response);
-        this.clientTradesService.setCreds(response);
+          this.clientTradesService.setCreds(response);
+          console.log("Creds set: ", this.clientTradesService.authCreds);
 
 
-          console.log("Fetching creds after register: "+this.clientService.getCreds());
-          setTimeout(function(){
-            console.log("waited for: " + 1 + " seconds");
-            // repeat();
-            // this.router.navigate(['/preference']); 
+          // console.log("Fetching creds after register: "+this.clientService.getCreds());
+          // setTimeout(function(){
+          //   console.log("waited for: " + 1 + " seconds");
+          //   // repeat();
+          //   // this.router.navigate(['/preference']); 
 
-          }, 1000);
+          // }, 1000);
           this.router.navigate(['/preference']); 
         }
       },

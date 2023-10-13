@@ -1,71 +1,80 @@
 <app-nav></app-nav>
-<header>
-    <div>
-      <h1>Buy & Sell</h1>
+<div class="main">
+    <header>
+        <div (click)="direction = 'BUY'" (ngModelClick)="getBuyOrSellTrade()" class="toggle buy"
+            [ngClass]="{'selected-buy' : direction == 'BUY'}">Buy</div>
+        <div (click)="direction = 'SELL'" (ngModelClick)="getBuyOrSellTrade()" class="toggle sell"
+            [ngClass]="{'selected-sell' : direction == 'SELL'}">Sell</div>
+    </header>
+    <!-- <br><hr> -->
+    <div *ngIf="direction == 'BUY'">
+        <div class="filter">
+            <div class="filter-child" style="justify-content: left;">Remaining Balance: &nbsp;<b style="font-size: larger;">{{balance|currency}}</b></div>
+            <label class="filter-child" style="justify-content: right;">
+                Category: &nbsp;
+                <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
+                    <option value="ALL" selected>ALL</option>
+                    <option value="CD">CD</option>
+                    <option value="GOVT">GOVT</option>
+                    <option value="STOCK">STOCK</option>
+                </select>
+            </label>
+        </div>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <!-- <th>External ID</th> -->
+                    <th>Instrument Description</th>
+                    <th>Min Qty.</th>
+                    <th>Max Qty.</th>
+                    <th>Bid Price</th>
+                    <!-- <th>Control</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let price of prices" (click)="buy(price)">
+                    <!-- <td>{{price.instrument.externalId}}</td> -->
+                    <td>
+                        <div class="banner {{price.instrument.categoryId | lowercase}}">
+                            {{price.instrument.categoryId}}
+                        </div>
+                        {{price.instrument.instrumentDescription}}
+                    </td>
+                    <td>{{price.instrument.minQuantity}}</td>
+                    <td>{{price.instrument.maxQuantity}}</td>
+                    <td>${{price.bidPrice}}</td>
+                    <!-- <td><button class="buy-btn" (click)="buy(price)">Buy</button></td> -->
+                </tr>
+            </tbody>
+        </table>
     </div>
-</header>
-<div style="margin: auto;"><label>Trade Type: &nbsp;
-    <select [(ngModel)]="direction" (ngModelChange)="getBuyOrSellTrade()">
-        <option value = "BUY">BUY</option>
-        <option value = "SELL">SELL</option>
-    </select>
-</label></div>
-<div *ngIf="direction == 'BUY'">
-    <label style="text-align: left; margin-right: 550px;">Category &nbsp;
-    <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
-        <option value="ALL" selected>ALL</option>
-        <option value="CD">CD</option>
-        <option value="GOVT">GOV</option>
-        <option value="STOCK">STOCK</option>
-    </select></label>
-    <span style="text-align: right;"> Your Balance: {{balance|currency}}</span>
-    
+    <div *ngIf="direction == 'SELL'" style="margin: 40px;">
 
 
-<table>
-    <tr>
-        <th>External ID</th>
-        <th>Instrument Description</th>
-        <th>Min Qty.</th>
-        <th>Max Qty.</th>
-        <th>Bid Price</th>
-        <th>Control</th>
-    </tr>
-    <tr *ngFor="let price of prices">
-        <td>{{price.instrument.externalId}}</td>
-        <td>{{price.instrument.instrumentDescription}}</td>
-        <td>{{price.instrument.minQuantity}}</td>
-        <td>{{price.instrument.maxQuantity}}</td>
-        <td>{{price.bidPrice}}</td>
-        <td><button class="buy-btn" (click)="buy(price)">Buy</button></td>
-    </tr>
-</table>
+        <span>Your Balance: {{balance | currency}}</span>
+
+
+
+        <table>
+            <tr>
+                <th>External ID</th>
+                <th>Instrument Description</th>
+                <th>Ask Price</th>
+                <th>currentHoldings</th>
+                <th>Control</th>
+            </tr>
+            <tr *ngFor="let portfolioMem of portfolio">
+                <td>{{portfolioMem.externalId}}</td>
+                <td>{{portfolioMem.instrumentDescription}}</td>
+                <td>{{portfolioMem.askPrice | currency}}</td>
+                <td>{{portfolioMem.currentHoldings}}</td>
+
+                <td><button class="sell-btn" (click)="sell(portfolioMem)">SELL</button></td>
+            </tr>
+        </table>
+    </div>
+
 </div>
-<div *ngIf="direction == 'SELL'" style="margin: 40px;">
-
-
-    <span>Your Balance: {{balance | currency}}</span>
-    
-
-
-<table>
-    <tr>
-        <th>External ID</th>
-        <th>Instrument Description</th>
-        <th>Ask Price</th>
-        <th>currentHoldings</th>
-        <th>Control</th>
-    </tr>
-    <tr *ngFor="let portfolioMem of portfolio">
-        <td>{{portfolioMem.externalId}}</td>
-        <td>{{portfolioMem.instrumentDescription}}</td>
-        <td>{{portfolioMem.askPrice | currency}}</td>
-        <td>{{portfolioMem.currentHoldings}}</td>
-        
-        <td><button class="sell-btn" (click) = "sell(portfolioMem)">SELL</button></td>
-    </tr>
-</table>
-</div>
-
-
 <!-- <div *ngIf="toBuy != undefined">Buy Form</div> -->

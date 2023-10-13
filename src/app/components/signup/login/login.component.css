@@ -2,10 +2,10 @@
     height: 100vh;
     border: solid;
     /* background-color: #00a63a56; */
-    background-image: url("https://pixabay.com/get/g8c767a1d0041d39b33283aa1d57d123da763c09a85b4dc7be58dbb4535bf6598a05a81d8dcdd875fd8e9bc15921a1407c58da77ff9ca7458bf19bd186f47fb42_1280.png"), url("https://pixabay.com/get/g8c767a1d0041d39b33283aa1d57d123da763c09a85b4dc7be58dbb4535bf6598a05a81d8dcdd875fd8e9bc15921a1407c58da77ff9ca7458bf19bd186f47fb42_1280.png");;
-    background-size: 30%;
+    background-image: url("/assets/Money.png");
+    background-size: 35%;
     background-repeat: repeat-y;
-    background-position: left, right;
+    background-position: left;
     /* background-image: linear-gradient(to bottom, #00a63a); */
 }
 
