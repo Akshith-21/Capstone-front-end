@@ -2,9 +2,9 @@
 <nav class="nav-tabs-container">
     <a class="nav-logo" routerLink="/home-page">FidElite</a>
     <!-- <span class="nav-space"></span> -->
-    <a [ngClass]="{'selected' : page == 'trade-history'}" class="nav-tab" routerLink="/trade-history">Trade History</a>
     <a [ngClass]="{'selected' : page == 'trade'}" class="nav-tab" routerLink="/trade">Buy and Sell</a>
     <a [ngClass]="{'selected' : page == 'portfolio'}" class="nav-tab" routerLink="/portfolio">Portfolio</a>
+    <a [ngClass]="{'selected' : page == 'trade-history'}" class="nav-tab" routerLink="/trade-history">Trade History</a>
     <a [ngClass]="{'selected' : page == 'preferences'}" class="nav-tab" (click)="onPreference()">Preferences</a>
     <a [ngClass]="{'selected' : page == 'robo-advisor'}" class="nav-tab" routerLink="/robo-advisor">Robo Advisor</a>
     <a [ngClass]="{'selected' : page == 'report'}" class="nav-tab" routerLink="/report">Reports</a>
