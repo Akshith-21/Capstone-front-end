@@ -24,9 +24,9 @@ a {
     justify-content: center;
     align-items: center;
     flex: 0 0 1;
-    color: #000;
+    color: rgb(0, 156, 0);
     letter-spacing: 0.2rem;
-    font-size: 1.2rem;
+    font-size: 1.5em;
     font-style: italic;
 }
 
@@ -150,9 +150,9 @@ input{
 .cards {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 400px;
-    margin: auto;
+    width: 350px;
+    height: 350px;
+    margin: 0 auto;
     background-color: #ffffff31;
 }
 

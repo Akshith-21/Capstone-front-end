@@ -16,9 +16,11 @@ export class PortfolioComponent implements OnInit {
  
 
   // authCreds: ClientCredentials | undefined;
-  portfolios: Portfolio[] | undefined =[]
+  portfolios: Portfolio[] = [];
   balance: number = 0;
   clientId: string | undefined = '';
+  investedAmt: number = 0;
+  investedValue: number = 0;
 
   constructor(public clientTradeService: ClientTradesService) { }
 
@@ -42,7 +44,7 @@ export class PortfolioComponent implements OnInit {
     this.getPortfolioData();
     this.fetchBalance();
     this.clientId = this.clientTradeService.authCreds?.clientId;
-    
+
   }
 
  
@@ -50,16 +52,33 @@ export class PortfolioComponent implements OnInit {
   getPortfolioData(){
     this.clientTradeService.getPortfolioData().subscribe((data) =>{
       this.portfolios = data;
-      console.log("Portfolio", this.portfolios)
+      console.log("Portfolio", this.portfolios);
+      this.calculateInvestments();
     })
 
   }
-  isProfit(portfolios:Portfolio): boolean {
+
+  calculateInvestments() {
+    this.portfolios.forEach((p) => {
+      this.investedAmt += p.totalInvestment;
+      this.investedValue += p.askPrice * p.currentHoldings;
+    })
+  }
+
+  isGain(portfolios:Portfolio): boolean {
     return portfolios.askPrice >= portfolios.bidPrice;
   }
   
-  calculateProfitLossPercentage(portfolios:Portfolio): string {
+  calculateGain(portfolio: Portfolio) :string {
+    return (portfolio.askPrice - portfolio.bidPrice).toFixed(2);
+  }
+
+  calculateGainPercentage(portfolios:Portfolio): string {
     return ((portfolios.askPrice - portfolios.bidPrice) / portfolios.bidPrice * 100).toFixed(2);
+  }
+
+  isProfit(portfolio:Portfolio): boolean {
+    return portfolio.askPrice * portfolio.currentHoldings > portfolio.totalInvestment;
   }
  
 

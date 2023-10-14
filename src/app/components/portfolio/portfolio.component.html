@@ -3,12 +3,16 @@
 <div class="main">
   <header>
     <div class="head">
-      My Portfolio
+      Your Portfolio
+    </div>
+    <div class="head" style="text-align: right; padding-top: 0%; font-size: 0.75em; letter-spacing: 0.1em;">
+      <span style="font-size: 0.75em; letter-spacing: 0.1em;"></span> <br>
+      P&L: &nbsp;<span style="font-size: 1.25em; letter-spacing: 0.2em;" [ngClass]="{'profit': investedValue > investedAmt, 'loss': investedValue < investedAmt}">{{investedValue-investedAmt | currency}}</span>
     </div>
   </header>
   <div class="info">
-    <div class="info-child" style="justify-content: left;">Remaining Balance: &nbsp;
-      <b style="font-size: larger;">{{balance | currency}}</b>
+    <div class="info-child" style="justify-content: left;">Investment Value: &nbsp;
+      <b style="font-size: larger;">{{investedValue | currency}}</b>
     </div>
     <div class="info-child" style="justify-content: right;">
       User ID: {{clientId || "undefined"}}
@@ -18,27 +22,40 @@
   <table>
     <thead>
       <tr>
-        <th>External Type</th>
-        <th>External ID</th>
+        <th>ID</th>
         <!-- <th>Category</th> -->
         <th>Instrument Description</th>
-        <th>Ask Price $</th>
-        <th>Bid Price $</th>
-        <th>Current Holdings</th>
-        <th>Profit / Loss %</th>
+        <th style="text-align: center;">Holdings</th>
+        <th>Price</th>
+        <th style="text-align: right;">Value</th>
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="portfolios.length == 0">
+        <td colspan="5" style="text-align: center;">No Records To Display</td>
+    </tr>
       <tr *ngFor="let portfolio of portfolios">
-        <td>{{ portfolio.externalType }}</td>
-        <td>{{ portfolio.externalId }}</td>
-        <!-- <td>{{ portfolio.categoryId }}</td> -->
-        <td>{{ portfolio.instrumentDescription}}</td>
-        <td>{{ portfolio.askPrice }}</td>
-        <td>{{ portfolio.bidPrice }}</td>
-        <td>{{ portfolio.currentHoldings }}</td>
-        <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
-          {{ calculateProfitLossPercentage(portfolio) }}%
+        <td>{{ portfolio.externalType }} <br> {{ portfolio.externalId }}</td>
+        <td style="max-width: 40%;">
+          <div class="banner {{portfolio.categoryType | lowercase}}">
+              {{portfolio.categoryType}}
+          </div>
+          {{portfolio.instrumentDescription}}
+      </td>
+        <td style="text-align: center;">{{ portfolio.currentHoldings }}</td>
+        <td>
+          $ {{ portfolio.askPrice}} <br>
+          <span [ngClass]="{'profit': isGain(portfolio), 'loss': !isGain(portfolio)}">
+           {{calculateGain(portfolio)}} &nbsp;
+           {{calculateGainPercentage(portfolio)}}%
+          </span>
+        </td>
+        <td style="text-align: right;">
+          {{portfolio.askPrice * portfolio.currentHoldings | currency}} <br>
+          <span [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
+            <!-- {{((portfolio.askPrice - portfolio.bidPrice)* portfolio.currentHoldings).toFixed(2) | currency}} -->
+            {{portfolio.askPrice * portfolio.currentHoldings - portfolio.totalInvestment | currency}}
+           </span>
         </td>
       </tr>
     </tbody>

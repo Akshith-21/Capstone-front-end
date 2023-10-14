@@ -32,10 +32,10 @@
             </tr>
             <tr *ngFor="let trade of trades">
                 <td>{{trade.instrumentId}}</td>
-                <td>{{trade.direction | uppercase}}</td>
+                <td [ngClass]="{'buy': trade.direction == 'BUY', 'sell': trade.direction == 'SELL'}">{{trade.direction | uppercase}}</td>
                 <td>{{trade.quantity}}</td>
-                <td>{{trade.executionPrice}}</td>
-                <td>{{trade.cashValue}}</td>
+                <td>${{trade.executionPrice}}</td>
+                <td>${{trade.cashValue}}</td>
             </tr>
     </table>
 </div>
