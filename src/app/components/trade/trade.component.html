@@ -9,7 +9,8 @@
     <!-- <br><hr> -->
     <div *ngIf="direction == 'BUY'">
         <div class="filter">
-            <div class="filter-child" style="justify-content: left;">Remaining Balance: &nbsp;<b style="font-size: larger;">{{balance|currency}}</b></div>
+            <div class="filter-child" style="justify-content: left;">Remaining Balance: &nbsp;<b
+                    style="font-size: larger;">{{balance|currency}}</b></div>
             <label class="filter-child" style="justify-content: right;">
                 Category: &nbsp;
                 <select [(ngModel)]="instrumentType" (ngModelChange)="filterPrices()">
@@ -26,7 +27,7 @@
             <thead>
                 <tr>
                     <!-- <th>External ID</th> -->
-                    <th>Instrument Description</th>
+                    <th>Instrument</th>
                     <th style="text-align: center;">Min Qty.</th>
                     <th style="text-align: center;">Max Qty.</th>
                     <th style="text-align: right;">Bid Price</th>
@@ -34,6 +35,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr *ngIf="prices.length == 0">
+                    <td colspan="5" style="text-align: center;">No Records To Display</td>
+                </tr>
                 <tr *ngFor="let price of prices" (click)="buy(price)">
                     <!-- <td>{{price.instrument.externalId}}</td> -->
                     <td style="max-width: 50%;">
@@ -50,29 +54,36 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="direction == 'SELL'" style="margin: 40px;">
+    <div *ngIf="direction == 'SELL'">
 
-
-        <span>Your Balance: {{balance | currency}}</span>
-
-
+        <div class="filter">
+            <div class="filter-child" style="justify-content: left;">Remaining Balance: &nbsp;<b
+                    style="font-size: larger;">{{balance|currency}}</b></div>
+        </div>
 
         <table>
-            <tr>
-                <th>External ID</th>
-                <th>Instrument Description</th>
-                <th>Ask Price</th>
-                <th>currentHoldings</th>
-                <th>Control</th>
-            </tr>
-            <tr *ngFor="let portfolioMem of portfolio">
-                <td>{{portfolioMem.externalId}}</td>
-                <td>{{portfolioMem.instrumentDescription}}</td>
-                <td>{{portfolioMem.askPrice | currency}}</td>
-                <td>{{portfolioMem.currentHoldings}}</td>
-
-                <td><button class="sell-btn" (click)="sell(portfolioMem)">SELL</button></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Instrument</th>
+                    <th>Ask Price</th>
+                    <th style="text-align: right;">Holdings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="portfolio.length == 0">
+                    <td colspan="4" style="text-align: center;">No Records To Display</td>
+                </tr>
+                <tr *ngFor="let portfolioMem of portfolio" (click)="sell(portfolioMem)">
+                    <td style="width: 60%;">
+                        <div class="banner {{portfolioMem.categoryType | lowercase}}">
+                            {{portfolioMem.categoryType}}
+                        </div>
+                        {{portfolioMem.instrumentDescription}}
+                    </td>
+                    <td>{{portfolioMem.askPrice | currency}}</td>
+                    <td style="text-align: right;">{{portfolioMem.currentHoldings}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 

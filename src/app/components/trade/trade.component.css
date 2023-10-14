@@ -39,7 +39,7 @@ header {
 }
 
 .selected-sell {
-    border-bottom: 5px solid rgb(156, 0, 0);
+    border-bottom: 5px solid rgb(202, 0, 0);
 }
 
 .filter {
@@ -112,7 +112,7 @@ tbody tr:hover {
 }
 
 .loss {
-    color: red; /* Red color for loss */
+    color: rgb(202, 0, 0) /* Red color for loss */
 }
 
 .buy-btn {

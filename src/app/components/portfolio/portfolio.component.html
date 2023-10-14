@@ -1,38 +1,47 @@
 <app-nav></app-nav>
 
-<div class="portfolio-container" >
-    <header>
-        <div>
-          <h1>My Portfolio</h1>
-        </div>
-      </header>
-    <table>
-        <thead>
-          <tr>
-            <th>External Type</th>
-            <th>External ID</th>
-            <!-- <th>Category</th> -->
-            <th>Instrument Description</th>
-            <th>Ask Price $</th>
-            <th>Bid Price $</th>
-            <th>Current Holdings</th>
-            <th>Profit / Loss %</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let portfolio of portfolios">
-            <td>{{ portfolio.externalType }}</td>
-            <td>{{ portfolio.externalId }}</td>
-            <!-- <td>{{ portfolio.categoryId }}</td> -->
-            <td>{{ portfolio.instrumentDescription}}</td>
-            <td>{{ portfolio.askPrice }}</td>
-            <td>{{ portfolio.bidPrice }}</td>
-            <td>{{ portfolio.currentHoldings }}</td>
-            <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
-              {{ calculateProfitLossPercentage(portfolio) }}%
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
+<div class="main">
+  <header>
+    <div class="head">
+      My Portfolio
+    </div>
+  </header>
+  <div class="info">
+    <div class="info-child" style="justify-content: left;">Remaining Balance: &nbsp;
+      <b style="font-size: larger;">{{balance | currency}}</b>
+    </div>
+    <div class="info-child" style="justify-content: right;">
+      User ID: {{clientId || "undefined"}}
+    </div>
+
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>External Type</th>
+        <th>External ID</th>
+        <!-- <th>Category</th> -->
+        <th>Instrument Description</th>
+        <th>Ask Price $</th>
+        <th>Bid Price $</th>
+        <th>Current Holdings</th>
+        <th>Profit / Loss %</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let portfolio of portfolios">
+        <td>{{ portfolio.externalType }}</td>
+        <td>{{ portfolio.externalId }}</td>
+        <!-- <td>{{ portfolio.categoryId }}</td> -->
+        <td>{{ portfolio.instrumentDescription}}</td>
+        <td>{{ portfolio.askPrice }}</td>
+        <td>{{ portfolio.bidPrice }}</td>
+        <td>{{ portfolio.currentHoldings }}</td>
+        <td [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
+          {{ calculateProfitLossPercentage(portfolio) }}%
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>

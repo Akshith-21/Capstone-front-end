@@ -48,12 +48,12 @@ a {
     flex: 0 0 1;
     color: #000;
     letter-spacing: 0.1rem;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     font-size: 0.8rem;
     &:hover {
         color:white;
         background-color: rgba(0, 0, 0, 0.425);
-        transition: all 0.5s ease;
+        transition: all 0.3s ease;
     }
 }
 

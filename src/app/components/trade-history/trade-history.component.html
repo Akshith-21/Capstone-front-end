@@ -1,24 +1,41 @@
 <app-nav></app-nav>
+<div class="main">
+    <header>
+        <div class="head">
+            Trade History
+        </div>
+    </header>
 
-<header><h1>Trade History</h1></header>
+    <div class="info">
+        <div class="info-child" style="justify-content: left;">Remaining Balance: &nbsp;
+            <b style="font-size: larger;">{{balance | currency}}</b>
+        </div>
+        <div class="info-child" style="justify-content: right;">
+            User ID: {{clientId || "undefined"}}
+        </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Instrument ID</th>
-            <th>Direction</th>
-            <th>Quantity</th>
-            <th>Price/Share</th>
-            <th>Cash Value</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let trade of trades">
-            <td>{{trade.instrumentId}}</td>
-            <td>{{trade.direction | uppercase}}</td>
-            <td>{{trade.quantity}}</td>
-            <td>{{trade.executionPrice}}</td>
-            <td>{{trade.cashValue}}</td>
-        </tr>
-</table>
+    </div>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Instrument ID</th>
+                <th>Direction</th>
+                <th>Quantity</th>
+                <th>Price/Share</th>
+                <th>Cash Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="trades?.length == 0">
+                <td colspan="5" style="text-align: center;">No Records To Display</td>
+            </tr>
+            <tr *ngFor="let trade of trades">
+                <td>{{trade.instrumentId}}</td>
+                <td>{{trade.direction | uppercase}}</td>
+                <td>{{trade.quantity}}</td>
+                <td>{{trade.executionPrice}}</td>
+                <td>{{trade.cashValue}}</td>
+            </tr>
+    </table>
+</div>
