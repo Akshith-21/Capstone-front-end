@@ -41,12 +41,13 @@ label {
     text-align: left;
 }
 
-.danger {
+.text-danger{
     height: 20px;
     margin: 0 0 20px 0;
     color: red;
     /* border: 1px solid black; */
 }
+
 
 input {
     width: 210px;

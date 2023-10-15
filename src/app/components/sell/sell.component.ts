@@ -30,11 +30,11 @@ export class SellComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ){ }
   // trade: Trade = new Trade(0, 0, 'SELL', '', '', '', 0);
-  order: Order = new Order("", this.data.instrument.minQuantity, this.data.portfolio.askPrice, "", "", "", "");
+  order: Order = new Order("", 1, this.data.portfolio.askPrice, "", "", "", "");
   isprofit: boolean = false;
-  profitamt = 0;
-  cashValue: number = 0;
+  profitamt:string = '';
   portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0,"",0);
+  cashValue = this.data.portFolio.askPrice;
   sell() {
     console.log('Portfolio inside sell', this.data.portfolio);
     this.order.instrumentId = this.data.portfolio.instrumentId;
@@ -56,26 +56,34 @@ export class SellComponent {
         });
       },
       error:(error: HttpErrorResponse) => {
-        console.log(error);
+        console.error( error + "**************Inside Buy Component");
         if(error.status == 406) {
-          this.errorMessage = 'Not Authorized!';
+          this.errorMessage = error.error;
+        }
+        else if(error.status == 400){
+          this.errorMessage = error.error;
         }
         else {
-        this.errorMessage = error.error;
+        this.errorMessage = error.statusText;
         }
       }
     });
   }
 
   isProfit(portfolio:Portfolio):boolean{
-    return this.clientService.isProfit(portfolio)
+    return parseFloat(this.calculateProfitLossPercentage(portfolio))>0;
   }
 
-  calculateProfitLossPercentage(portfolio:Portfolio):string {
-    return this.clientService.calculateProfitLossPercentage(portfolio);
+  calculateProfitLossPercentage(portfolios:Portfolio):string {
+    let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
+    let sellPrice = portfolios.askPrice;
+   return (((sellPrice - eachItemInvestment)/eachItemInvestment)*100).toFixed(2);
   }
-  calculateAmount(){
-    this.profitamt = this.order.quantity*(this.data.portfolio.askPrice - this.data.portfolio.bidPrice);
+  calculateAmount(portfolios:Portfolio){
+    let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
+    let buyPrice = eachItemInvestment * this.order.quantity;
+    let sellPrice = portfolios.askPrice * this.order.quantity;
+    this.profitamt = ((sellPrice - buyPrice)).toFixed(2);
   }
 
 }

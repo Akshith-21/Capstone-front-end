@@ -8,9 +8,12 @@
         <span *ngIf="order.quantity>0">Amount Gain or Loss: {{profitamt | currency}}</span>
     </h3>
 
-    <form>
+    <form #myForm = "ngForm">
         <label for="quantity">Quantity (Your Holdings: {{data.portfolio.currentHoldings}})
-            <input type="number" name="quantity" class = "form-control" #quantity = "ngModel"  [(ngModel)]="order.quantity" (ngModelChange) = "cashValue = order.quantity*(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount()"/>
+            <input type="number" name="quantity" class = "form-control" #quantity = "ngModel"  [(ngModel)]="order.quantity" (ngModelChange) = "cashValue = order.quantity*(data.portfolio.askPrice)" (ngModelChange) = "calculateAmount(data.portfolio)" required/>
+            <div *ngIf="(quantity?.invalid && quantity?.touched) || quantity?.dirty">
+                <small class="text-danger" *ngIf="quantity?.value < 1 || quantity?.value > data.portfolio.currentHoldings">Please Specify the quantity in the range.</small>
+            </div>
             <!-- <div *ngIf="quantity.dirty">
                 "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"
             </div> -->
@@ -22,7 +25,7 @@
         <label for="total">Total Trade Value
             <input disabled type="number" name="total"  #input3 [(ngModel)]="cashValue"/>
         </label>
-        <button (click)="sell()">SELL</button>
+        <button [disabled]="!myForm.form.valid" (click)="sell()">SELL</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
     </form>
 </div>

@@ -34,7 +34,7 @@ export class BuyComponent {
   // portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
   order: Order = new Order("", this.data.price.instrument.minQuantity, this.data.price.bidPrice, "", "", "", "");
   // price:Price | undefined
-  cashValue: number = 0;
+  cashValue = this.data.price.bidPrice;
 
   buy() {
     // let email = this.route.snapshot.paramMap.get('email');
@@ -73,6 +73,9 @@ export class BuyComponent {
         error:(error: HttpErrorResponse) => {
           console.error( error + "**************Inside Buy Component");
           if(error.status == 406) {
+            this.errorMessage = error.error;
+          }
+          else if(error.status == 400){
             this.errorMessage = error.error;
           }
           else {
