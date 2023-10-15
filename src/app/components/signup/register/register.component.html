@@ -1,6 +1,9 @@
-<div class="main_form">
-    <h2>Get started with <i>FidElite</i></h2>
-    
+<div class="main">
+    <div class="main_form">
+    <header>
+        <div class="head">Get started with&nbsp;<i>FidElite</i></div>
+    </header>
+    <br>
     <form #userDetail="ngForm">
         <div class="form-col">
             <label id="#email" class="full-width" for="Email">Email Address: </label>
@@ -26,8 +29,8 @@
             <option value="USA"> USA</option>
             <option value="Ireland"> Ireland</option>
         </select>
-        <div class="danger full-width"></div>
-        <p *ngIf="!emailExist">Already a User? <a routerLink="/login">Login Here</a></p>
+        <div class="danger full-width"></div><br>
+        <p *ngIf="!emailExist">Already a user? <a routerLink="/login">Login Here.</a></p>
 
     </div>
     <div class="form-col">
@@ -47,7 +50,7 @@
         <div class="danger"></div> 
         
         
-        <button [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "addClient()">Register</button>
+        <button type="submit" [disabled]="(this.person.country===''||this.person.country==='Select Country First') || userDetail.invalid" (click) = "addClient()">Register</button>
     </div>
 </form>
 
@@ -56,4 +59,5 @@
         <p *ngIf="emailCheck">Successfully Registered.</p>
     </div>
     
+</div>
 </div>

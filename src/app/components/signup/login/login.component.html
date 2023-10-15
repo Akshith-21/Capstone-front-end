@@ -1,21 +1,23 @@
 <div class="main">
-<div class="main_form">
-    <h2>Welcome back to <i>FidElite</i></h2>
-    <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
-    <form>
-        <div class="form_container">
-            <!-- <label for="email">Email:</label><br> -->
-            <input type="email" id="email" placeholder="Enter Email" [(ngModel)]="email" name="email">
-        </div>
-        <div class="form_container">
-            <!-- <label for="password">Password:</label><br> -->
-            <input type="password" id="password" placeholder="Enter Password" [(ngModel)]="password" name="password" >
-        </div>
-        <button type="submit" (click)="login(email,password)">Login</button>
-
-    </form>
-    <p class="create-account">
-        Don't have an account ? <a routerLink ="/register">Sign Up Now</a>
-    </p>
-</div>
+    <div class="main_form">
+        <header>
+            <div class="head">Login to&nbsp;<i>FidElite</i></div>
+            <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+        </header>
+        <form>
+            <div class="form_container">
+                <!-- <label for="email">Email:</label><br> -->
+                <input type="email" id="email" placeholder="Enter Email" [(ngModel)]="email" name="email">
+            </div>
+            <div class="form_container">
+                <!-- <label for="password">Password:</label><br> -->
+                <input type="password" id="password" placeholder="Enter Password" [(ngModel)]="password"
+                    name="password">
+            </div>
+            <button type="submit" (click)="login(email,password)">Login</button>
+            <span class="create-account">
+                New user? &nbsp; <a routerLink="/register">Sign Up Here.</a>
+            </span>
+        </form>
+    </div>
 </div>

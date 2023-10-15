@@ -70,7 +70,7 @@ export class ClientTradesService {
     order.token = token ? token : "";
 
 
-    order.orderId = "PQRE";//uuid();
+    order.orderId = uuid();
 
     return this.http.post(`${this.baseUrl}/execute`, order);
   }
