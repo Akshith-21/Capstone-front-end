@@ -10,6 +10,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Order } from 'src/app/models/order';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class SellComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ){ }
   // trade: Trade = new Trade(0, 0, 'SELL', '', '', '', 0);
-  order: Order = new Order("", 0, this.data.portfolio.askPrice, "", "", "", "");
+  order: Order = new Order("", this.data.instrument.minQuantity, this.data.portfolio.askPrice, "", "", "", "");
   isprofit: boolean = false;
   profitamt = 0;
   cashValue: number = 0;
@@ -54,13 +55,13 @@ export class SellComponent {
           panelClass: ['custom-snackbar'], // Apply custom style
         });
       },
-      error:(error: any) => {
+      error:(error: HttpErrorResponse) => {
         console.log(error);
         if(error.status == 406) {
           this.errorMessage = 'Not Authorized!';
         }
         else {
-        this.errorMessage = 'Insufficient Holdings';
+        this.errorMessage = error.error;
         }
       }
     });

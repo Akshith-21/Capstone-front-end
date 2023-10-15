@@ -97,3 +97,10 @@ a {
     color: white; /* Change to your desired text color */
     text-align: center;
   }
+
+.text-danger{
+    height: 20px;
+    margin: 0 0 20px 0;
+    color: red;
+    /* border: 1px solid black; */
+}

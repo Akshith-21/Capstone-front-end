@@ -32,7 +32,7 @@ export class BuyComponent {
 
   // trade: Trade = new Trade(0, 0, 'BUY', '', '', '', 0);
   // portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
-  order: Order = new Order("", 0, this.data.price.bidPrice, "", "", "", "");
+  order: Order = new Order("", this.data.price.instrument.minQuantity, this.data.price.bidPrice, "", "", "", "");
   // price:Price | undefined
   cashValue: number = 0;
 
