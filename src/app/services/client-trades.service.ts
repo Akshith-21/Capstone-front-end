@@ -62,7 +62,7 @@ export class ClientTradesService {
     return this.http.get<Trade[]>(`${this.baseUrl}/fetchtrade/${this.authCreds?.clientId}`);
   }
 
-  executeTrade(order:Order) {
+  executeTrade(order:Order): Observable<any> {
     let clientId = this.authCreds?.clientId;
     order.clientId = clientId ? clientId : "";
 

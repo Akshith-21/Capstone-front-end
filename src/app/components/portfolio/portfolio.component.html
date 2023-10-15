@@ -45,14 +45,14 @@
         <td style="text-align: center;">{{ portfolio.currentHoldings }}</td>
         <td>
           $ {{ portfolio.askPrice}} <br>
-          <span [ngClass]="{'profit': isGain(portfolio), 'loss': !isGain(portfolio)}">
+          <span [ngClass]="isGain(portfolio) ? 'profit':'loss'">
            {{calculateGain(portfolio)}} &nbsp;
-           {{calculateGainPercentage(portfolio)}}%
+           {{profitorloss}}%
           </span>
         </td>
         <td style="text-align: right;">
           {{portfolio.askPrice * portfolio.currentHoldings | currency}} <br>
-          <span [ngClass]="{'profit': isProfit(portfolio), 'loss': !isProfit(portfolio)}">
+          <span [ngClass]="isProfit(portfolio) ? 'profit':'loss'">
             <!-- {{((portfolio.askPrice - portfolio.bidPrice)* portfolio.currentHoldings).toFixed(2) | currency}} -->
             {{portfolio.askPrice * portfolio.currentHoldings - portfolio.totalInvestment | currency}}
            </span>

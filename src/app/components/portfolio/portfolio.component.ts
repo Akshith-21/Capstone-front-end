@@ -21,6 +21,7 @@ export class PortfolioComponent implements OnInit {
   clientId: string | undefined = '';
   investedAmt: number = 0;
   investedValue: number = 0;
+  profitorloss: any;
 
   constructor(public clientTradeService: ClientTradesService) { }
 
@@ -66,15 +67,21 @@ export class PortfolioComponent implements OnInit {
   }
 
   isGain(portfolios:Portfolio): boolean {
-    return portfolios.askPrice >= portfolios.bidPrice;
+    this.profitorloss = this.calculateGainPercentage(portfolios);
+    return parseFloat(this.profitorloss) > 0;
   }
   
-  calculateGain(portfolio: Portfolio) :string {
-    return (portfolio.askPrice - portfolio.bidPrice).toFixed(2);
+  calculateGain(portfolios: Portfolio) :string {
+    let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
+    let sellPrice = portfolios.askPrice;
+    return ((sellPrice - eachItemInvestment)).toFixed(2);
   }
 
   calculateGainPercentage(portfolios:Portfolio): string {
-    return ((portfolios.askPrice - portfolios.bidPrice) / portfolios.bidPrice * 100).toFixed(2);
+    let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
+    let sellPrice = portfolios.askPrice;
+    this.profitorloss = (((sellPrice - eachItemInvestment)/eachItemInvestment)*100).toFixed(2);
+    return this.profitorloss;
   }
 
   isProfit(portfolio:Portfolio): boolean {

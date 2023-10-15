@@ -2,9 +2,12 @@
     <h4>{{data.price.instrument.externalIdType}}: {{data.price.instrument?.externalId}} &nbsp;&nbsp;&nbsp;&nbsp; Category: {{data.price.instrument?.categoryId}}</h4>
     <h1>{{data.price?.instrument?.instrumentDescription}}</h1>
     <h2>Price:<span id="price"> {{data.price?.bidPrice | currency}}</span></h2>
-    <form>
+    <form #myForm = "ngForm">
         <label for="quantity">Quantity
-            <input type="number" name="quantity" min="{{data.price.instrument.minQuantity}}" max="{{data.price.instrument.maxQuantity}}" #input1 [(ngModel)]="order.quantity" (change) = "cashValue = order.quantity*(data.price?data.price.bidPrice:0)"/>
+            <input type="number" name="quantity" #quantity = "ngModel" min="{{data.price.instrument.minQuantity}}" max="{{data.price.instrument.maxQuantity}}"  [(ngModel)]="order.quantity" (ngModelChange) = "cashValue = order.quantity*(data.price?data.price.bidPrice:0)" required/>
+            <div *ngIf="(quantity?.invalid && quantity?.touched) || quantity?.dirty">
+                <small class="text-danger" *ngIf="quantity?.value < data.price.instrument.minQuantity || quantity?.value > data.price.instrument.maxQuantity ">Please Specify the quantity in the range.</small>
+            </div>
         </label>
         <label for="target">Target Price
             <input type="number" name="target" #input2 [(ngModel)]="order.targetPrice" (change) = "cashValue = order.quantity * order.targetPrice"/>
@@ -12,7 +15,7 @@
         <label for="total">Total Trade Value
             <input disabled type="number" name="total" #input3 [(ngModel)]="cashValue"/>
         </label>
-        <button (click)="buy()">Buy</button>
+        <button [disabled]="!myForm.form.valid" (click)="buy()">Buy</button>
         <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
     </form>
 </div>

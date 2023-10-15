@@ -9,6 +9,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Order } from 'src/app/models/order';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-buy',
@@ -31,9 +32,9 @@ export class BuyComponent {
 
   // trade: Trade = new Trade(0, 0, 'BUY', '', '', '', 0);
   // portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0);
-  order: Order = new Order("", 0, this.data.price.bidPrice, "", "", "", "");
+  order: Order = new Order("", this.data.price.instrument.minQuantity, this.data.price.bidPrice, "", "", "", "");
   // price:Price | undefined
-  cashValue: number = 0;
+  cashValue = this.data.price.bidPrice;
 
   buy() {
     // let email = this.route.snapshot.paramMap.get('email');
@@ -55,7 +56,7 @@ export class BuyComponent {
       // this.portFolio.bidPrice = this.data.price.bidPrice;
 
       this.clientTradesService.executeTrade(this.order).subscribe({
-        next: (response) => {
+        next: (response:any) => {
           console.log(response);
           this.errorMessage = '';
 
@@ -69,13 +70,16 @@ export class BuyComponent {
             panelClass: ['custom-snackbar'], // Apply custom style
           });
         },
-        error:(error: any) => {
-          console.log(error);
+        error:(error: HttpErrorResponse) => {
+          console.error( error + "**************Inside Buy Component");
           if(error.status == 406) {
-            this.errorMessage = 'Not Authorized!';
+            this.errorMessage = error.error;
+          }
+          else if(error.status == 400){
+            this.errorMessage = error.error;
           }
           else {
-          this.errorMessage = 'Insufficient Balance';
+          this.errorMessage = error.statusText;
           }
         }
       });
