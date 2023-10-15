@@ -31,12 +31,19 @@ export class LoginComponent {
        
       },
       error:(error:any) =>{
-          if(error.status===400)
-          {
-            alert("Invalid credentials");
-          }
-      }
-    });
+        if(error.status===400)
+        {
+          alert(error.error);
+        }
+        else if(error.status===500)
+        {
+          alert("Refused to connect to the server");
+        }
+        else {
+          alert("Server is down, Connection Not Established");
+        }
+    }
+  });
     
   }
   
