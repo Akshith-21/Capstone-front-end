@@ -75,7 +75,7 @@ export class RegisterComponent {
         }
       },
       error: (error) => {
-        if (error.status === 400) {
+        if (error.status === 400 || error.status ===500) {
           this.emailExist = true;
           this.emailCheck= false;
           alert('Email Already exist, Please login ' + error.error);

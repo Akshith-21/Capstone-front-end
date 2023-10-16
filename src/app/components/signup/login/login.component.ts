@@ -31,17 +31,17 @@ export class LoginComponent {
        
       },
       error:(error:any) =>{
-        if(error.status===400)
+        if(error.status===400 || error.status ===500)
         {
-          alert(error.error);
+          alert("Failed to login, Register first");
         }
-        else if(error.status===500)
-        {
-          alert("Refused to connect to the server");
-        }
-        else {
-          alert("Server is down, Connection Not Established");
-        }
+        // else if(error.status===500)
+        // {
+        //   alert("Refused to connect to the server");
+        // }
+        // else {
+        //   alert("Server is down, Connection Not Established");
+        // }
     }
   });
     

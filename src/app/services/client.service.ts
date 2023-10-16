@@ -19,7 +19,8 @@ import { PreferencesRequest } from '../models/PreferencesRequest';
 })
 
 export class ClientService {
-  private baseUrl ='http://localhost:8080/client';
+  // private baseUrl ='http://localhost:8080/client';
+  private baseUrl = 'http://localhost:5000';
 
   constructor(private clientTradesService: ClientTradesService, private http:HttpClient) {}
   private riskValueSubject = ''; // Initial value
