@@ -20,9 +20,12 @@ export class HomePageComponent {
 
   portfolio: Portfolio[] = [];
 
+  chartData: number[] = [0, 0, 0];
+
   balance: number = 0;
   investedAmt: number = 0;
   investedValue: number = 0;
+  renderChart: boolean = false;
 
   // chartOptions = {
 	//   animationEnabled: true,
@@ -56,27 +59,26 @@ export class HomePageComponent {
     this.fetchBalance();
     this.fetchPortfolio();
 
-    const seriesData = [44, 55, 13, 43, 22];
-    const labels = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
+    // const seriesData = [44, 55, 13, 43, 22];
+    // const labels = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
 
-    // Assign the series property within chartOptions.
-    this.chartOptions.series = seriesData;
-    this.chartOptions.labels = labels;
-    this.chartOptions.colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'];
-    this.chartOptions.responsive = [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: 'bottom',
-          },
-        },
-      },
-    ];
-
+    // // Assign the series property within chartOptions.
+    // this.chartOptions.series = seriesData;
+    // this.chartOptions.labels = labels;
+    // this.chartOptions.colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'];
+    // this.chartOptions.responsive = [
+    //   {
+    //     breakpoint: 480,
+    //     options: {
+    //       chart: {
+    //         width: 200,
+    //       },
+    //       legend: {
+    //         position: 'bottom',
+    //       },
+    //     },
+    //   },
+    // ];
 
 
     // this.getPriceData();
@@ -149,9 +151,14 @@ export class HomePageComponent {
 
   calculateInvestments() {
     this.portfolio.forEach((p) => {
+      this.chartData[p.categoryType=='STOCK'?0:p.categoryType=='GOVT'?1:2] +=  p.totalInvestment;
       this.investedAmt += p.totalInvestment;
       this.investedValue += p.askPrice * p.currentHoldings;
-    })
+    });
+    this.chartData= this.chartData.map(e => parseFloat(e.toFixed(2)));
+    console.log(this.chartData)
+    
+    this.renderChart = true;
   }
 
 

@@ -25,10 +25,12 @@ input{
 }
 
 .sub-section-1 {
-  width: 65%;
+  width: 70%;
 }
 .sub-section-2 {
+  padding-top: 150px;
   width: 30%;
+  background-color: #ddf0df;
 }
 
 .typed-text {

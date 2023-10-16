@@ -33,6 +33,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
     RoboAdvisorComponent,
     PopupComponent,
     ReportComponent,
-    SellComponent
+    SellComponent,
+    ChartComponent
   ],
   imports: [
     RouterModule.forRoot([]),

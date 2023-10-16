@@ -33,8 +33,12 @@ export class SellComponent {
   order: Order = new Order("", 1, this.data.portfolio.askPrice, "", "", "", "");
   isprofit: boolean = false;
   profitamt:string = '';
-  portFolio: Portfolio = new Portfolio("","","",new Date(),"",0,0,0,"",0);
-  cashValue = this.data.portFolio.askPrice;
+  cashValue = this.data.portfolio.askPrice;
+
+    ngOnInit() {
+      this.calculateAmount(this.data.portfolio)
+    }
+
   sell() {
     console.log('Portfolio inside sell', this.data.portfolio);
     this.order.instrumentId = this.data.portfolio.instrumentId;

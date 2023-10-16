@@ -1,0 +1,35 @@
+<apx-chart
+      [series]="chartData"
+      [chart]="{
+        type: 'donut',
+        height: '350',
+      }"
+      [colors]="chartColors"
+      [plotOptions]="{
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+              },
+              value: {
+                show: true,
+              },
+              total: {
+                show: true,
+                showAlways: false,
+                label: 'Total',
+              },
+            },
+          },
+        },
+      }"
+      [dataLabels]="{
+        enabled: true
+      }"
+      [stroke]="{ show: false}"
+      [labels]="chartLabels"
+      [legend]="{ show: false }"
+>
+</apx-chart>
