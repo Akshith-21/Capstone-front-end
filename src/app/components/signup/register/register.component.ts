@@ -1,8 +1,10 @@
+
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientIdentification } from 'src/app/models/clientIdentification';
 import { Person } from 'src/app/models/person';
+import { Token } from 'src/app/models/token';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -53,14 +55,14 @@ export class RegisterComponent {
     };
 
     this.clientService.addClient(clientData).subscribe({ 
-      next: (response) => {
+      next: (response:Token) => {
         console.log(response);
         this.emailCheck=true;
         if (this.emailCheck) {
           const email = clientData.person.email; 
           console.log("in existCheck", email);
-          this.clientService.setCreds(response);
-          this.clientTradesService.setCreds(response);
+          this.clientService.setCreds(response.token);
+          this.clientTradesService.setCreds(this.clientService.getCred());
           console.log("Creds set: ", this.clientTradesService.authCreds);
 
 

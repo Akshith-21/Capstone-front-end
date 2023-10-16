@@ -30,6 +30,8 @@ export class TradeComponent implements OnInit {
   public portfolio:Portfolio[] = [];
   
   ngOnInit() {
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradeService.setCreds(this.clientService.getCred());
     this.fetchPortFolio();
     this.fetchAllTrades();
     this.fetchBalance();

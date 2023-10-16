@@ -54,7 +54,9 @@ export class HomePageComponent {
 
 
   ngOnInit() {
-    this.authCreds = this.clientService.getCreds();
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradesService.setCreds(this.clientService.getCred());
+    this.authCreds = this.clientService.getCred();
     console.log("cred", this.authCreds);
     this.fetchBalance();
     this.fetchPortfolio();

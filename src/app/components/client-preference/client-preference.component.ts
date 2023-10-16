@@ -28,7 +28,7 @@ interface InvestmentInterface {
 
   togglePopup(){
     this.showPopup = !this.showPopup;
-    let id = this.clientService.getCreds()?.clientId;
+    let id = this.clientService.getCred()?.clientId;
     this.clientId = id?id:"0";
     this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
     console.log("current client preferences", this.clientService.clientPreferences)
@@ -126,6 +126,7 @@ interface InvestmentInterface {
   }
 
   ngOnInit() {
+    this.clientService.retrieveJsonPayLoadFromJwt();
     this.lengthOfInvestmentOptions =[
       {name:'0-1 years', code:'0-1 years'},
       {name:'1 years- 5 years', code:'1 years- 5 years'},

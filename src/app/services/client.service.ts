@@ -13,20 +13,26 @@ import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../models/loginRequest';
 import { ClientCredentials } from '../models/ClientCredentials';
 import { PreferencesRequest } from '../models/PreferencesRequest';
+import { CookieService } from 'ngx-cookie-service';
+import * as jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ClientService {
-  private baseUrl ='http://localhost:8080/client';
+  private baseUrl ='http://localhost:5000';
 
-  constructor(private clientTradesService: ClientTradesService, private http:HttpClient) {}
+  constructor(private clientTradesService: ClientTradesService,private router:Router, private http:HttpClient,private cookieService: CookieService) {}
   private riskValueSubject = ''; // Initial value
 
   isPortFolio: boolean = false
   isLanding: boolean = false
-  authCreds:ClientCredentials|undefined;
+  authCreds:ClientCredentials = {
+    clientId:'',
+    token:''
+  }
 
   public mockClientData = new Map([
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
@@ -265,19 +271,37 @@ export class ClientService {
    loginClient( loginRequest:LoginRequest):Observable<ClientCredentials>{
    
       console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
-      return this.http.post<ClientCredentials>(`${this.baseUrl}/login`, loginRequest)
+      return this.http.post<ClientCredentials>(`${this.baseUrl}/login/`, loginRequest)
    }
 
    setPreferences(preferencesRequest:PreferencesRequest, clientId:string):Observable<String>{
     console.log("preferences received are: "+ preferencesRequest);
     return this.http.post<String>(`${this.baseUrl}/preferences/setPreferences?clientId=`+clientId, preferencesRequest);
    }
+   storeTokenInCookie(token:string){
+      this.cookieService.set('jwtToken',token);
+   }
+   retrieveJsonPayLoadFromJwt() {
+    const token = this.cookieService.get('jwtToken');
+    console.log('token is : ' + token);
+    if(token){
+      this.authCreds = jwt_decode.default(token);
+    }
+    else{
+      this.router.navigate(['login']);
+    }
 
-   setCreds(response:ClientCredentials){
-         this.authCreds = response;
+   }
+   deleteTokenInCookie() {
+    this.cookieService.delete('jwtToken');
+    
+  }
+   setCreds(token:string){
+        this.storeTokenInCookie(token);
+        this.retrieveJsonPayLoadFromJwt();
    }
 
-   getCreds() {
+   getCred():ClientCredentials{
     return this.authCreds;
    }
 
@@ -363,6 +387,10 @@ export class ClientService {
 
 }
 
+
+function deleteTokenInCookie() {
+  throw new Error('Function not implemented.');
+}
   // getTempObject() :{[email:string]: Client}{
   // const temp :{[email :string] : Client} ={};
   // this.mockClientData.forEach((email,client)=>{

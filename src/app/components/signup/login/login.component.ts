@@ -1,7 +1,9 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { LoginRequest } from 'src/app/models/loginRequest';
+import { Token } from 'src/app/models/token';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -23,10 +25,10 @@ export class LoginComponent {
       pswd: inputPswd,
     };
     this.clientServices.loginClient(loginRequest).subscribe({
-      next: (response:ClientCredentials) => {
-        console.log(response.clientId,"Response CLIENT ID of login:");
-        this.clientServices.setCreds(response);
-        this.clientTradesService.setCreds(response);
+      next: (response:Token) => {
+        console.log(response.token,"Response token ID of login:");
+        this.clientServices.setCreds(response.token);
+        this.clientTradesService.setCreds(this.clientServices.getCred());
         this.router.navigate(['home-page'])
        
       },
@@ -37,7 +39,7 @@ export class LoginComponent {
         }
         else if(error.status===500)
         {
-          alert("Refused to connect to the server");
+          alert("Server is down, Connection Not Established");
         }
         else {
           alert("Server is down, Connection Not Established");

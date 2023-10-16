@@ -23,7 +23,7 @@ export class PortfolioComponent implements OnInit {
   investedValue: number = 0;
   profitorloss: any;
 
-  constructor(public clientTradeService: ClientTradesService) { }
+  constructor(public clientTradeService: ClientTradesService, private clientService:ClientService) { }
 
   fetchBalance() {
     this.clientTradeService.getBalance().subscribe({
@@ -42,6 +42,8 @@ export class PortfolioComponent implements OnInit {
 
   ngOnInit() {
     // this.authCreds = this.clientService.getCreds();
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradeService.setCreds(this.clientService.getCred());
     this.getPortfolioData();
     this.fetchBalance();
     this.clientId = this.clientTradeService.authCreds?.clientId;

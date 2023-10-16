@@ -28,6 +28,11 @@ export class NavComponent {
 
   }
 
+  deletetoken() {
+    this.clientService.deleteTokenInCookie();
+    this.router.navigate(['login']);
+  }
+
   // isLandingPage= this.clientService.isLanding;
   // isPortFolio = this.clientService.isPortFolio
 

@@ -26,6 +26,7 @@ export class BuyComponent {
     private route: ActivatedRoute,
     private dialogRef: MatDialogRef<BuyComponent>,
     private clientService: ClientService, 
+    private router: Router,
     // private router: Router,
     @Inject(MAT_DIALOG_DATA) public data?: any
   ) { }
@@ -74,6 +75,12 @@ export class BuyComponent {
           console.error( error + "**************Inside Buy Component");
           if(error.status == 406) {
             this.errorMessage = error.error;
+            if(this.errorMessage=="token expired please login again"){
+              console.log("Token Expired");
+               this.clientService.deleteTokenInCookie();
+               this.router.navigate(['login']);
+
+            }
           }
           else if(error.status == 400){
             this.errorMessage = error.error;
