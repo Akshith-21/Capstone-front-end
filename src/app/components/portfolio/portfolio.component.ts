@@ -13,7 +13,7 @@ import { Balance } from 'src/app/models/balance';
 })
 export class PortfolioComponent implements OnInit {
 
- 
+
 
   // authCreds: ClientCredentials | undefined;
   portfolios: Portfolio[] = [];
@@ -27,15 +27,14 @@ export class PortfolioComponent implements OnInit {
 
   fetchBalance() {
     this.clientTradeService.getBalance().subscribe({
-      next: (response:Balance) => {
-        console.log(response.balance,"Response balance:");
+      next: (response: Balance) => {
+        console.log(response.balance, "Response balance:");
         this.balance = response.balance;
       },
-      error:(error:any) =>{
-          if(error.status===400)
-          {
-            alert("Invalid credentials");
-          }
+      error: (error: any) => {
+        if (error.status === 400) {
+          console.log(error.error)
+        }
       }
     });
   }
@@ -48,46 +47,50 @@ export class PortfolioComponent implements OnInit {
 
   }
 
- 
 
-  getPortfolioData(){
-    this.clientTradeService.getPortfolioData().subscribe((data) =>{
-      this.portfolios = data;
-      console.log("Portfolio", this.portfolios);
-      this.calculateInvestments();
-    })
+
+  getPortfolioData() {
+    this.clientTradeService.getPortfolioData().subscribe({
+      next: (data) => {
+        this.portfolios = data;
+        console.log("Portfolio", this.portfolios);
+        this.calculateInvestments();
+      }
+    });
 
   }
 
   calculateInvestments() {
-    this.portfolios.forEach((p) => {
-      this.investedAmt += p.totalInvestment;
-      this.investedValue += p.askPrice * p.currentHoldings;
-    })
+    if (this.portfolios) {
+      this.portfolios.forEach((p) => {
+        this.investedAmt += p.totalInvestment;
+        this.investedValue += p.askPrice * p.currentHoldings;
+      });
+    }
   }
 
-  isGain(portfolios:Portfolio): boolean {
+  isGain(portfolios: Portfolio): boolean {
     this.profitorloss = this.calculateGainPercentage(portfolios);
     return parseFloat(this.profitorloss) > 0;
   }
-  
-  calculateGain(portfolios: Portfolio) :string {
+
+  calculateGain(portfolios: Portfolio): string {
     let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
     let sellPrice = portfolios.askPrice;
     return ((sellPrice - eachItemInvestment)).toFixed(2);
   }
 
-  calculateGainPercentage(portfolios:Portfolio): string {
+  calculateGainPercentage(portfolios: Portfolio): string {
     let eachItemInvestment = portfolios.totalInvestment / portfolios.currentHoldings;
     let sellPrice = portfolios.askPrice;
-    this.profitorloss = (((sellPrice - eachItemInvestment)/eachItemInvestment)*100).toFixed(2);
+    this.profitorloss = (((sellPrice - eachItemInvestment) / eachItemInvestment) * 100).toFixed(2);
     return this.profitorloss;
   }
 
-  isProfit(portfolio:Portfolio): boolean {
+  isProfit(portfolio: Portfolio): boolean {
     return portfolio.askPrice * portfolio.currentHoldings > portfolio.totalInvestment;
   }
- 
+
 
 }
 

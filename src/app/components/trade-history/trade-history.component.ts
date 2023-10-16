@@ -29,7 +29,7 @@ export class TradeHistoryComponent {
       error:(error:any) =>{
           if(error.status===400)
           {
-            alert("Invalid credentials");
+            console.log(error.error);
           }
       }
     });

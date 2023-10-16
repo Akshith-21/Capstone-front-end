@@ -47,7 +47,7 @@ export class TradeComponent implements OnInit {
       error:(error:any) =>{
           if(error.status===400)
           {
-            alert("Invalid credentials");
+            console.log(error.error);
           }
       }
     });

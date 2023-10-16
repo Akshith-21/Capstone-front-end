@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexNonAxisChartSeries, ApexOptions, ApexResponsive } from 'ng-apexcharts';
 
@@ -16,6 +17,15 @@ export class ChartComponent {
 
   // @Input()
   chartLabels: string[] = ["Stock", "Govt", "CD"];
+
+  dollarFormatter = function(value: any) {
+    return '$' + (Math.round(value * 100) / 100).toString();
+  }
+
+  dollarFormatterTotal = function(value: any) {
+    let result = value.globals.seriesTotals.reduce((a:number, b:number) => a + b, 0)
+    return '$' + (Math.round(result * 100) / 100).toString()
+  }
 
   ngOnInit(){}
 }
