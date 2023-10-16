@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class NavComponent {
   @Input() page: string = '';
-  constructor(private clientService:ClientService,private  route:ActivatedRoute, private router:Router){;
+  constructor(private snackBar: MatSnackBar, private clientService:ClientService, private clientTradeService: ClientTradesService, private route:ActivatedRoute, private router:Router){;
   }
 
 
@@ -22,10 +24,25 @@ export class NavComponent {
   ngOnInit(){
     this.route.url.subscribe((url)=>{
       this.page = url[0].path;
-      
-    })
-    // console.log("RR" , this.isLandingPageRoute )
+    });
 
+    if(this.clientService.authCreds?.clientId == undefined) {
+      console.log(this.clientService.authCreds?.clientId);
+      this.openSnackBar("Please Login First!", "error");
+    }
+
+
+  }
+
+  openSnackBar(msg: string, status: string) {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    this.snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition,
+      verticalPosition,
+      panelClass: [status + '-snack'],
+    });
   }
 
   deletetoken() {

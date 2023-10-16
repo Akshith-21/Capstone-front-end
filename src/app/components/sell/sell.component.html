@@ -14,10 +14,6 @@
             <div *ngIf="(quantity?.invalid && quantity?.touched) || quantity?.dirty">
                 <small class="text-danger" *ngIf="quantity?.value < 1 || quantity?.value > data.portfolio.currentHoldings">Please Specify the quantity in the range.</small>
             </div>
-            <!-- <div *ngIf="quantity.dirty">
-                "trade.quantity  = trade.cashValue/(data.portfolio.askPrice)"
-            </div> -->
-            <!-- <span id="price"> {{data.portfolio.currentHoldings}}</span> -->
         </label>
         <label for="target">Target Price
             <input type="number" name="target" #input2 [(ngModel)]="order.targetPrice" (change) = "cashValue = order.quantity * order.targetPrice"/>
@@ -26,6 +22,6 @@
             <input disabled type="number" name="total"  #input3 [(ngModel)]="cashValue"/>
         </label>
         <button [disabled]="!myForm.form.valid" (click)="sell()">SELL</button>
-        <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
+        <!-- <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div> -->
     </form>
 </div>

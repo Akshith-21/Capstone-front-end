@@ -31,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngIf="portfolios.length == 0">
+      <tr *ngIf="portfolios == null || portfolios.length == 0">
         <td colspan="5" style="text-align: center;">No Records To Display</td>
     </tr>
       <tr *ngFor="let portfolio of portfolios">

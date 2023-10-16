@@ -52,12 +52,7 @@ export class SellComponent {
         this.dialogRef.close({data: 'Refresh'});
         const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
         const verticalPosition:MatSnackBarVerticalPosition ='top';
-        this.snackBar.open('Sell was successful!', 'Close', {
-          duration: 5000,
-          horizontalPosition,
-          verticalPosition,
-          panelClass: ['custom-snackbar'], // Apply custom style
-        });
+        this.openSnackBar('Sell was successful!', 'ok');
       },
       error:(error: HttpErrorResponse) => {
         console.error( error + "**************Inside Buy Component");
@@ -70,6 +65,7 @@ export class SellComponent {
         else {
         this.errorMessage = error.statusText;
         }
+        this.openSnackBar(this.errorMessage, 'error');
       }
     });
   }
@@ -88,6 +84,17 @@ export class SellComponent {
     let buyPrice = eachItemInvestment * this.order.quantity;
     let sellPrice = portfolios.askPrice * this.order.quantity;
     this.profitamt = ((sellPrice - buyPrice)).toFixed(2);
+  }
+
+  openSnackBar(msg: string, status: string) {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    this.snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition,
+      verticalPosition,
+      panelClass: [status+ '-snack'],
+    });
   }
 
 }

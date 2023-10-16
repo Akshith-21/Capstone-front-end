@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ClientIdentification } from 'src/app/models/clientIdentification';
 import { Person } from 'src/app/models/person';
@@ -17,7 +18,7 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class RegisterComponent {
 
-  constructor(private clientService: ClientService, private clientTradesService: ClientTradesService, private router:Router) {}
+  constructor(private snackBar:MatSnackBar, private clientService: ClientService, private clientTradesService: ClientTradesService, private router:Router) {}
   
   public idTypes = new Map([
     ['', []],
@@ -64,42 +65,32 @@ export class RegisterComponent {
           this.clientService.setCreds(response.token);
           this.clientTradesService.setCreds(this.clientService.getCred());
           console.log("Creds set: ", this.clientTradesService.authCreds);
-
-
-          // console.log("Fetching creds after register: "+this.clientService.getCreds());
-          // setTimeout(function(){
-          //   console.log("waited for: " + 1 + " seconds");
-          //   // repeat();
-          //   // this.router.navigate(['/preference']); 
-
-          // }, 1000);
           this.router.navigate(['/preference']); 
+          this.openSnackBar('Registration successful!', 'ok');
         }
       },
       error: (error) => {
-        if (error.status === 400) {
+        if (error.status === 400 || error.status ===500) {
           this.emailExist = true;
           this.emailCheck= false;
-          alert('Email Already exist, Please login ' + error.error);
+          console.log('Email Already exist, Please login ' + error.error);
+          this.openSnackBar('Email or ID already exists! Please Login', 'error');
       }
     }
   });
 
    }
-  
 
-
-  
-
-
-
-  // addClient(){
-  //   this.clientService.addClient(this.person,this.clientIdentification);
-  //   this.emailCheck = true;
-  //   this.person.id = this.clientService.generateUniqueId(this.person.email);
-  //   console.log('inside register' + this.person);
-  // }
-
+   openSnackBar(msg: string, status: string) {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    this.snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition,
+      verticalPosition,
+      panelClass: [status+ '-snack'],
+    });
+  }
 
 
 }
