@@ -19,21 +19,21 @@ import { PreferencesRequest } from '../models/PreferencesRequest';
 })
 
 export class ClientService {
-  private baseUrl ='http://localhost:8080/client';
+  private baseUrl = 'http://localhost:8080/client';
 
-  constructor(private clientTradesService: ClientTradesService, private http:HttpClient) {}
+  constructor(private clientTradesService: ClientTradesService, private http: HttpClient) { }
   private riskValueSubject = ''; // Initial value
 
   isPortFolio: boolean = false
   isLanding: boolean = false
-  authCreds:ClientCredentials|undefined;
+  authCreds: ClientCredentials | undefined;
 
   public mockClientData = new Map([
     ["test@test.com", new Client(new Person('tests@test.com', "1", String(new Date('2001-01-01')), 'India', 'test'), new Set<ClientIdentification>([new ClientIdentification('test', 'test')]))],
     ["mehulrana@gmail.com", new Client(new Person('mehulrana@gmail.com', "2", String(new Date("2001-04-05")), 'India', '411006'), new Set<ClientIdentification>([new ClientIdentification('PAN', '12345')]))],
   ]);
-  public clientPreferences: Record<string,Preferences> = {
-    "testp@testp.com": new Preferences("","","",""),
+  public clientPreferences: Record<string, Preferences> = {
+    "testp@testp.com": new Preferences("", "", "", ""),
   }
   // mockPortfolioData: Map<string, Portfolio[] | undefined> = new Map([
   //   ["test@test.com", [new Portfolio('Bond', 'GOOG', 'Technology', new Date(), 'Google Inc. bond',100,20,1),new Portfolio('Cryptocurrency', 'BTC', 'Currency', new Date(), 'Bitcoin Inc. bond',100,200,1)]],
@@ -41,113 +41,12 @@ export class ClientService {
   //   ["mehul@gmail.com", [new Portfolio('Auction', 'APPL', 'Stock', new Date(), 'Bitcoin',344,233,1)]],
   // ]);
 
-  mockRoboAdvisorDataH:Price[] = [
+  mockRoboAdvisorDataH: Price[] = [
     {
       "askPrice": 104.75,
       "bidPrice": 104.25,
       "priceTimestamp": "21-AUG-19 10.00.01.042000000 AM GMT",
       "instrument": {
-      "instrumentId": "N123456",
-      "externalIdType": "CUSIP",
-      "externalId": "46625H100",
-      "categoryId": "STOCK",
-      "instrumentDescription": "JPMorgan Chase & Co. Capital Stock",
-      "maxQuantity": 1000,
-      "minQuantity": 1
-      }
-      },
-      {
-      "askPrice": 312500,
-      "bidPrice": 312000,
-      "priceTimestamp": "21-AUG-19 05.00.00.040000000 AM -05:00",
-      "instrument": {
-      "instrumentId": "N123789",
-      "externalIdType": "ISIN",
-      "externalId": "US0846707026",
-      "categoryId": "STOCK",
-      "instrumentDescription": "Berkshire Hathaway Inc. Class A",
-      "maxQuantity": 10,
-      "minQuantity": 1
-      }
-      },
-      {
-      "askPrice": 95.92,
-      "bidPrice": 95.42,
-      "priceTimestamp": "21-AUG-19 10.00.02.042000000 AM GMT",
-      "instrument": {
-      "instrumentId": "C100",
-      "externalIdType": "CUSIP",
-      "externalId": "48123Y5A0",
-      "categoryId": "CD",
-      "instrumentDescription": "JPMorgan Chase Bank, National Association 01/19",
-      "maxQuantity": 1000,
-      "minQuantity": 100
-      }
-      },
-      {
-      "askPrice": 1.03375,
-      "bidPrice": 1.03390625,
-      "priceTimestamp": "21-AUG-19 10.00.02.000000000 AM GMT",
-      "instrument": {
-      "instrumentId": "T67890",
-      "externalIdType": "CUSIP",
-      "externalId": "9128285M8",
-      "categoryId": "GOVT",
-      "instrumentDescription": "USA, Note 3.125 15nov2028 10Y",
-      "maxQuantity": 10000,
-      "minQuantity": 100
-      }
-      },
-      {
-      "askPrice": 0.998125,
-      "bidPrice": 0.99828125,
-      "priceTimestamp": "21-AUG-19 10.00.02.002000000 AM GMT",
-      "instrument": {
-      "instrumentId": "T67894",
-      "externalIdType": "CUSIP",
-      "externalId": "9128285Z9",
-      "categoryId": "GOVT",
-      "instrumentDescription": "USA, Note 2.5 31jan2024 5Y",
-      "maxQuantity": 10000,
-      "minQuantity": 100
-      }
-      }
-  ]
-  mockRoboAdvisorDataM:Price[] = [
-    {
-      "askPrice": 1.03375,
-      "bidPrice": 1.03390625,
-      "priceTimestamp": "21-AUG-19 10.00.02.000000000 AM GMT",
-      "instrument": {
-      "instrumentId": "T67890",
-      "externalIdType": "CUSIP",
-      "externalId": "9128285M8",
-      "categoryId": "GOVT",
-      "instrumentDescription": "USA, Note 3.125 15nov2028 10Y",
-      "maxQuantity": 10000,
-      "minQuantity": 100
-      }
-      },
-   
-      {
-      "askPrice": 312500,
-      "bidPrice": 312000,
-      "priceTimestamp": "21-AUG-19 05.00.00.040000000 AM -05:00",
-      "instrument": {
-      "instrumentId": "N123789",
-      "externalIdType": "ISIN",
-      "externalId": "US0846707026",
-      "categoryId": "STOCK",
-      "instrumentDescription": "Berkshire Hathaway Inc. Class A",
-      "maxQuantity": 10,
-      "minQuantity": 1
-      }
-      },
-      {
-        "askPrice": 104.75,
-        "bidPrice": 104.25,
-        "priceTimestamp": "21-AUG-19 10.00.01.042000000 AM GMT",
-        "instrument": {
         "instrumentId": "N123456",
         "externalIdType": "CUSIP",
         "externalId": "46625H100",
@@ -155,66 +54,168 @@ export class ClientService {
         "instrumentDescription": "JPMorgan Chase & Co. Capital Stock",
         "maxQuantity": 1000,
         "minQuantity": 1
-        }
-        },
-      {
+      }
+    },
+    {
+      "askPrice": 312500,
+      "bidPrice": 312000,
+      "priceTimestamp": "21-AUG-19 05.00.00.040000000 AM -05:00",
+      "instrument": {
+        "instrumentId": "N123789",
+        "externalIdType": "ISIN",
+        "externalId": "US0846707026",
+        "categoryId": "STOCK",
+        "instrumentDescription": "Berkshire Hathaway Inc. Class A",
+        "maxQuantity": 10,
+        "minQuantity": 1
+      }
+    },
+    {
       "askPrice": 95.92,
       "bidPrice": 95.42,
       "priceTimestamp": "21-AUG-19 10.00.02.042000000 AM GMT",
       "instrument": {
-      "instrumentId": "C100",
-      "externalIdType": "CUSIP",
-      "externalId": "48123Y5A0",
-      "categoryId": "CD",
-      "instrumentDescription": "JPMorgan Chase Bank, National Association 01/19",
-      "maxQuantity": 1000,
-      "minQuantity": 100
+        "instrumentId": "C100",
+        "externalIdType": "CUSIP",
+        "externalId": "48123Y5A0",
+        "categoryId": "CD",
+        "instrumentDescription": "JPMorgan Chase Bank, National Association 01/19",
+        "maxQuantity": 1000,
+        "minQuantity": 100
       }
-      },
-   
-      {
+    },
+    {
+      "askPrice": 1.03375,
+      "bidPrice": 1.03390625,
+      "priceTimestamp": "21-AUG-19 10.00.02.000000000 AM GMT",
+      "instrument": {
+        "instrumentId": "T67890",
+        "externalIdType": "CUSIP",
+        "externalId": "9128285M8",
+        "categoryId": "GOVT",
+        "instrumentDescription": "USA, Note 3.125 15nov2028 10Y",
+        "maxQuantity": 10000,
+        "minQuantity": 100
+      }
+    },
+    {
       "askPrice": 0.998125,
       "bidPrice": 0.99828125,
       "priceTimestamp": "21-AUG-19 10.00.02.002000000 AM GMT",
       "instrument": {
-      "instrumentId": "T67894",
-      "externalIdType": "CUSIP",
-      "externalId": "9128285Z9",
-      "categoryId": "GOVT",
-      "instrumentDescription": "USA, Note 2.5 31jan2024 5Y",
-      "maxQuantity": 10000,
-      "minQuantity": 100
+        "instrumentId": "T67894",
+        "externalIdType": "CUSIP",
+        "externalId": "9128285Z9",
+        "categoryId": "GOVT",
+        "instrumentDescription": "USA, Note 2.5 31jan2024 5Y",
+        "maxQuantity": 10000,
+        "minQuantity": 100
       }
-      }
+    }
   ]
-  mockRoboAdvisorDataL:Price[] = [{
+  mockRoboAdvisorDataM: Price[] = [
+    {
+      "askPrice": 1.03375,
+      "bidPrice": 1.03390625,
+      "priceTimestamp": "21-AUG-19 10.00.02.000000000 AM GMT",
+      "instrument": {
+        "instrumentId": "T67890",
+        "externalIdType": "CUSIP",
+        "externalId": "9128285M8",
+        "categoryId": "GOVT",
+        "instrumentDescription": "USA, Note 3.125 15nov2028 10Y",
+        "maxQuantity": 10000,
+        "minQuantity": 100
+      }
+    },
+
+    {
+      "askPrice": 312500,
+      "bidPrice": 312000,
+      "priceTimestamp": "21-AUG-19 05.00.00.040000000 AM -05:00",
+      "instrument": {
+        "instrumentId": "N123789",
+        "externalIdType": "ISIN",
+        "externalId": "US0846707026",
+        "categoryId": "STOCK",
+        "instrumentDescription": "Berkshire Hathaway Inc. Class A",
+        "maxQuantity": 10,
+        "minQuantity": 1
+      }
+    },
+    {
+      "askPrice": 104.75,
+      "bidPrice": 104.25,
+      "priceTimestamp": "21-AUG-19 10.00.01.042000000 AM GMT",
+      "instrument": {
+        "instrumentId": "N123456",
+        "externalIdType": "CUSIP",
+        "externalId": "46625H100",
+        "categoryId": "STOCK",
+        "instrumentDescription": "JPMorgan Chase & Co. Capital Stock",
+        "maxQuantity": 1000,
+        "minQuantity": 1
+      }
+    },
+    {
+      "askPrice": 95.92,
+      "bidPrice": 95.42,
+      "priceTimestamp": "21-AUG-19 10.00.02.042000000 AM GMT",
+      "instrument": {
+        "instrumentId": "C100",
+        "externalIdType": "CUSIP",
+        "externalId": "48123Y5A0",
+        "categoryId": "CD",
+        "instrumentDescription": "JPMorgan Chase Bank, National Association 01/19",
+        "maxQuantity": 1000,
+        "minQuantity": 100
+      }
+    },
+
+    {
+      "askPrice": 0.998125,
+      "bidPrice": 0.99828125,
+      "priceTimestamp": "21-AUG-19 10.00.02.002000000 AM GMT",
+      "instrument": {
+        "instrumentId": "T67894",
+        "externalIdType": "CUSIP",
+        "externalId": "9128285Z9",
+        "categoryId": "GOVT",
+        "instrumentDescription": "USA, Note 2.5 31jan2024 5Y",
+        "maxQuantity": 10000,
+        "minQuantity": 100
+      }
+    }
+  ]
+  mockRoboAdvisorDataL: Price[] = [{
     "askPrice": 104.75,
     "bidPrice": 104.25,
     "priceTimestamp": "21-AUG-19 10.00.01.042000000 AM GMT",
     "instrument": {
-    "instrumentId": "N123456",
-    "externalIdType": "CUSIP",
-    "externalId": "46625H100",
-    "categoryId": "STOCK",
-    "instrumentDescription": "JPMorgan Chase & Co. Capital Stock",
-    "maxQuantity": 1000,
-    "minQuantity": 1
+      "instrumentId": "N123456",
+      "externalIdType": "CUSIP",
+      "externalId": "46625H100",
+      "categoryId": "STOCK",
+      "instrumentDescription": "JPMorgan Chase & Co. Capital Stock",
+      "maxQuantity": 1000,
+      "minQuantity": 1
     }
-    },
-    {
+  },
+  {
     "askPrice": 312500,
     "bidPrice": 312000,
     "priceTimestamp": "21-AUG-19 05.00.00.040000000 AM -05:00",
     "instrument": {
-    "instrumentId": "N123789",
-    "externalIdType": "ISIN",
-    "externalId": "US0846707026",
-    "categoryId": "STOCK",
-    "instrumentDescription": "Berkshire Hathaway Inc. Class A",
-    "maxQuantity": 10,
-    "minQuantity": 1
-  }}, 
-]
+      "instrumentId": "N123789",
+      "externalIdType": "ISIN",
+      "externalId": "US0846707026",
+      "categoryId": "STOCK",
+      "instrumentDescription": "Berkshire Hathaway Inc. Class A",
+      "maxQuantity": 10,
+      "minQuantity": 1
+    }
+  },
+  ]
 
 
 
@@ -257,41 +258,46 @@ export class ClientService {
     return false;
   }
 
-   addClient(clientData:any) : Observable<ClientCredentials>{
+  addClient(clientData: any): Observable<ClientCredentials> {
     console.log("In serv", clientData);
-      return this.http.post<ClientCredentials>(`${this.baseUrl}/register`, clientData)
-   }
+    return this.http.post<ClientCredentials>(`${this.baseUrl}/register`, clientData)
+  }
 
-   loginClient( loginRequest:LoginRequest):Observable<ClientCredentials>{
-   
-      console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
-      return this.http.post<ClientCredentials>(`${this.baseUrl}/login`, loginRequest)
-   }
+  loginClient(loginRequest: LoginRequest): Observable<ClientCredentials> {
 
-   setPreferences(preferencesRequest:PreferencesRequest, clientId:string):Observable<String>{
-    console.log("preferences received are: "+ preferencesRequest);
-    return this.http.post<String>(`${this.baseUrl}/preferences/setPreferences?clientId=`+clientId, preferencesRequest);
-   }
+    console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
+    return this.http.post<ClientCredentials>(`${this.baseUrl}/login`, loginRequest)
+  }
 
-   setCreds(response:ClientCredentials){
-         this.authCreds = response;
-   }
+  setPreferences(preferencesRequest: PreferencesRequest, clientId: string): Observable<String> {
+    console.log("preferences received are: " + preferencesRequest);
+    return this.http.post<String>(`${this.baseUrl}/preferences/setPreferences?clientId=` + clientId, preferencesRequest);
+  }
 
-   getCreds() {
+  getPreference(clientId: string) {
+    console.log("CLIENT ID:",clientId);
+    console.log("URL BEING CALLED:",`${this.baseUrl}/preferences/getPreference?clientId=` + clientId)
+    return this.http.get(`${this.baseUrl}/preferences/getPreference?clientId=` + clientId);
+  }
+  setCreds(response: ClientCredentials) {
+    this.authCreds = response;
+  }
+
+  getCreds() {
     return this.authCreds;
-   }
-
-   
+  }
 
 
 
-  getRoboAdvisorData(type:string): Observable<Price[] | undefined> {
-     if(type==='Low')
+
+
+  getRoboAdvisorData(type: string): Observable<Price[] | undefined> {
+    if (type === 'Low')
       return of(this.mockRoboAdvisorDataL)
-    else if(type==='Medium')
+    else if (type === 'Medium')
       return of(this.mockRoboAdvisorDataM)
     else
-    return of(this.mockRoboAdvisorDataH)
+      return of(this.mockRoboAdvisorDataH)
   }
 
   // setRisk(risk: string) {
@@ -300,8 +306,8 @@ export class ClientService {
 
 
   setRiskValue(value: string) {
-    this.riskValueSubject=value;
-    console.log(this.riskValueSubject+"kdlkf")
+    this.riskValueSubject = value;
+    console.log(this.riskValueSubject + "kdlkf")
   }
   // getRisk(): string {
   //   console.log("get" , this.riskValue)
@@ -335,31 +341,31 @@ export class ClientService {
   //     for(let portfolio1 of mockportfolio){
   //       if(portfolio1.instrumentDescription === portfolio.instrumentDescription){
   //         portfolio1.currentHoldings = portfolio.currentHoldings - trade.quantity;
-          
+
   //         break;
   //       }
   //     }
   //   }
   //   else if(portfolio.currentHoldings - trade.quantity == 0){
-     
+
   //     let mockportfolio = this.mockPortfolioData.get(email);
   //     console.log("before" + mockportfolio)
   //     mockportfolio = mockportfolio?mockportfolio:[];
   //     mockportfolio.splice(mockportfolio.indexOf(portfolio), 1)
   //     console.log(mockportfolio);
   //     this.mockPortfolioData.set(email,mockportfolio);
- 
+
   //   }
   // }
 
-  isProfit(portfolios:Portfolio): boolean {
+  isProfit(portfolios: Portfolio): boolean {
     return portfolios.askPrice >= portfolios.bidPrice;
   }
-  
-  calculateProfitLossPercentage(portfolios:Portfolio): string {
+
+  calculateProfitLossPercentage(portfolios: Portfolio): string {
     return ((portfolios.askPrice - portfolios.bidPrice) / portfolios.bidPrice * 100).toFixed(2);
   }
- 
+
 
 }
 

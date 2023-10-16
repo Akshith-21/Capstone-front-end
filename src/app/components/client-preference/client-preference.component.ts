@@ -25,15 +25,28 @@ interface InvestmentInterface {
   showPopup = false;
   roboAdvisorCheckBox:any;
   clientId: string = "";
-
+  getPreferencesResponse:any;
   togglePopup(){
-    this.showPopup = !this.showPopup;
-    let id = this.clientService.getCreds()?.clientId;
+    if(this.getPreferencesResponse == null){
+      console.log("CAME HERE");
+      this.showPopup = !this.showPopup;
+      let id = this.clientService.getCreds()?.clientId;
     this.clientId = id?id:"0";
     this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
     console.log("current client preferences", this.clientService.clientPreferences)
     this.getRiskTolerance();
     this.preferences();
+    
+    }else{
+      let id = this.clientService.getCreds()?.clientId;
+      this.clientId = id?id:"0";
+      this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
+      console.log("current client preferences", this.clientService.clientPreferences)
+      this.getRiskTolerance();
+      this.preferences();
+      this.router.navigate(['/home-page']);
+  
+    }
   }
    currentPreferences = new Preferences("","","","");
 
@@ -80,16 +93,28 @@ interface InvestmentInterface {
   }
 
   setExistingOptions() {
+    let id = this.clientService.getCreds()?.clientId;
+    this.clientId = id?id:"0";
     
-    if (this.clientService.clientPreferences[this.clientId].riskTolerance != ''  && this.clientService.clientPreferences[this.clientId].incomeCategory != '' && this.clientService.clientPreferences[this.clientId].lengthOfInvestment != '') {
-      console.log("inside if");
-      console.log(this.clientService.clientPreferences[this.clientId].riskTolerance);
-      this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === this.clientService.clientPreferences[this.clientId].riskTolerance)!
-      this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code ===this.clientService.clientPreferences[this.clientId].incomeCategory)!
-      this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === this.clientService.clientPreferences[this.clientId].lengthOfInvestment)!;
-      this.investmentPurpose = this.clientService.clientPreferences[this.clientId].investmentPurpose;
-    // }
-  }
+    this.clientService.getPreference(this.clientId).subscribe((response: any) => {
+      console.log("GET PREFERENCES RESPONSE:", response);
+      if (response == null) {
+        this.investmentPurpose = "";
+        this.selectedIncomeCategory = this.incomeCategoryOptions[0];
+        this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions[0];
+        this.selectedRiskTolerance = this.riskToleranceOptions[0];
+        //this.roboAdvisorCheckBox = false;
+        this.getPreferencesResponse = response;
+      }
+      else{
+        this.investmentPurpose = response["investmentPurpose"];
+        this.selectedRiskTolerance = this.riskToleranceOptions.find(obj => obj.code === response["riskTolerance"])!
+        this.selectedIncomeCategory = this.incomeCategoryOptions.find(obj => obj.code === response["incomeCategory"])!;
+        this.selectedLengthOfInvestment = this.lengthOfInvestmentOptions.find(obj => obj.code === response["lengthOfInvestment"])!;
+        this.roboAdvisorCheckBox = response["roboAdvisor"];
+        this.getPreferencesResponse = response;
+      }
+    })
 }
 
   getRiskTolerance():string{
