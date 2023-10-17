@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Price } from 'src/app/models/price.model';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { FmtsService } from 'src/app/services/fmts.service';
@@ -9,6 +9,7 @@ import { Portfolio } from 'src/app/models/portfolio.model';
 import { ClientService } from 'src/app/services/client.service';
 import { SellComponent } from '../sell/sell.component';
 import { Balance } from 'src/app/models/balance';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-trade',
@@ -16,7 +17,9 @@ import { Balance } from 'src/app/models/balance';
   styleUrls: ['./trade.component.css']
 })
 export class TradeComponent implements OnInit {
-  constructor(private clientTradeService: ClientTradesService, 
+  constructor(private cookieService: CookieService,
+    private router: Router,
+    private clientTradeService: ClientTradesService, 
     private fmtsService: FmtsService, 
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -30,6 +33,13 @@ export class TradeComponent implements OnInit {
   public portfolio:Portfolio[] = [];
   
   ngOnInit() {
+    // const token = this.cookieService.get('jwtToken');
+    // if(!token){
+    //   this.router.navigate(['login']);
+    // }
+    
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradeService.setCreds(this.clientService.getCred());
     this.fetchPortFolio();
     this.fetchAllTrades();
     this.fetchBalance();
@@ -47,7 +57,7 @@ export class TradeComponent implements OnInit {
       error:(error:any) =>{
           if(error.status===400)
           {
-            alert("Invalid credentials");
+            console.log(error.error);
           }
       }
     });

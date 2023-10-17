@@ -16,6 +16,6 @@
             <input disabled type="number" name="total" #input3 [(ngModel)]="cashValue"/>
         </label>
         <button [disabled]="!myForm.form.valid" (click)="buy()">Buy</button>
-        <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div>
+        <!-- <div class="danger" *ngIf="errorMessage">{{errorMessage}}</div> -->
     </form>
 </div>

@@ -29,7 +29,7 @@ export class TradeHistoryComponent {
       error:(error:any) =>{
           if(error.status===400)
           {
-            alert("Invalid credentials");
+            console.log(error.error);
           }
       }
     });
@@ -41,9 +41,11 @@ export class TradeHistoryComponent {
   }
 
   ngOnInit() {
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradesService.setCreds(this.clientService.getCred());
     this.fetchAllTrades();
     this.fetchBalance();
-    this.clientId = this.clientService.getCreds()?.clientId;
+    this.clientId = this.clientService.getCred()?.clientId;
   }
 
 

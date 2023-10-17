@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-
+<p class="buy-para"> Buys Recommendation</p>
 <div class="box-container">
     <div class="box" id="buy" *ngFor="let price of roboAdvisorData">
         <div class="field-title">{{ price.instrument.instrumentDescription }}</div>
@@ -18,15 +18,16 @@
     <div *ngIf="openBuy">
         <app-buy></app-buy>
     </div>
+</div>
     <!-- <br style="padding-right: 200px;"> -->
-    
-    <div class="box" *ngFor="let portfolioMem of portfolio">
+<div class="sell-recommendation-container">
+    <p class="sell-para"> Sell Recommendation</p>
+    <div class="box-container">
+     <div class="box" *ngFor="let portfolioMem of portfolio">
         <div class="field-title">{{portfolioMem.instrumentDescription}}</div>
         <div class="field">External ID : {{ portfolioMem.externalId }}</div>
         <div class="field">Current holding : {{portfolioMem.currentHoldings}}</div>
         <div class="field">Ask Price : {{portfolioMem.askPrice | currency}}</div>
-
-        
         <div class="sellBtn"  (click)="ifBuy()">
             <button  (click)="sell(portfolioMem)">
                 Sell
@@ -36,4 +37,6 @@
             <app-buy></app-buy>
         </div>
     </div>
+</div>
+
 </div>

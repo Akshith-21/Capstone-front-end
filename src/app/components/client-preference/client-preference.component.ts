@@ -26,6 +26,7 @@ interface InvestmentInterface {
   roboAdvisorCheckBox:any;
   clientId: string = "";
   getPreferencesResponse:any;
+
   togglePopup(){
     if(this.getPreferencesResponse == null){
       console.log("CAME HERE");
@@ -143,7 +144,7 @@ interface InvestmentInterface {
       error:(error:any) =>{
           if(error.status===400)
           {
-            alert("Invalid credentials");
+            console.log("Invalid credentials");
           }
       }
     });
@@ -151,6 +152,7 @@ interface InvestmentInterface {
   }
 
   ngOnInit() {
+    this.clientService.retrieveJsonPayLoadFromJwt();
     this.lengthOfInvestmentOptions =[
       {name:'0-1 years', code:'0-1 years'},
       {name:'1 years- 5 years', code:'1 years- 5 years'},

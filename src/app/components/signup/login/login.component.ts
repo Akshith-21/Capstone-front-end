@@ -1,7 +1,10 @@
+
 import { Component } from '@angular/core';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { LoginRequest } from 'src/app/models/loginRequest';
+import { Token } from 'src/app/models/token';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -15,7 +18,12 @@ export class LoginComponent {
   password:string='';
   errorMessage:string='';
   emailForm: any;
-  constructor(private clientServices:ClientService,private clientTradesService:ClientTradesService, private router: Router ){}
+  constructor(private snackBar:MatSnackBar, private clientServices:ClientService,private clientTradesService:ClientTradesService, private router: Router ){}
+
+  ngOnInit() {
+    this.clientServices.deleteTokenInCookie();
+    this.router.navigate(['login']);
+  }
 
   login(inputEmail:string , inputPswd:string){
     const loginRequest: LoginRequest = {
@@ -23,52 +31,38 @@ export class LoginComponent {
       pswd: inputPswd,
     };
     this.clientServices.loginClient(loginRequest).subscribe({
-      next: (response:ClientCredentials) => {
-        console.log(response.clientId,"Response CLIENT ID of login:");
-        this.clientServices.setCreds(response);
-        this.clientTradesService.setCreds(response);
+      next: (response:Token) => {
+        console.log(response.token,"Response token ID of login:");
+        this.clientServices.setCreds(response.token);
+        this.clientTradesService.setCreds(this.clientServices.getCred());
         this.router.navigate(['home-page'])
        
       },
       error:(error:any) =>{
-        if(error.status===400)
+        if(error.status===400 || error.status ===500)
         {
-          alert(error.error);
+          this.openSnackBar(error.error, 'error');
         }
         else if(error.status===500)
         {
-          alert("Refused to connect to the server");
+          this.openSnackBar("Refused to connect to the server", 'error');
         }
         else {
-          alert("Server is down, Connection Not Established");
+          this.openSnackBar("Server is down, Connection Not Established", 'error');
         }
     }
   });
     
   }
-  
-//   login(inputEmail:string, inputId:string){
-//     const matchedEmail =this.clientServices.doesEmailExist(inputEmail)
 
-//     if(matchedEmail){
-//       const identificationSet = this.clientServices.getId(inputEmail)
-//       identificationSet?.forEach((identification) =>{
-//        const value = identification.value
-//        if(value===inputId){
-//          console.log("Login successfully");
-//          this.router.navigate(['home-page', inputEmail])
-//        }
-//        else{
-//         alert("Client Identification is Invalid")
-//        }
-//     })
-//   }
-//     else{
-//       this.errorMessage ="Invalid email, Sign Up first";
-//       alert(this.errorMessage)
-
-//     }
-      
-  
-// }
+  openSnackBar(msg: string, status: string) {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    this.snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition,
+      verticalPosition,
+      panelClass: [status + '-snack'],
+    });
+  }
 }

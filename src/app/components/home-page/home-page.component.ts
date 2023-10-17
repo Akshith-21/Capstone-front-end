@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { Balance } from 'src/app/models/balance';
 import { Portfolio } from 'src/app/models/portfolio.model';
@@ -7,6 +7,9 @@ import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { ClientService } from 'src/app/services/client.service';
 import { FmtsService } from 'src/app/services/fmts.service';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexOptions, ApexResponsive } from 'ng-apexcharts';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-home-page',
@@ -16,7 +19,7 @@ import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexOptions, ApexResponsiv
 export class HomePageComponent {
 
   authCreds: ClientCredentials | undefined;
-  constructor(private clientService: ClientService, private clientTradesService : ClientTradesService, private fmts: FmtsService) {  }
+  constructor(private router: Router,private cookieService: CookieService,private snackBar: MatSnackBar, private clientService: ClientService, private clientTradesService: ClientTradesService, private fmts: FmtsService) { }
 
   portfolio: Portfolio[] = [];
 
@@ -27,98 +30,20 @@ export class HomePageComponent {
   investedValue: number = 0;
   renderChart: boolean = false;
 
-  // chartOptions = {
-	//   animationEnabled: true,
-	//   title:{
-	// 	text: "Project Cost Breakdown"
-	//   },
-	//   data: [{
-	// 	type: "doughnut",
-	// 	yValueFormatString: "#,###.##'%'",
-	// 	indexLabel: "{name}",
-	// 	dataPoints: [
-	// 	  { y: 28, name: "Labour" },
-	// 	  { y: 10, name: "Legal" },
-	// 	  { y: 20, name: "Production" },
-	// 	  { y: 15, name: "License" },
-	// 	  { y: 23, name: "Facilities" },
-	// 	  { y: 17, name: "Taxes" },
-	// 	  { y: 12, name: "Insurance" }
-	// 	]
-	//   }]
-	// }	
-  chartOptions: ApexOptions = {};
-  // series: ApexAxisChartSeries=;
-  
-  
 
 
   ngOnInit() {
-    this.authCreds = this.clientService.getCreds();
+    // const token = this.cookieService.get('jwtToken');
+    // if(!token){
+    //   this.router.navigate(['login']);
+    // }
+    this.clientService.retrieveJsonPayLoadFromJwt();
+    this.clientTradesService.setCreds(this.clientService.getCred());
+    this.authCreds = this.clientService.getCred();
     console.log("cred", this.authCreds);
     this.fetchBalance();
     this.fetchPortfolio();
-
-    // const seriesData = [44, 55, 13, 43, 22];
-    // const labels = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-
-    // // Assign the series property within chartOptions.
-    // this.chartOptions.series = seriesData;
-    // this.chartOptions.labels = labels;
-    // this.chartOptions.colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'];
-    // this.chartOptions.responsive = [
-    //   {
-    //     breakpoint: 480,
-    //     options: {
-    //       chart: {
-    //         width: 200,
-    //       },
-    //       legend: {
-    //         position: 'bottom',
-    //       },
-    //     },
-    //   },
-    // ];
-
-
-    // this.getPriceData();
-    // this.getAllInstruments();
-    // this.getGovtPrice();
-    // this.getStockInstrument();
   }
-
-  // getPriceData(){
-  //   this.fmts.getPriceData().subscribe({next: (val:any) => {
-  //     console.log(val)
-  //     this.demo = val;
-  //     console.log("fmts Price Data", this.demo)
-  //   },}); 
-
-  // }
-  // getGovtPrice(){
-  //   this.fmts.getGovtPrice().subscribe({next: (val:any) => {
-  //     console.log(val)
-  //     this.demo = val;
-  //     console.log("fmts Govt Price Data", this.demo)
-  //   },}); 
-
-  // }
-  // getAllInstruments(){
-  //   this.fmts.getAllInstruments().subscribe({next: (val:any) => {
-  //     console.log(val)
-  //     this.demo = val;
-  //     console.log("fmts Instrument Data", this.demo)
-  //   },}); 
-
-  // }
-  // getStockInstrument(){
-  //   this.fmts.getStockInstrument().subscribe({next: (val:any) => {
-  //     console.log(val)
-  //     this.demo = val;
-  //     console.log("fmts Stock Instrument Data", this.demo)
-  //   },}); 
-  //  
-  // }
 
   fetchBalance() {
     this.clientTradesService.getBalance().subscribe({
@@ -126,9 +51,9 @@ export class HomePageComponent {
         this.balance = response.balance;
         console.log("Balance in home " + this.balance);
       },
-      error:(error: any) => {
-        if(error.status==500) {
-          alert("Internal Server Error");
+      error: (error: any) => {
+        if (error.status == 500) {
+          this.openSnackBar('Please login first!', 'error');
         }
       }
     });
@@ -141,8 +66,8 @@ export class HomePageComponent {
         console.log("Portfolio Fetched in Home " + this.portfolio);
         this.calculateInvestments();
       },
-      error:(error: any) => {
-        if(error.status==500) {
+      error: (error: any) => {
+        if (error.status == 500) {
           console.log("Internal Server Error");
         }
       }
@@ -151,14 +76,25 @@ export class HomePageComponent {
 
   calculateInvestments() {
     this.portfolio.forEach((p) => {
-      this.chartData[p.categoryType=='STOCK'?0:p.categoryType=='GOVT'?1:2] +=  p.totalInvestment;
+      this.chartData[p.categoryType == 'STOCK' ? 0 : p.categoryType == 'GOVT' ? 1 : 2] += p.totalInvestment;
       this.investedAmt += p.totalInvestment;
       this.investedValue += p.askPrice * p.currentHoldings;
     });
-    this.chartData= this.chartData.map(e => parseFloat(e.toFixed(2)));
+    this.chartData = this.chartData.map(e => parseFloat(e.toFixed(2)));
     console.log(this.chartData)
-    
+
     this.renderChart = true;
+  }
+
+  openSnackBar(msg: string, status: string) {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+    const verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+    this.snackBar.open(msg, 'Close', {
+      duration: 5000,
+      horizontalPosition,
+      verticalPosition,
+      panelClass: [status+'-snack'],
+    });
   }
 
 
