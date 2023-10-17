@@ -37,6 +37,7 @@ export class RoboAdvisorComponent {
  }
  roboAdvisorData:any;
  ngOnInit(){
+  this.clientService.retrieveJsonPayLoadFromJwt();
   this.email = this.route.snapshot.paramMap.get('email');
   this.clientService.getRiskValue().subscribe({
     next:x=>{

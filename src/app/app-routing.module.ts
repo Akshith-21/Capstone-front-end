@@ -12,10 +12,11 @@ import { TradeComponent } from './components/trade/trade.component';
 import { RoboAdvisorComponent } from './components/robo-advisor/robo-advisor.component';
 import { ReportComponent } from './components/report/report.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthGuard } from 'auth.guard';
 
 const routes: Routes = [
   {path:'' , redirectTo:'landing-page', pathMatch:'full'},
-  {path:'login' , component:LoginComponent},
+  {path:'login' , component:LoginComponent,canActivate:[AuthGuard]},
   {path:'register' , component:RegisterComponent},
   {path:'preference' , component:ClientPreferencesComponent},
   {path:'portfolio' , component:PortfolioComponent},

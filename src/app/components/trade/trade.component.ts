@@ -33,10 +33,10 @@ export class TradeComponent implements OnInit {
   public portfolio:Portfolio[] = [];
   
   ngOnInit() {
-    const token = this.cookieService.get('jwtToken');
-    if(!token){
-      this.router.navigate(['login']);
-    }
+    // const token = this.cookieService.get('jwtToken');
+    // if(!token){
+    //   this.router.navigate(['login']);
+    // }
     
     this.clientService.retrieveJsonPayLoadFromJwt();
     this.clientTradeService.setCreds(this.clientService.getCred());

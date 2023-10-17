@@ -41,11 +41,11 @@ export class PortfolioComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.authCreds = this.clientService.getCreds();
-    const token = this.cookieService.get('jwtToken');
-    if(!token){
-      this.router.navigate(['login']);
-    }
+    // // this.authCreds = this.clientService.getCreds();
+    // const token = this.cookieService.get('jwtToken');
+    // if(!token){
+    //   this.router.navigate(['login']);
+    // }
     this.clientService.retrieveJsonPayLoadFromJwt();
     this.clientTradeService.setCreds(this.clientService.getCred());
     this.getPortfolioData();

@@ -33,10 +33,10 @@ export class HomePageComponent {
 
 
   ngOnInit() {
-    const token = this.cookieService.get('jwtToken');
-    if(!token){
-      this.router.navigate(['login']);
-    }
+    // const token = this.cookieService.get('jwtToken');
+    // if(!token){
+    //   this.router.navigate(['login']);
+    // }
     this.clientService.retrieveJsonPayLoadFromJwt();
     this.clientTradesService.setCreds(this.clientService.getCred());
     this.authCreds = this.clientService.getCred();
