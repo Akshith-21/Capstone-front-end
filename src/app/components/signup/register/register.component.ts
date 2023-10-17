@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,9 +16,12 @@ import { ClientService } from 'src/app/services/client.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   constructor(private snackBar:MatSnackBar, private clientService: ClientService, private clientTradesService: ClientTradesService, private router:Router) {}
+  ngOnInit(): void {
+    this.clientService.deleteTokenInCookie();
+  }
   
   public idTypes = new Map([
     ['', []],

@@ -267,18 +267,18 @@ export class ClientService {
 
   addClient(clientData: any): Observable<ClientCredentials> {
     console.log("In serv", clientData);
-    return this.http.post<ClientCredentials>(`${this.baseUrl}/register`, clientData)
+    return this.http.post<ClientCredentials>(`${this.baseUrl1}/register`, clientData)
   }
 
    loginClient( loginRequest:LoginRequest):Observable<ClientCredentials>{
    
       console.log("email+ pswd", loginRequest.email, loginRequest.pswd);
-      return this.http.post<ClientCredentials>(`${this.baseUrl}/login/`, loginRequest)
+      return this.http.post<ClientCredentials>(`${this.baseUrl1}/login/`, loginRequest)
    }
 
    setPreferences(preferencesRequest:PreferencesRequest, clientId:string):Observable<String>{
     console.log("preferences received are: "+ preferencesRequest);
-    return this.http.post<String>(`${this.baseUrl1}/preferences/setPreferences?clientId=`+clientId, preferencesRequest);
+    return this.http.post<String>(`${this.baseUrl}/preferences/setPreferences?clientId=`+clientId, preferencesRequest);
    }
 
    storeTokenInCookie(token:string){
@@ -322,6 +322,12 @@ export class ClientService {
       return of(this.mockRoboAdvisorDataM)
     else
       return of(this.mockRoboAdvisorDataH)
+  }
+
+  getPreference(clientId: string) {
+    console.log("CLIENT ID:",clientId);
+    console.log("URL BEING CALLED:",`${this.baseUrl}/preferences/getPreference?clientId=` + clientId)
+    return this.http.get(`${this.baseUrl}/preferences/getPreference?clientId=` + clientId);
   }
 
   // setRisk(risk: string) {

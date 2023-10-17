@@ -31,7 +31,7 @@ interface InvestmentInterface {
     if(this.getPreferencesResponse == null){
       console.log("CAME HERE");
       this.showPopup = !this.showPopup;
-      let id = this.clientService.getCreds()?.clientId;
+      let id = this.clientService.getCred()?.clientId;
     this.clientId = id?id:"0";
     this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
     console.log("current client preferences", this.clientService.clientPreferences)
@@ -39,7 +39,7 @@ interface InvestmentInterface {
     this.preferences();
     
     }else{
-      let id = this.clientService.getCreds()?.clientId;
+      let id = this.clientService.getCred()?.clientId;
       this.clientId = id?id:"0";
       this.clientService.clientPreferences[this.clientId] = new Preferences(this.investmentPurpose,this.selectedRiskTolerance.code,this.selectedIncomeCategory.code,this.selectedLengthOfInvestment.code);
       console.log("current client preferences", this.clientService.clientPreferences)
@@ -94,7 +94,7 @@ interface InvestmentInterface {
   }
 
   setExistingOptions() {
-    let id = this.clientService.getCreds()?.clientId;
+    let id = this.clientService.getCred()?.clientId;
     this.clientId = id?id:"0";
     
     this.clientService.getPreference(this.clientId).subscribe((response: any) => {
@@ -126,6 +126,8 @@ interface InvestmentInterface {
 
 
   }
+
+
 
   preferences(){
     const preferencesRequest: PreferencesRequest = {
