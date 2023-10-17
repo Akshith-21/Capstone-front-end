@@ -50,7 +50,7 @@ export class BuyComponent {
           console.error( error + "**************Inside Buy Component");
           if(error.status == 406) {
             this.errorMessage = error.error;
-            if(this.errorMessage=="token expired please login again"){
+            if(this.errorMessage=="Token expired, please login again"){
               console.log("Token Expired");
                this.clientService.deleteTokenInCookie();
                this.dialogRef.close({data: 'Refresh'});

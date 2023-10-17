@@ -20,6 +20,11 @@ export class LoginComponent {
   emailForm: any;
   constructor(private snackBar:MatSnackBar, private clientServices:ClientService,private clientTradesService:ClientTradesService, private router: Router ){}
 
+  ngOnInit() {
+    this.clientServices.deleteTokenInCookie();
+    this.router.navigate(['login']);
+  }
+
   login(inputEmail:string , inputPswd:string){
     const loginRequest: LoginRequest = {
       email: inputEmail,

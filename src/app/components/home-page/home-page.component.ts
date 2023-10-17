@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { Balance } from 'src/app/models/balance';
 import { Portfolio } from 'src/app/models/portfolio.model';
@@ -8,6 +8,8 @@ import { ClientService } from 'src/app/services/client.service';
 import { FmtsService } from 'src/app/services/fmts.service';
 import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexOptions, ApexResponsive } from 'ng-apexcharts';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { CookieService } from 'ngx-cookie-service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +19,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 export class HomePageComponent {
 
   authCreds: ClientCredentials | undefined;
-  constructor(private snackBar: MatSnackBar, private clientService: ClientService, private clientTradesService: ClientTradesService, private fmts: FmtsService) { }
+  constructor(private router: Router,private cookieService: CookieService,private snackBar: MatSnackBar, private clientService: ClientService, private clientTradesService: ClientTradesService, private fmts: FmtsService) { }
 
   portfolio: Portfolio[] = [];
 
@@ -31,6 +33,10 @@ export class HomePageComponent {
 
 
   ngOnInit() {
+    const token = this.cookieService.get('jwtToken');
+    if(!token){
+      this.router.navigate(['login']);
+    }
     this.clientService.retrieveJsonPayLoadFromJwt();
     this.clientTradesService.setCreds(this.clientService.getCred());
     this.authCreds = this.clientService.getCred();

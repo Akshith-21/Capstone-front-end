@@ -293,7 +293,10 @@ export class ClientService {
 
    }
    deleteTokenInCookie() {
+    const token = this.cookieService.get('jwtToken')
+    if(token){
     this.cookieService.delete('jwtToken');
+    }
     
   }
    setCreds(token:string){

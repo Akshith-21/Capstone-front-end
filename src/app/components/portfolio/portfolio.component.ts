@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'src/app/services/client.service';
 import { NavComponent } from '../nav/nav.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Portfolio } from 'src/app/models/portfolio.model';
 import { ClientCredentials } from 'src/app/models/ClientCredentials';
 import { ClientTradesService } from 'src/app/services/client-trades.service';
 import { Balance } from 'src/app/models/balance';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-portfolio',
   templateUrl: 'portfolio.component.html',
@@ -23,7 +24,7 @@ export class PortfolioComponent implements OnInit {
   investedValue: number = 0;
   profitorloss: any;
 
-  constructor(public clientTradeService: ClientTradesService, private clientService:ClientService) { }
+  constructor(private cookieService: CookieService,private router: Router,public clientTradeService: ClientTradesService, private clientService:ClientService) { }
 
   fetchBalance() {
     this.clientTradeService.getBalance().subscribe({
@@ -41,6 +42,10 @@ export class PortfolioComponent implements OnInit {
 
   ngOnInit() {
     // this.authCreds = this.clientService.getCreds();
+    const token = this.cookieService.get('jwtToken');
+    if(!token){
+      this.router.navigate(['login']);
+    }
     this.clientService.retrieveJsonPayLoadFromJwt();
     this.clientTradeService.setCreds(this.clientService.getCred());
     this.getPortfolioData();
