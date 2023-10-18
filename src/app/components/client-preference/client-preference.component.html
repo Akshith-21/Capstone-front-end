@@ -1,43 +1,47 @@
 <div class = "content-container" [ngClass]="{'blur-background': showPopup}">
-<p-card header="Investment Preferences">
+    <p-card header="Investment Preferences">
     <div style="margin-left: 10px; margin-top:20px; vertical-align:middle; text-align: center;">
-
-        <div>
-            <label for="seat" style="text-align: right; font-weight: 600;">Investment purpose</label>
-            <input type="text" placeholder="Investment purpose" [(ngModel)]="investmentPurpose" pInputText>
-        </div>
-        <br>
-        <div>
-            <label for="seat" style="text-align: right; font-weight: 600;">Risk tolerance </label>
-            <p-dropdown [options]="riskToleranceOptions" [(ngModel)]="selectedRiskTolerance"
-                (onChange)="setRiskTolerance($event)" optionLabel="name"></p-dropdown>
-            <!-- <input type="text" placeholder="Risk tolerance" [(ngModel)]="riskTolerance" pInputText> -->
-        </div><br>
-        <div>
-            <label for="seat" style="text-align: right; font-weight: 600;">Income Category</label>
-            <p-dropdown [options]="incomeCategoryOptions" [(ngModel)]="selectedIncomeCategory"
-                (onChange)="setIncomeCategory($event)" optionLabel="name"></p-dropdown>
-            <!-- <input type="text" placeholder="Income Category" [(ngModel)]="incomeCategory" pInputText> -->
-        </div><br>
-        <div>
-            <label for="seat" style="text-align: right; font-weight: 600;">Length of Investment </label>
-            <p-dropdown name="lengthOfInvestment" [options]="lengthOfInvestmentOptions"
-                [(ngModel)]="selectedLengthOfInvestment" optionLabel="name"
-                (onChange)="setLengthOfInvestment($event)"></p-dropdown>
-            <!-- <input type="text" placeholder="Length of Investment" [(ngModel)]="lengthOfInvestment" pInputText> -->
-        </div>
+    
+     
+    
+            <div>
+    <label for="seat">Investment purpose</label>
+    <input type="text" placeholder="Investment purpose" [(ngModel)]="investmentPurpose" pInputText>
     </div>
-</p-card>
-</div>
-<div class="grid grid-nogutter justify-content-end">
+    <br>
+    <div>
+    <label for="seat">Risk tolerance </label>
+    <div class="dropdown"><p-dropdown [options]="riskToleranceOptions" [(ngModel)]="selectedRiskTolerance"
+                    (onChange)="setRiskTolerance($event)" optionLabel="name"></p-dropdown></div>
+    <!-- <input type="text" placeholder="Risk tolerance" [(ngModel)]="riskTolerance" pInputText> -->
+    </div><br>
+    <div>
+    <label for="seat">Income Category</label>
+    <div class="dropdown"><p-dropdown [options]="incomeCategoryOptions" [(ngModel)]="selectedIncomeCategory"
+                    (onChange)="setIncomeCategory($event)" optionLabel="name"></p-dropdown></div>
+    <!-- <input type="text" placeholder="Income Category" [(ngModel)]="incomeCategory" pInputText> -->
+    </div><br>
+    <div>
+    <label for="seat">Length of Investment </label>
+    <div class="dropdown"><p-dropdown name="lengthOfInvestment" [options]="lengthOfInvestmentOptions"
+                    [(ngModel)]="selectedLengthOfInvestment" optionLabel="name"
+                    (onChange)="setLengthOfInvestment($event)"></p-dropdown></div>
+    <!-- <input type="text" placeholder="Length of Investment" [(ngModel)]="lengthOfInvestment" pInputText> -->
+    </div>
+    </div>
+    </p-card>
+    </div>
+    <div class="grid grid-nogutter justify-content-end">
     <!-- <p-button label="Save" icon="pi pi-check" [style]="{'color': 'white'}" (onClick)="onSave()"></p-button> -->
     <p-button label="Save" icon="pi pi-check" [style]="{'color': 'white'}" (click)="togglePopup()">
     </p-button>
     <p-button label="Cancel" icon="pi pi-times" (onClick)="onCancel()" styleClass="p-button-secondary"
-        [style]="{'margin-left': '.5em'}"></p-button>
-
-    <!-- <p-dialog header="header" [(visible)]="dialogBoxDisplay">
-        <p>Dialogue Box content</p>
+            [style]="{'margin-left': '.5em'}"></p-button>
+    
+     
+    
+        <!-- <p-dialog header="header" [(visible)]="dialogBoxDisplay">
+    <p>Dialogue Box content</p>
     </p-dialog> -->
     <app-popup *ngIf = "showPopup"></app-popup>
-</div>
+    </div>

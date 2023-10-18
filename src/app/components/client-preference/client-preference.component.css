@@ -2,6 +2,37 @@
     transition: filter 0.3s;
 }
 
+ 
+
 .blur-background{
     filter:blur(4px)
+}
+
+ 
+
+label {
+    display: inline-flex;
+    width: 15%;
+    text-align: left;
+    font-weight: 600;
+}
+
+ 
+
+input {
+    width: 200px;
+}
+
+ 
+
+div {
+    text-align: center;
+}
+
+ 
+
+.dropdown {
+    display: inline-block;
+    text-align: left;
+    width: 200px;
 }
